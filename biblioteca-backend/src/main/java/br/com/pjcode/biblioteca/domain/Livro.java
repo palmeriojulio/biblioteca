@@ -27,16 +27,16 @@ public class Livro implements Serializable {
 	@Column(name = "id_livro")
 	private Long id;
 	
-	@Column(name = "cdu")
+	@Column(name = "cdu", length = 2)
 	private String cdu;
 	
-	@Column(name = "nome")
+	@Column(name = "nome",length = 80)
 	private String livro;
 	
-	@Column(name = "autor")
+	@Column(name = "autor", length = 50)
 	private String autor;
 	
-	@Column(name = "editora")
+	@Column(name = "editora", length = 50)
 	private String editora;
 
 }
