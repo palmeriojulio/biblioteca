@@ -12,9 +12,9 @@ spring:
         one-indexed-parameters: true
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${SPRING_DATA_SOURCE_URL}
-    username: ${SPRING_DATA_SOURCE_USERNAME}
-    password: ${SPRING_DATA_SOURCE_PASSWORD}
+    url: "jdbc:postgresql://localhost:5432/biblioteca"
+    username: "postgres"
+    password: "123"
 
   flyway:
     enabled: true
@@ -24,4 +24,4 @@ spring:
     show-sql: true
 
 server:
-  port: ${SERVER_PORT}
+  port: "8080"

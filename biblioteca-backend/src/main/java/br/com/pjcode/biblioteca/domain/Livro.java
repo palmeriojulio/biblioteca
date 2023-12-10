@@ -31,7 +31,7 @@ public class Livro implements Serializable {
 	private String cdu;
 	
 	@Column(name = "nome",length = 80)
-	private String livro;
+	private String nome;
 	
 	@Column(name = "autor", length = 50)
 	private String autor;
