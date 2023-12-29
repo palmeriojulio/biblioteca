@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.3</version>
+		<version>3.2.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.pjcode.biblioteca</groupId>
 	<artifactId>biblioteca-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>biblioteca-backend</name>
-	<description>Emprestimos de livros para biblioteca.</description>
+	<name>biblioteca</name>
+	<description>Sistema para emprestimos de livros.</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

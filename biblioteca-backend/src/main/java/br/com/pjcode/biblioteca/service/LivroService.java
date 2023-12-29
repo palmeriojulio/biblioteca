@@ -3,12 +3,13 @@ package br.com.pjcode.biblioteca.service;
 import br.com.pjcode.biblioteca.dao.LivroRepository;
 import br.com.pjcode.biblioteca.domain.Livro;
 import br.com.pjcode.biblioteca.dto.LivroDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Service
 public class LivroService {
 
     final LivroRepository livroRepository;

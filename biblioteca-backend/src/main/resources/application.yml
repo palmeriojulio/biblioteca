@@ -12,13 +12,13 @@ spring:
         one-indexed-parameters: true
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: "jdbc:postgresql://localhost:5432/biblioteca"
-    username: "postgres"
-    password: "123"
+    url: jdbc:postgresql://localhost:5432/biblioteca
+    username: postgres
+    password: 123
 
   flyway:
     enabled: true
-    locations: classpath:migration
+    locations: classpath:db/migration
     fail-on-missing-locations: true
   jpa:
     show-sql: true
