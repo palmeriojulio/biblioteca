@@ -1,0 +1,27 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  application:
+    name: pjtec-api-biblioteca
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/biblioteca
+    username: postgres
+    password: 123
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    fail-on-missing-locations: true
+  jpa:
+    show-sql: true
+
+server:
+  port: "8080"

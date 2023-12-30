@@ -1,38 +1,56 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 14.6
--- Dumped by pg_dump version 14.6
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE SEQUENCE livro_id_seq INCREMENT 1 START 1;
-
 CREATE SEQUENCE leitor_id_seq INCREMENT 1 START 1;
-
-CREATE SEQUENCE endereco_id_seq INCREMENT 1 START 1;
-
 CREATE SEQUENCE emprestimo_id_seq INCREMENT 1 START 1;
 
-CREATE TABLE public.livro {    
-    id_livro bigint NOT NULL DEFAULT NEXTVAL('livro_id_seq'),
-    cdu character varying(1),
-    nome character varying(50),
-    autor character varying(50),
-    editora character varying(30)
-};
+CREATE TABLE IF NOT EXISTS livro(
+    id_livro    BIGINT NOT NULL DEFAULT NEXTVAL('leitor_id_seq'),
+    cdu         VARCHAR(4),
+    nome        VARCHAR(50),
+    autor       VARCHAR(50),
+    editora     VARCHAR(30),
+    PRIMARY KEY (id_livro)
+);
 
-CREATE TABLE public.leitor {    
-    id_leitor bigint NOT NULL DEFAULT NEXTVAL('leitor_id_seq'),
-    nome character varying(80),
-    cpf character varying(11),
-    rg character varying(20),
-    data_nascimento date,
-    telefone character varying(15),
-    profissao character varying(50),
-    escola character varying(50),
-    serie character varying(10),
-    curso character varying(25),    
-    turno character varying(15),    
-    outras_informacoes character varying(50),
-    
-};
+CREATE TABLE IF NOT EXISTS leitor(
+    id_leitor           BIGINT NOT NULL DEFAULT NEXTVAL('livro_id_seq'),
+    nome                VARCHAR(80),
+    cpf                 VARCHAR(11),
+    rg                  VARCHAR(20),
+    data_nascimento     DATE,
+    telefone            VARCHAR(15),
+    profissao           VARCHAR(50),
+    escola              VARCHAR(50),
+    serie               VARCHAR(10),
+    curso               VARCHAR(25),
+    turno               VARCHAR(15),
+    outras_informacoes  VARCHAR(50),
+    PRIMARY KEY (id_leitor)
+);
+
+CREATE TABLE IF NOT EXISTS endereco(
+    id_endereco     BIGINT NOT NULL,
+    logradouro      VARCHAR(80),
+    numero          VARCHAR(5),
+    bairro          VARCHAR(80),
+    cidade          VARCHAR(80),
+    uf              VARCHAR(50),
+    PRIMARY KEY (id_endereco)
+);
+
+CREATE TABLE IF NOT EXISTS emprestimo(
+    id_emprestimo           BIGINT NOT NULL DEFAULT NEXTVAL('emprestimo_id_seq'),
+    livro_id_livro          BIGINT NOT NULL,
+    leitor_id_leitor        BIGINT NOT NULL,
+    data_do_emprestimo      TIMESTAMP WITH TIME ZONE,
+    data_da_devolucao       TIMESTAMP WITH TIME ZONE,
+    status_do_emprestimo    VARCHAR(50),
+    PRIMARY KEY (id_emprestimo)
+);
+
+ALTER TABLE emprestimo
+    ADD CONSTRAINT fk_Emprestimo_id_livro FOREIGN KEY (livro_id_livro) REFERENCES livro(id_livro);
+
+ALTER TABLE emprestimo
+    ADD CONSTRAINT fk_Emprestimo_id_leitor FOREIGN KEY (leitor_id_leitor) REFERENCES leitor(id_leitor);
