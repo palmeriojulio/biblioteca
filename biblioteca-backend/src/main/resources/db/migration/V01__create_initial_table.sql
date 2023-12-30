@@ -1,8 +1,12 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
+CREATE SEQUENCE livro_id_seq INCREMENT 1 START 1;
+CREATE SEQUENCE leitor_id_seq INCREMENT 1 START 1;
+CREATE SEQUENCE emprestimo_id_seq INCREMENT 1 START 1;
+
 CREATE TABLE IF NOT EXISTS livro(
-    id_livro    BIGINT NOT NULL,
-    cdu         VARCHAR(1),
+    id_livro    BIGINT NOT NULL DEFAULT NEXTVAL('leitor_id_seq'),
+    cdu         VARCHAR(4),
     nome        VARCHAR(50),
     autor       VARCHAR(50),
     editora     VARCHAR(30),
@@ -10,7 +14,7 @@ CREATE TABLE IF NOT EXISTS livro(
 );
 
 CREATE TABLE IF NOT EXISTS leitor(
-    id_leitor           BIGINT NOT NULL,
+    id_leitor           BIGINT NOT NULL DEFAULT NEXTVAL('livro_id_seq'),
     nome                VARCHAR(80),
     cpf                 VARCHAR(11),
     rg                  VARCHAR(20),
@@ -36,7 +40,7 @@ CREATE TABLE IF NOT EXISTS endereco(
 );
 
 CREATE TABLE IF NOT EXISTS emprestimo(
-    id_emprestimo           BIGINT NOT NULL,
+    id_emprestimo           BIGINT NOT NULL DEFAULT NEXTVAL('emprestimo_id_seq'),
     livro_id_livro          BIGINT NOT NULL,
     leitor_id_leitor        BIGINT NOT NULL,
     data_do_emprestimo      TIMESTAMP WITH TIME ZONE,
