@@ -28,8 +28,8 @@ public class LivroResourse {
         return ResponseEntity.status(HttpStatus.CREATED).body(livroService.save(livroDto));
     }
     @PutMapping("/livro")
-    public ResponseEntity<Object> update(@RequestBody @Validated LivroDto livroDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(livroService.update(livroDto));
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody @Validated LivroDto livroDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(livroService.update(id,livroDto));
     }
     @GetMapping("/livro/id/{id}")
     public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {

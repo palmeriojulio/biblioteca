@@ -4,6 +4,7 @@ import br.com.pjcode.biblioteca.dao.LivroRepository;
 import br.com.pjcode.biblioteca.domain.Livro;
 import br.com.pjcode.biblioteca.dto.LivroDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +17,7 @@ public class LivroService {
     public LivroService(LivroRepository livroRepository){
         this.livroRepository = livroRepository;
     }
-
+    @Transactional
     public LivroDto save(LivroDto dto) {
         try {
             var livro = livroRepository.save(LivroDto.toLivro(dto));
@@ -26,10 +27,11 @@ public class LivroService {
             return null;
         }
     }
-
-    public LivroDto update(LivroDto dto) {
+    @Transactional
+    public LivroDto update(Long id, LivroDto dto) {
         try {
-            var livro = livroRepository.save(LivroDto.toLivro(dto));
+            var livro = livroRepository.getReferenceById(id);
+            livro = livroRepository.save(LivroDto.toLivro(dto));
             return convertReturn(livro);
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -37,6 +39,7 @@ public class LivroService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<LivroDto> findAll() {
         try {
             return livroRepository.findAll()
@@ -50,6 +53,7 @@ public class LivroService {
         }
     }
 
+    @Transactional(readOnly = true)
     public LivroDto findById(Long id) {
         try {
             var livro = livroRepository.findById(id);
@@ -59,7 +63,7 @@ public class LivroService {
             return null;
         }
     }
-
+    @Transactional(readOnly = true)
     public LivroDto findByCdu(String cdu) {
         try {
             var livro = livroRepository.findByCdu(cdu);
@@ -70,6 +74,7 @@ public class LivroService {
         }
     }
 
+    @Transactional
     public void delete(Long id) {
         try {
             livroRepository.deleteById(id);
