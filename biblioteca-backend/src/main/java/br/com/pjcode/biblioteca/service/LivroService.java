@@ -28,9 +28,9 @@ public class LivroService {
         }
     }
     @Transactional
-    public LivroDto update(Long id, LivroDto dto) {
+    public LivroDto update(LivroDto dto) {
         try {
-            var livro = livroRepository.getReferenceById(id);
+            var livro = livroRepository.getReferenceById(dto.getId());
             livro = livroRepository.save(LivroDto.toLivro(dto));
             return convertReturn(livro);
         } catch (RuntimeException e) {
