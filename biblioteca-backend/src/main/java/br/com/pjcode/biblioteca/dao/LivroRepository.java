@@ -9,4 +9,5 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
 
     Livro findByCdu(String cdu);
     Livro findByNome(String nome);
+    Boolean existsByNome(String nome);
 }
