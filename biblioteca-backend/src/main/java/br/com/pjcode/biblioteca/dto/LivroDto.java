@@ -1,6 +1,7 @@
 package br.com.pjcode.biblioteca.dto;
 
 import br.com.pjcode.biblioteca.domain.Livro;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,9 +11,13 @@ import lombok.Setter;
 public class LivroDto {
 
     private Long id;
+    @NotBlank(message = "CDU não pode estar em branco e não pode ser nulo.")
     private String cdu;
+    @NotBlank(message = "Nome não pode estar em branco e não pode ser nulo.")
     private String nome;
+    @NotBlank(message = "Autor não pode estar em branco e não pode ser nulo.")
     private String autor;
+    @NotBlank(message = "Editora não pode estar em branco e não pode ser nulo.")
     private String editora;
 
     public static Livro toLivro(LivroDto dto) {
