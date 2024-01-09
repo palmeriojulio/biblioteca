@@ -1,9 +1,9 @@
 package br.com.pjcode.biblioteca.service.exceptions;
 
-public class ResourceNotFoundException extends RuntimeException {
+public class EntityNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
-    public ResourceNotFoundException(String msg) {
+    public EntityNotFoundException(String msg) {
         super(msg);
     }
 }

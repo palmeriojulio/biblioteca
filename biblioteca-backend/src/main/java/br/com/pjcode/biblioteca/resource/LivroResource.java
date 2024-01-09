@@ -1,4 +1,4 @@
-package br.com.pjcode.biblioteca.resourse;
+package br.com.pjcode.biblioteca.resource;
 
 import br.com.pjcode.biblioteca.dto.LivroDto;
 import br.com.pjcode.biblioteca.service.LivroService;
@@ -12,10 +12,10 @@ import java.util.Objects;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/biblioteca")
-public class LivroResourse {
+public class LivroResource {
 
     final LivroService livroService;
-    public LivroResourse(LivroService livroService) {
+    public LivroResource(LivroService livroService) {
         this.livroService = livroService;
     }
 
@@ -27,11 +27,11 @@ public class LivroResourse {
     public ResponseEntity<Object> save(@RequestBody @Validated LivroDto livroDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(livroService.save(livroDto));
     }
-    @PutMapping("/livro")
-    public ResponseEntity<Object> update(@RequestBody @Validated LivroDto livroDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(livroService.update(livroDto));
+    @PutMapping("/livro/{id}")
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody @Validated LivroDto livroDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(livroService.update(livroDto, id));
     }
-    @GetMapping("/livro/id/{id}")
+    @GetMapping("/livro/{id}")
     public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.findById(id));
     }

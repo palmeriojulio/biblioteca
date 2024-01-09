@@ -3,6 +3,8 @@ package br.com.pjcode.biblioteca.service;
 import br.com.pjcode.biblioteca.dao.LivroRepository;
 import br.com.pjcode.biblioteca.domain.Livro;
 import br.com.pjcode.biblioteca.dto.LivroDto;
+import br.com.pjcode.biblioteca.service.exceptions.EntityNotFoundException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,14 +30,16 @@ public class LivroService {
         }
     }
     @Transactional
-    public LivroDto update(LivroDto dto) {
+    public LivroDto update(LivroDto livroDto, Long id) {
         try {
-            var livro = livroRepository.getReferenceById(dto.getId());
-            livro = livroRepository.save(LivroDto.toLivro(dto));
+            var livro = livroRepository.findById(id).
+                    orElseThrow(() -> new EntityNotFoundException
+                            ("Livro com id "+id+" não encontrado!"));
+            BeanUtils.copyProperties(livroDto, livro, "id");
+            livro = livroRepository.save(LivroDto.toLivro(livroDto));
             return convertReturn(livro);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return null;
+        } catch (jakarta.persistence.EntityNotFoundException e) {
+            throw new RuntimeException("Erro ao atualizar o livro. Entre em contato com o suporte.");
         }
     }
 
@@ -54,13 +58,12 @@ public class LivroService {
     }
 
     @Transactional(readOnly = true)
-    public LivroDto findById(Long id) {
+    public LivroDto findById(Long id) throws jakarta.persistence.EntityNotFoundException {
         try {
             var livro = livroRepository.findById(id);
             return  convertOptionalReturn(livro);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return null;
+        } catch (jakarta.persistence.EntityNotFoundException e) {
+            throw new jakarta.persistence.EntityNotFoundException("Livro com id "+id+" não encontrado!");
         }
     }
     @Transactional(readOnly = true)
