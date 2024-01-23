@@ -1,9 +1,9 @@
 package br.com.pjcode.biblioteca.service.exceptions;
 
-public class EntityNotFoundException extends RuntimeException {
+public class EntityLivroNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
-    public EntityNotFoundException(String msg) {
+    public EntityLivroNotFoundException(String msg) {
         super(msg);
     }
 }

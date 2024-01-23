@@ -2,6 +2,7 @@ package br.com.pjcode.biblioteca.resource;
 
 import br.com.pjcode.biblioteca.dto.LivroDto;
 import br.com.pjcode.biblioteca.service.LivroService;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +25,7 @@ public class LivroResource {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.findAll());
     }
     @PostMapping("/livro")
-    public ResponseEntity<Object> save(@RequestBody @Validated LivroDto livroDto) {
+    public ResponseEntity<Object> save(@RequestBody @Validated LivroDto livroDto) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(livroService.save(livroDto));
     }
     @PutMapping("/livro/{id}")
@@ -35,6 +36,7 @@ public class LivroResource {
     public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.findById(id));
     }
+
     @DeleteMapping("/livro/{id}")
     public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id) {
         if(Objects.isNull(livroService.findById(id))) {

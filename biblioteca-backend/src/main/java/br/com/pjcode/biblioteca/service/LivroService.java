@@ -3,7 +3,7 @@ package br.com.pjcode.biblioteca.service;
 import br.com.pjcode.biblioteca.dao.LivroRepository;
 import br.com.pjcode.biblioteca.domain.Livro;
 import br.com.pjcode.biblioteca.dto.LivroDto;
-import br.com.pjcode.biblioteca.service.exceptions.EntityNotFoundException;
+import br.com.pjcode.biblioteca.service.exceptions.EntityLivroNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,27 +20,25 @@ public class LivroService {
         this.livroRepository = livroRepository;
     }
     @Transactional
-    public LivroDto save(LivroDto dto) {
+    public LivroDto save(LivroDto dto) throws Exception {
         try {
+            Boolean retorno = livroRepository.existsByTitulo(dto.getTitulo());
+            if (retorno.equals(true)){
+                throw new EntityLivroNotFoundException("Já existe um livro com o titulo: "+dto.getTitulo());
+            }
             var livro = livroRepository.save(LivroDto.toLivro(dto));
             return convertReturn(livro);
         } catch (RuntimeException e) {
-            e.printStackTrace();
-            return null;
+            throw new EntityLivroNotFoundException(e.getMessage());
         }
     }
     @Transactional
-    public LivroDto update(LivroDto livroDto, Long id) {
-        try {
-            var livro = livroRepository.findById(id).
-                    orElseThrow(() -> new EntityNotFoundException
-                            ("Livro com id "+id+" não encontrado!"));
-            BeanUtils.copyProperties(livroDto, livro, "id");
-            livro = livroRepository.save(LivroDto.toLivro(livroDto));
-            return convertReturn(livro);
-        } catch (jakarta.persistence.EntityNotFoundException e) {
-            throw new RuntimeException("Erro ao atualizar o livro. Entre em contato com o suporte.");
-        }
+    public Object update(LivroDto livroDto, Long id) {
+         var livro = livroRepository.findById(id).
+                 orElseThrow(() -> new EntityLivroNotFoundException("Livro com id: "+id+" não encontrado!"));
+         BeanUtils.copyProperties(livroDto, livro, "id");
+         livro = livroRepository.save(livro);
+         return convertReturn(livro);
     }
 
     @Transactional(readOnly = true)
@@ -58,23 +56,10 @@ public class LivroService {
     }
 
     @Transactional(readOnly = true)
-    public LivroDto findById(Long id) throws jakarta.persistence.EntityNotFoundException {
-        try {
-            var livro = livroRepository.findById(id);
-            return  convertOptionalReturn(livro);
-        } catch (jakarta.persistence.EntityNotFoundException e) {
-            throw new jakarta.persistence.EntityNotFoundException("Livro com id "+id+" não encontrado!");
-        }
-    }
-    @Transactional(readOnly = true)
-    public LivroDto findByCdu(String cdu) {
-        try {
-            var livro = livroRepository.findByCdu(cdu);
-            return convertReturn(livro);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public LivroDto findById(Long id) {
+        var livro = livroRepository.findById(id).
+                orElseThrow(() -> new EntityLivroNotFoundException("Livro com id: "+id+" não encontrado!"));
+        return convertReturn(livro);
     }
 
     @Transactional

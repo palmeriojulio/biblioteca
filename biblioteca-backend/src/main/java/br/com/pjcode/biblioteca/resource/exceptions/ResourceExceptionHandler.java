@@ -1,6 +1,6 @@
 package br.com.pjcode.biblioteca.resource.exceptions;
 
-import br.com.pjcode.biblioteca.service.exceptions.EntityNotFoundException;
+import br.com.pjcode.biblioteca.service.exceptions.EntityLivroNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +11,8 @@ import java.time.Instant;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<StandardError> entityNotFound(EntityNotFoundException e, HttpServletRequest request) {
+    @ExceptionHandler(EntityLivroNotFoundException.class)
+    public ResponseEntity<StandardError> entityNotFound(EntityLivroNotFoundException e, HttpServletRequest request) {
         StandardError err = new StandardError();
         err.setTimestemp(Instant.now());
         err.setStatus(HttpStatus.NOT_FOUND.value());
