@@ -36,14 +36,8 @@ public class LivroResource {
     public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.findById(id));
     }
-
     @DeleteMapping("/livro/{id}")
     public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id) {
-        if(Objects.isNull(livroService.findById(id))) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Livro não encontrado!");
-        } else {
-            livroService.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Livro deletado!");
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(livroService.delete(id));
     }
 }
