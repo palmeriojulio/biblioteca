@@ -1,6 +1,5 @@
 package br.com.pjcode.biblioteca.domain;
 
-import br.com.pjcode.biblioteca.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,21 +8,25 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
-@Table(name = "emprestimo")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Emprestimo implements Serializable {
+@Table(name = "reserva")
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+public class Reserva implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_emprestimo", nullable = false)
+    @Column(name = "id_reserva", nullable = false)
     private Long id;
+
+    @Column(name = "data_reserva", nullable = false)
+    private LocalDateTime dataReserva;
+
+    @Column(name = "data_limite_reserva", nullable = false)
+    private LocalDateTime dataLimiteReserva;
 
     @ManyToOne
     @JoinColumn(name = "livro_id_livro")
@@ -32,14 +35,5 @@ public class Emprestimo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "leitor_id_leitor")
     private Leitor leitor;
-
-    @Column(name = "data_do_emprestimo", nullable = false)
-    private LocalDateTime dataDoEmprestimo;
-
-    @Column(name = "data_da_devolucao", nullable = false)
-    private LocalDateTime dataDaDevolucao;
-
-    @Column(name = "status_do_emprestimo", nullable = false)
-    private Status status;
-
+    
 }
