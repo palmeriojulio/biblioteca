@@ -31,7 +31,7 @@ public class LivroService {
      * Método para salvar um livro no banco.
      * @author Palmério Júlio
      * @param livroDto
-     * @return Object com o Livro que foi cadastrada
+     * @return Object com o Livro cadastrado.
      * @throws ConflictException
      * @exception InternalServerErrorException
      */
@@ -54,10 +54,10 @@ public class LivroService {
     /**
      * Método para atualizar os dados de um livro.
      * @author Palmério Júlio
-     * @param livroDto que vem do controller enviado pelo usuario.
-     * @param id enviado pela url
-     * @return Entity de Livro que foi atualizada no bando.
-     * @throws ConflictException com mensagem de alerta de livro não encontrado.
+     * @param livroDto eviado pelo controller.
+     * @param id pessoado pela url.
+     * @return Entity de Livro atualizad no bando.
+     * @throws ResourceNotFoundException
      * @exception InternalServerErrorException
      */
     @Transactional
@@ -76,7 +76,7 @@ public class LivroService {
     }
 
     /**
-     * Método para buscar todos os registros dos livro já cadastrados.
+     * Método para buscar todos os registros de livro já cadastrados.
      * @author Palmério Júlio
      * @return List<Livro>
      * @exception InternalServerErrorException
@@ -97,7 +97,7 @@ public class LivroService {
     /**
      * Método para buscar um livro já cadastrado
      * @param id que vem do controller
-     * @return Object com o Livro com o id que foi passado como parâmetro
+     * @return Object com o Livro referente ao "ID" passado como parâmetro
      * @throws ResourceNotFoundException com mensagem de alerta de livro não encontrado.
      * @exception InternalServerErrorException
      */
@@ -114,23 +114,34 @@ public class LivroService {
         }
     }
 
+    /**
+     * Método para deletar um livro já cadastrado.
+     * @param id que vem do controller.
+     * @return Object, com uma mensagem caso o livro tenho sido deletado.
+     * @throws ResourceNotFoundException
+     * @exception InternalServerErrorException
+     */
     @Transactional
     public Object delete(Long id) {
         try {
-            if (Objects.isNull(livroRepository.findById(id))) {
+            if (livroRepository.findById(id).isEmpty()) {
                 throw new ResourceNotFoundException("Livro com id: "+id+" não encontrado!");
             }
             livroRepository.deleteById(id);
             return "Livro excluído com sucesso!";
         } catch (ResourceNotFoundException e) {
             e.printStackTrace();
-            // Exemplo: Retornar uma mensagem específica para o cliente
             return e.getMessage();
         } catch (Exception e) {
             throw new InternalServerErrorException("Erro ao deletar o livro");
         }
     }
 
+    /**
+     * Método que para converter Entity em DTO
+     * @param livro
+     * @return Dto de livro
+     */
     private LivroDto convertOptionalReturn(Optional<Livro> livro) {
         try {
             if (livro.isPresent()){
@@ -144,6 +155,11 @@ public class LivroService {
         }
     }
 
+    /**
+     * Método que para converter Entity em DTO
+     * @param livro
+     * @return Dto de livro
+     */
     private LivroDto convertReturn(Livro livro) {
         try {
             if (Objects.nonNull(livro)) {
