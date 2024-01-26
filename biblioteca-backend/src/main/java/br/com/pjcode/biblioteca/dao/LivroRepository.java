@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface LivroRepository extends JpaRepository<Livro, Long> {
 
     Livro findByCdu(String cdu);
-    Livro findByNome(String nome);
+    Livro findByTitulo(String titulo);
+    Boolean existsByTitulo(String titulo);
 }

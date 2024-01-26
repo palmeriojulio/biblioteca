@@ -77,3 +77,4 @@ ALTER TABLE reserva
 
 ALTER TABLE endereco
     ADD CONSTRAINT fk_Endereco_id_leitor FOREIGN KEY (leitor_id_leitor) REFERENCES leitor(id_leitor);
+
