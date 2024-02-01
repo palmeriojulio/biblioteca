@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author Palmério Júlio
- * Classe serviço com o CRUD de da entidade livro, trata regras de negócio e se comunica com o repositório.
+ * Classe serviço com o CRUD da entidade livro, trata regras de negócio, exeções e se comunica com o repositório.
  */
 @Service
 public class LivroService {
