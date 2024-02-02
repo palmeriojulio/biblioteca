@@ -2,14 +2,15 @@ package br.com.pjcode.biblioteca.resource;
 
 import br.com.pjcode.biblioteca.dto.LivroDto;
 import br.com.pjcode.biblioteca.service.LivroService;
-import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
-
+/**
+ * @author Palmério Júlio
+ * Classe controller que recebe dados do front-end
+ */
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/biblioteca")
