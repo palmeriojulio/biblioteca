@@ -47,7 +47,7 @@ public class LivroService {
         } catch (ConflictException e) {
             throw e;
         } catch (Exception e) {
-            return new InternalServerErrorException("Erro ao cadastrar os livro, entre em contato com o suporte");
+            return new InternalServerErrorException("Erro ao cadastrar o livro, entre em contato com o suporte");
         }
     }
 

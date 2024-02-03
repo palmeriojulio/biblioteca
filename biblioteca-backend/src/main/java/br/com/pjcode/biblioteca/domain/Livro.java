@@ -1,5 +1,6 @@
 package br.com.pjcode.biblioteca.domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Livro implements Serializable {
 	
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

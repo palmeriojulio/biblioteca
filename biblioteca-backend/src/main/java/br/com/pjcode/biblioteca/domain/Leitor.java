@@ -1,5 +1,6 @@
 package br.com.pjcode.biblioteca.domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -23,6 +24,7 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Leitor implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

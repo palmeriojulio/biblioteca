@@ -1,8 +1,10 @@
 package br.com.pjcode.biblioteca.service;
 
 import br.com.pjcode.biblioteca.dao.LeitorRepository;
+import br.com.pjcode.biblioteca.domain.Leitor;
 import br.com.pjcode.biblioteca.dto.LeitorDto;
 import br.com.pjcode.biblioteca.service.exceptions.ConflictException;
+import br.com.pjcode.biblioteca.service.exceptions.InternalServerErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,16 @@ public class LeitorService {
 
     public Object save(LeitorDto leitorDto) throws ConflictException {
         try {
-            Boolean retorno = LeitorRepository.(leitorDto.get);
-            return null;
+            Boolean retorno = leitorRepository.existsByCpf(leitorDto.getCpf());
+            if (retorno) {
+                throw new ConflictException("Já existe um leitor com o CPF: "+leitorDto.getCpf());
+            }
+            var leitor = leitorRepository.save(LeitorDto.toLeitor(leitorDto));
+            return convertReturn(leitor);
         } catch (ConflictException e) {
-
+            throw e;
         } catch (RuntimeException e) {
-
+            return new InternalServerErrorException("Erro ao cadastrar o leitor, entre em contato com o suporte");
         }
     }
 
@@ -41,6 +47,10 @@ public class LeitorService {
     }
 
     public Object delete(Long id) {
+        return null;
+    }
+
+    private Object convertReturn(Leitor leitor) {
         return null;
     }
 }
