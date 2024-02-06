@@ -1,7 +1,6 @@
 package br.com.pjcode.biblioteca.dto;
 
 import br.com.pjcode.biblioteca.domain.Endereco;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +25,7 @@ public class EnderecoDto {
      * @param enderecoDto
      * @return Entity de Endereco
      */
-    public static Endereco toEndereco(Endereco enderecoDto) {
+    public static Endereco toEndereco(EnderecoDto enderecoDto) {
         return new Endereco(
                 enderecoDto.getId(),
                 enderecoDto.getLogradouro(),

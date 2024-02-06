@@ -1,8 +1,9 @@
 package br.com.pjcode.biblioteca.dao;
 
-import br.com.pjcode.biblioteca.domain.Livro;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import br.com.pjcode.biblioteca.domain.Livro;
 
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, Long> {

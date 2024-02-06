@@ -4,13 +4,12 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -32,38 +31,38 @@ public class Leitor implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "leitor_id_seq")
 	@Column(name = "id_leitor")
 	private Long id;
-	
+
 	@Column(name = "nome", length = 80)
 	private String nome;
-	
+
 	@Column(name = "cpf", length = 11)
 	private String cpf;
-	
+
 	@Column(name = "rg", length = 20)
 	private String rg;
-	
+
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
-	
+
 	@Column(name = "telefone", length = 15)
 	private String telefone;
-	
+
 	@Column(name = "profissao", length = 50)
 	private String profissao;
-	
+
 	@Column(name = "escola", length = 50)
 	private String escola;
-	
+
 	@Column(name = "serie", length = 10)
 	private String serie;
-	
+
 	@Column(name = "curso", length = 25)
-	private String curso;		
+	private String curso;
 
 	@Column(name = "turno", length = 15)
 	private String turno;
-	
-	@OneToOne(cascade = CascadeType.ALL)
+
+	@OneToOne(fetch = jakarta.persistence.FetchType.EAGER)
 	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
 	private Endereco endereco;
 }

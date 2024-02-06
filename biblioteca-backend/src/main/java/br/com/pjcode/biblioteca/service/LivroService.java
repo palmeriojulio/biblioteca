@@ -1,19 +1,20 @@
 package br.com.pjcode.biblioteca.service;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.pjcode.biblioteca.dao.LivroRepository;
 import br.com.pjcode.biblioteca.domain.Livro;
 import br.com.pjcode.biblioteca.dto.LivroDto;
 import br.com.pjcode.biblioteca.service.exceptions.ConflictException;
 import br.com.pjcode.biblioteca.service.exceptions.InternalServerErrorException;
 import br.com.pjcode.biblioteca.service.exceptions.ResourceNotFoundException;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author Palmério Júlio
@@ -110,7 +111,7 @@ public class LivroService {
         } catch (ResourceNotFoundException e) {
             throw e;
         } catch (Exception e) {
-            return new InternalServerErrorException("Erro ao buscar o livro");
+            return new InternalServerErrorException("Erro ao buscar o livro!");
         }
     }
 
@@ -130,8 +131,7 @@ public class LivroService {
             livroRepository.deleteById(id);
             return "Livro excluído com sucesso!";
         } catch (ResourceNotFoundException e) {
-            e.printStackTrace();
-            return e.getMessage();
+            return e;
         } catch (Exception e) {
             throw new InternalServerErrorException("Erro ao deletar o livro");
         }
