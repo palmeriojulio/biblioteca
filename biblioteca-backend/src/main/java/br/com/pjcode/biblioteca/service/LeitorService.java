@@ -24,6 +24,15 @@ public class LeitorService {
 
     @Autowired
     LeitorRepository leitorRepository;
+
+    /**
+     * Método para salvar um leitor no banco.
+     * @author Palmério Júlio
+     * @param leitorDto
+     * @return Object com o Leitor cadastrado.
+     * @throws ConflictException
+     * @exception InternalServerErrorException
+     */
     @Transactional
     public Object save(LeitorDto leitorDto) throws ConflictException {
         try {
@@ -39,20 +48,38 @@ public class LeitorService {
             return new InternalServerErrorException("Erro ao cadastrar o leitor, entre em contato com o suporte");
         }
     }
+
+    /**
+     * Método para atualizar os dados de um leitor.
+     * @author Palmério Júlio
+     * @param leitorDto
+     * @param id
+     * @return Entity de leitor atualizado.
+     * @throws ResourceNotFoundException
+     * @exception InternalServerErrorException
+     */
     @Transactional
     public Object update(LeitorDto leitorDto, Long id) {
         try {
             var leitor = leitorRepository.findById(id).
                     orElseThrow(() -> new ResourceNotFoundException("Leitor com id: "+id+" não encontrado!"));
+            //procurar solução para redundância de código.
+            BeanUtils.copyProperties(leitorDto.getEndereco(), leitor.getEndereco(), "id");
             BeanUtils.copyProperties(leitorDto, leitor, "id");
-            leitor = leitorRepository.save(leitor);
-            return convertReturn(leitor);
+            return convertReturn(leitorRepository.save(leitor));
         } catch (ResourceNotFoundException e) {
             throw e;
         } catch (Exception e) {
             return new InternalServerErrorException("Erro ao atualizar o Leitor, ");
         }
     }
+
+    /**
+     * Método para buscar todos os registros de Leitores já cadastrados.
+     * @author Palmério Júlio
+     * @return List<Leitor>
+     * @exception InternalServerErrorException
+     */
     @Transactional(readOnly = true)
     public Object getAll() {
         try {
@@ -66,10 +93,17 @@ public class LeitorService {
         }
     }
 
+    /**
+     * Método para buscar um leitor já cadastrado.
+     * @param id
+     * @return Object com o leitor referente ao "ID" passado como parâmetro
+     * @throws ResourceNotFoundException
+     * @exception InternalServerErrorException
+     */
     public Object findById(Long id) {
         try {
             var leitor = leitorRepository.findById(id).
-                    orElseThrow(() -> new ResourceNotFoundException("Livro com id: "+ id +"não encontrado!"));
+                    orElseThrow(() -> new ResourceNotFoundException("Leitor com id: "+ id +"não encontrado!"));
             return convertReturn(leitor);
         } catch (ResourceNotFoundException e) {
             throw e;
@@ -78,6 +112,31 @@ public class LeitorService {
         }
     }
 
+    public Object findByCpf(String cpf) {
+        try {
+            Object leitor = leitorRepository.findByCpf(cpf);
+            if (leitor == null) {
+                throw new ResourceNotFoundException("Leitor com cpf: "+ cpf +" não encontrado!");
+            }
+            return convertReturn((Leitor) leitor);
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            return new InternalServerErrorException("Erro ao buscar o leitor!");
+        }
+    }
+
+    public Object findByName(String nome) {
+        return null;
+    }
+
+    /**
+     * Método para deletar um leitor já cadastrado.
+     * @param id
+     * @return Object, com uma mensagem caso o livro tenho sido deletado.
+     * @throws ResourceNotFoundException
+     * @exception InternalServerErrorException
+     */
     public Object delete(Long id) {
         try {
             if (leitorRepository.findById(id).isEmpty()) {
@@ -92,6 +151,11 @@ public class LeitorService {
         }
     }
 
+    /**
+     * Método que para converter Entity em DTO.
+     * @param leitor Optional.
+     * @return Dto de livro.
+     */
     private LeitorDto convertOptionalReturn(Optional<Leitor> leitor) {
         try {
             if (leitor.isPresent()){
@@ -105,6 +169,11 @@ public class LeitorService {
         }
     }
 
+    /**
+     * Método que para converter Entity em DTO.
+     * @param leitor Optional.
+     * @return Dto de livro.
+     */
     private LeitorDto convertReturn(Leitor leitor) {
         try {
             if (Objects.nonNull(leitor)) {

@@ -22,33 +22,33 @@ public class EnderecoDto {
 
     /**
      * Transformar de DTO para Entity
-     * @param enderecoDto
+     * @param dto
      * @return Entity de Endereco
      */
-    public static Endereco toEndereco(EnderecoDto enderecoDto) {
+    public static Endereco toEndereco(EnderecoDto dto) {
         return new Endereco(
-                enderecoDto.getId(),
-                enderecoDto.getLogradouro(),
-                enderecoDto.getNumero(),
-                enderecoDto.getBairro(),
-                enderecoDto.getCidade(),
-                enderecoDto.getUf()
+                dto.getId(),
+                dto.getLogradouro(),
+                dto.getNumero(),
+                dto.getBairro(),
+                dto.getCidade(),
+                dto.getUf()
         );
     }
 
     /**
      * Transformar Entity em DTO
-     * @param endereco
+     * @param entity
      * @return Entity de Endereco
      */
-    public static EnderecoDto fromEndereco(Endereco endereco) {
+    public static EnderecoDto fromEndereco(Endereco entity) {
         return new EnderecoDto(
-                endereco.getId(),
-                endereco.getLogradouro(),
-                endereco.getNumero(),
-                endereco.getBairro(),
-                endereco.getCidade(),
-                endereco.getUf()
+                entity.getId(),
+                entity.getLogradouro(),
+                entity.getNumero(),
+                entity.getBairro(),
+                entity.getCidade(),
+                entity.getUf()
         );
     }
 }

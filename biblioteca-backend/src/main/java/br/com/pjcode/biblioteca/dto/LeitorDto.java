@@ -38,51 +38,49 @@ public class LeitorDto {
 	private String serie;
 	private String curso;
 	private String turno;
-	@NotBlank(message = "endereço não pode estar em branco e não pode ser nulo.")
 	private EnderecoDto endereco;
 
 	/**
 	 * Transformar de DTO para Entity
-	 * @param leitorDto
+	 * @param dto
 	 * @return Entity de Leitor
 	 */
-	public static Leitor toLeitor(LeitorDto leitorDto) {
+	public static Leitor toLeitor(LeitorDto dto) {
 		return new Leitor(
-				leitorDto.getId(),
-				leitorDto.getNome(),
-				leitorDto.getCpf(),
-				leitorDto.getRg(),
-				leitorDto.getDataNascimento(),
-				leitorDto.getTelefone(),
-				leitorDto.getProfissao(),
-				leitorDto.getEscola(),
-				leitorDto.getSerie(),
-				leitorDto.getCurso(),
-				leitorDto.getTurno(),
-				EnderecoDto.toEndereco(leitorDto.getEndereco())
-				);
+				dto.getId(),
+				dto.getNome(),
+				dto.getCpf(),
+				dto.getRg(),
+				dto.getDataNascimento(),
+				dto.getTelefone(),
+				dto.getProfissao(),
+				dto.getEscola(),
+				dto.getSerie(),
+				dto.getCurso(),
+				dto.getTurno(),
+				EnderecoDto.toEndereco(dto.getEndereco())
+		);
 	}
 
 	/**
 	 * Transformar Entity em DTO
-	 * @param
+	 * @param entity
 	 * @return DTO de Leitor
 	 */
-	public static LeitorDto fromLeitor(Leitor leitor) {
+	public static LeitorDto fromLeitor(Leitor entity) {
 		return new LeitorDto(
-				leitor.getId(),
-				leitor.getNome(),
-				leitor.getCpf(),
-				leitor.getRg(),
-				leitor.getDataNascimento(),
-				leitor.getTelefone(),
-				leitor.getProfissao(),
-				leitor.getEscola(),
-				leitor.getSerie(),
-				leitor.getCurso(),
-				leitor.getTurno(),
-				EnderecoDto.fromEndereco(leitor.getEndereco())
-				);
-
+				entity.getId(),
+				entity.getNome(),
+				entity.getCpf(),
+				entity.getRg(),
+				entity.getDataNascimento(),
+				entity.getTelefone(),
+				entity.getProfissao(),
+				entity.getEscola(),
+				entity.getSerie(),
+				entity.getCurso(),
+				entity.getTurno(),
+				EnderecoDto.fromEndereco(entity.getEndereco())
+		);
 	}
 }

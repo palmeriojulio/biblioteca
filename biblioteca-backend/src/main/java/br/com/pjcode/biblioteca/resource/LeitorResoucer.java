@@ -35,6 +35,14 @@ public class LeitorResoucer {
     public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(leitorService.findById(id));
     }
+    @GetMapping("/leitor/nome/{nome}")
+    public ResponseEntity<Object> findByName(@PathVariable(value = "nome") String nome) {
+        return ResponseEntity.status(HttpStatus.OK).body(leitorService.findByName(nome));
+    }
+    @GetMapping("/leitor/cpf/{cpf}")
+    public ResponseEntity<Object> findByCpf(@PathVariable(value = "cpf") String cpf) {
+        return ResponseEntity.status(HttpStatus.OK).body(leitorService.findByCpf(cpf));
+    }
     @DeleteMapping("/leitor/{id}")
     public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(leitorService.delete(id));
