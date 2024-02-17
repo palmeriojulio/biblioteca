@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class LivroDto {
 
@@ -21,6 +24,7 @@ public class LivroDto {
     private String editora;
 
     /**
+     * Converter LivroDto em Livro entity
      * @param dto
      * @return entity Livro
      */
@@ -35,7 +39,7 @@ public class LivroDto {
     }
 
     /**
-     *
+     * Converter Livro entity em LivroDto
      * @param entity
      * @return dto
      */
@@ -47,6 +51,28 @@ public class LivroDto {
                 entity.getAutor(),
                 entity.getEditora()
         );
+    }
+
+    /**
+     *
+     * @param livros
+     * @return lista de livros
+     */
+    public static List<Livro> toConvertList(List<LivroDto> livros) {
+        return livros.stream()
+                .map((e -> LivroDto.toLivro(e)))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     *
+     * @param livros
+     * @return lista de livros
+     */
+    public static List<LivroDto> fromConvertList(List<Livro> livros) {
+        return livros.stream()
+                .map((e -> LivroDto.fromLivro(e)))
+                .collect(Collectors.toList());
     }
 
 }

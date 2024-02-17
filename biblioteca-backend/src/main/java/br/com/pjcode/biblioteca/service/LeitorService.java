@@ -139,13 +139,12 @@ public class LeitorService {
      */
     public Object delete(Long id) {
         try {
-            if (leitorRepository.findById(id).isEmpty()) {
-                throw new ResourceNotFoundException("Leitor com id: "+id+" não encontrado!");
-            }
+            var leitor = leitorRepository.findById(id).
+                    orElseThrow(() -> new ResourceNotFoundException("Leitor com id: "+ id +" não encontrado!"));
             leitorRepository.deleteById(id);
             return "Leitor excluído com sucesso!";
         } catch (ResourceNotFoundException e) {
-            return e;
+            return e.getMessage();
         } catch (Exception e) {
             throw new InternalServerErrorException("Erro ao deletar o Leitor");
         }

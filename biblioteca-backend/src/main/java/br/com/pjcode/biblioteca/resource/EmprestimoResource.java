@@ -1,0 +1,41 @@
+package br.com.pjcode.biblioteca.resource;
+
+import br.com.pjcode.biblioteca.dto.EmprestimoDto;
+import br.com.pjcode.biblioteca.service.EmprestimoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * @author Palmério Júlio
+ * Classe controller que recebe dados do front-end
+ */
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/biblioteca")
+public class EmprestimoResource {
+
+    @Autowired
+    private EmprestimoService emprestimoService;
+
+    @GetMapping("/emprestimos")
+    public ResponseEntity<Object> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.getAll());
+    }
+
+    @PostMapping("/emprestimo")
+    public ResponseEntity<Object> save(@RequestBody @Validated EmprestimoDto emprestimoDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(emprestimoService.save(emprestimoDto));
+    }
+
+    @PutMapping("/emprestimo/{id}")
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody EmprestimoDto emprestimoDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.update(emprestimoDto, id));
+    }
+
+
+}
+
+

@@ -2,16 +2,10 @@ package br.com.pjcode.biblioteca.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import br.com.pjcode.biblioteca.domain.enums.Status;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,16 +22,19 @@ public class Emprestimo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Long id_emprestimo;
+    @SequenceGenerator(name = "id_emprestimo_seq", sequenceName = "id_emprestimo_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_emprestimo_seq")
+    @Column(name = "id_emprestimo", nullable = false)
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "livro_id_livro")
-    private Livro livro;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "emprestimo_livro",
+            joinColumns = {@JoinColumn(name="id_emprestimo")},
+            inverseJoinColumns = {@JoinColumn(name="id_livro")})
+    private List<Livro> livros;
 
-    @ManyToOne
-    @JoinColumn(name = "leitor_id_leitor")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_leitor", referencedColumnName = "id_leitor")
     private Leitor leitor;
 
     @Column(name = "data_do_emprestimo", nullable = false)
@@ -49,4 +46,6 @@ public class Emprestimo implements Serializable {
     @Column(name = "status_do_emprestimo", nullable = false)
     private Status status;
 
+    public Emprestimo(Long id, LocalDateTime dataDoEmprestimo, LocalDateTime dataDaDevolucao, List<Livro> convertList, Leitor leitor) {
+    }
 }
