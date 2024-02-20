@@ -46,6 +46,12 @@ public class Emprestimo implements Serializable {
     @Column(name = "status_do_emprestimo", nullable = false)
     private Status status;
 
-    public Emprestimo(Long id, LocalDateTime dataDoEmprestimo, LocalDateTime dataDaDevolucao, List<Livro> convertList, Leitor leitor) {
+    // Construtor explícito
+    public Emprestimo(Long id, LocalDateTime dataDoEmprestimo, LocalDateTime dataDaDevolucao, List<Livro> livros, Leitor leitor) {
+        this.id = id;
+        this.dataDoEmprestimo = dataDoEmprestimo;
+        this.dataDaDevolucao = dataDaDevolucao;
+        this.livros = livros;
+        this.leitor = leitor;
     }
 }

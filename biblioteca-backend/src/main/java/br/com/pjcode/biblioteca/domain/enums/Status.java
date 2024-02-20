@@ -6,7 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Status {
-    ENTREGUE,
-    ATRASADO,
-    EMPRESTADO
+    DISPONIVEL,
+    EMPRESTADO,
+    RESERVADO,
+    EM_MANUTENCAO,
+    PERDIDO
 }
