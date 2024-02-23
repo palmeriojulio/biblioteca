@@ -41,6 +41,7 @@ CREATE TABLE public.livro (
     titulo VARCHAR(80),
     autor VARCHAR(80),
     editora VARCHAR(50),
+    status VARCHAR(20),
     quantidade_disponivel BIGINT,
     PRIMARY KEY (id_livro)
 );
@@ -49,9 +50,9 @@ CREATE TABLE public.livro (
 CREATE TABLE public.emprestimo (
     id_emprestimo BIGINT NOT NULL DEFAULT NEXTVAL('emprestimo_id_seq'),
     id_leitor BIGINT NOT NULL,
-    data_do_emprestimo DATE,
-    data_da_devolucao DATE,
-    status_do_emprestimo VARCHAR(50),
+    data_emprestimo DATE,
+    data_devolucao DATE,
+    status VARCHAR(20),
     PRIMARY KEY (id_emprestimo),
     FOREIGN KEY (id_leitor) REFERENCES leitor(id_leitor)
 );

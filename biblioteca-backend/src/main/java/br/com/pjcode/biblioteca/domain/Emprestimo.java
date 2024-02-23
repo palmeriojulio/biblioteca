@@ -1,15 +1,15 @@
 package br.com.pjcode.biblioteca.domain;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import br.com.pjcode.biblioteca.domain.enums.Status;
+import br.com.pjcode.biblioteca.constants.StatusEmprestimoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "emprestimo")
@@ -22,8 +22,8 @@ public class Emprestimo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "id_emprestimo_seq", sequenceName = "id_emprestimo_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_emprestimo_seq")
+    @SequenceGenerator(name = "emprestimo_id_seq", sequenceName = "emprestimo_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emprestimo_id_seq")
     @Column(name = "id_emprestimo", nullable = false)
     private Long id;
 
@@ -37,21 +37,17 @@ public class Emprestimo implements Serializable {
     @JoinColumn(name = "id_leitor", referencedColumnName = "id_leitor")
     private Leitor leitor;
 
-    @Column(name = "data_do_emprestimo", nullable = false)
+    @Column(name = "data_emprestimo", nullable = false)
     private LocalDateTime dataDoEmprestimo;
 
-    @Column(name = "data_da_devolucao", nullable = false)
+    @Column(name = "data_devolucao", nullable = false)
     private LocalDateTime dataDaDevolucao;
 
-    @Column(name = "status_do_emprestimo", nullable = false)
-    private Status status;
+    @Column(name = "status", length = 20)
+    @Enumerated(EnumType.STRING)
+    private StatusEmprestimoEnum status;
 
     // Construtor explícito
-    public Emprestimo(Long id, LocalDateTime dataDoEmprestimo, LocalDateTime dataDaDevolucao, List<Livro> livros, Leitor leitor) {
-        this.id = id;
-        this.dataDoEmprestimo = dataDoEmprestimo;
-        this.dataDaDevolucao = dataDaDevolucao;
-        this.livros = livros;
-        this.leitor = leitor;
+    public Emprestimo(Long id, LocalDateTime dataDoEmprestimo, LocalDateTime dataDaDevolucao, StatusEmprestimoEnum status, List<Livro> convertList, Leitor leitor) {
     }
 }

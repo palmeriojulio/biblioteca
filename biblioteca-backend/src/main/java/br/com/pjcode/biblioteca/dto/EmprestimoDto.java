@@ -1,5 +1,6 @@
 package br.com.pjcode.biblioteca.dto;
 
+import br.com.pjcode.biblioteca.constants.StatusEmprestimoEnum;
 import br.com.pjcode.biblioteca.domain.Emprestimo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +16,7 @@ public class EmprestimoDto {
     private Long id;
     private LocalDateTime dataDoEmprestimo;
     private LocalDateTime dataDaDevolucao;
+    private StatusEmprestimoEnum status;
     private List<LivroDto> livros;
     private LeitorDto leitor;
 
@@ -24,6 +26,7 @@ public class EmprestimoDto {
                 dto.getId(),
                 dto.getDataDoEmprestimo(),
                 dto.getDataDaDevolucao(),
+                dto.getStatus(),
                 LivroDto.toConvertList(dto.getLivros()),
                 LeitorDto.toLeitor(dto.getLeitor())
         );
@@ -34,6 +37,7 @@ public class EmprestimoDto {
                 entity.getId(),
                 entity.getDataDoEmprestimo(),
                 entity.getDataDaDevolucao(),
+                entity.getStatus(),
                 LivroDto.fromConvertList(entity.getLivros()),
                 LeitorDto.fromLeitor(entity.getLeitor())
         );

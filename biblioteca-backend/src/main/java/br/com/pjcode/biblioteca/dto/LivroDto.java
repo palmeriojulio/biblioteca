@@ -1,5 +1,6 @@
 package br.com.pjcode.biblioteca.dto;
 
+import br.com.pjcode.biblioteca.constants.StatusLivroEnum;
 import br.com.pjcode.biblioteca.domain.Livro;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -22,9 +23,10 @@ public class LivroDto {
     private String autor;
     @NotBlank(message = "Editora não pode estar em branco e não pode ser nulo.")
     private String editora;
+    private StatusLivroEnum status  = StatusLivroEnum.DISPONIVEL;
 
     /**
-     * Converter LivroDto em Livro entity
+     * Converte de Dto para Entity
      * @param dto
      * @return entity Livro
      */
@@ -34,12 +36,13 @@ public class LivroDto {
                 dto.getCdu(),
                 dto.getTitulo(),
                 dto.getAutor(),
-                dto.getEditora()
+                dto.getEditora(),
+                dto.getStatus()
         );
     }
 
     /**
-     * Converter Livro entity em LivroDto
+     * Converte de Entity para Dto
      * @param entity
      * @return dto
      */
@@ -49,12 +52,13 @@ public class LivroDto {
                 entity.getCdu(),
                 entity.getTitulo(),
                 entity.getAutor(),
-                entity.getEditora()
+                entity.getEditora(),
+                entity.getStatus()
         );
     }
 
     /**
-     *
+     * Converte uma lista de Dtos para uma lista de Entiy
      * @param livros
      * @return lista de livros
      */
@@ -65,7 +69,7 @@ public class LivroDto {
     }
 
     /**
-     *
+     * Converte uma lista de Entiy para uma lista de Dtos
      * @param livros
      * @return lista de livros
      */

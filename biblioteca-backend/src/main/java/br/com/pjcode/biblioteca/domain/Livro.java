@@ -1,19 +1,14 @@
 package br.com.pjcode.biblioteca.domain;
 
-import java.io.Serial;
-import java.io.Serializable;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import br.com.pjcode.biblioteca.constants.StatusLivroEnum;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "livro")
@@ -40,5 +35,9 @@ public class Livro implements Serializable {
 
 	@Column(name = "editora", length = 50)
 	private String editora;
+
+	@Column(name = "status", length = 20)
+	@Enumerated(EnumType.STRING)
+	private StatusLivroEnum status;
 
 }
