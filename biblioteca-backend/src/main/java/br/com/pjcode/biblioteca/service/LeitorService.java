@@ -88,7 +88,7 @@ public class LeitorService {
                     .map(l -> LeitorDto.fromLeitor(l))
                     .sorted((l1, l2) -> l1.getId().compareTo(l2.getId()))
                     .collect(Collectors.toList());
-        } catch (Exception e) {
+        } catch (InternalServerErrorException e) {
             throw new InternalServerErrorException("Erro ao buscar os leitores");
         }
     }
@@ -100,6 +100,7 @@ public class LeitorService {
      * @throws ResourceNotFoundException
      * @exception InternalServerErrorException
      */
+    @Transactional(readOnly = true)
     public Object findById(Long id) {
         try {
             var leitor = leitorRepository.findById(id).
@@ -111,7 +112,7 @@ public class LeitorService {
             return new InternalServerErrorException("Erro ao buscar o leitor!");
         }
     }
-
+    @Transactional(readOnly = true)
     public Object findByCpf(String cpf) {
         try {
             Object leitor = leitorRepository.findByCpf(cpf);
@@ -126,6 +127,12 @@ public class LeitorService {
         }
     }
 
+    /**
+     *
+     * @param nome
+     * @return
+     */
+    @Transactional(readOnly = true)
     public Object findByName(String nome) {
         return null;
     }
@@ -137,6 +144,8 @@ public class LeitorService {
      * @throws ResourceNotFoundException
      * @exception InternalServerErrorException
      */
+
+    @Transactional
     public Object delete(Long id) {
         try {
             var leitor = leitorRepository.findById(id).

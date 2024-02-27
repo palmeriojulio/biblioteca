@@ -20,19 +20,21 @@ public class EmprestimoResource {
     @Autowired
     private EmprestimoService emprestimoService;
 
-    @GetMapping("/emprestimos")
-    public ResponseEntity<Object> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.getAll());
-    }
-
     @PostMapping("/emprestimo")
     public ResponseEntity<Object> save(@RequestBody @Validated EmprestimoDto emprestimoDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(emprestimoService.save(emprestimoDto));
     }
+    @GetMapping("/emprestimos")
+    public ResponseEntity<Object> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.getAll());    }
 
     @PutMapping("/emprestimo/{id}")
     public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody EmprestimoDto emprestimoDto) {
         return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.update(emprestimoDto, id));
+    }
+    @GetMapping("/emprestimo/{id}")
+    public  ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.findById(id));
     }
 
 

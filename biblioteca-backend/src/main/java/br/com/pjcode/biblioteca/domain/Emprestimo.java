@@ -50,4 +50,7 @@ public class Emprestimo implements Serializable {
     // Construtor explícito
     public Emprestimo(Long id, LocalDateTime dataDoEmprestimo, LocalDateTime dataDaDevolucao, StatusEmprestimoEnum status, List<Livro> convertList, Leitor leitor) {
     }
+
+    public void setStatus(String status) {
+    }
 }
