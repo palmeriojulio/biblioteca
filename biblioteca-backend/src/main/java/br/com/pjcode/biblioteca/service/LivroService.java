@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,10 +24,8 @@ import br.com.pjcode.biblioteca.service.exceptions.ResourceNotFoundException;
 @Service
 public class LivroService {
 
-    final LivroRepository livroRepository;
-    public LivroService(LivroRepository livroRepository){
-        this.livroRepository = livroRepository;
-    }
+    @Autowired
+    LivroRepository livroRepository;
 
     /**
      * Método para salvar um livro no banco.
@@ -49,30 +48,6 @@ public class LivroService {
             throw e;
         } catch (Exception e) {
             return new InternalServerErrorException("Erro ao cadastrar o livro, entre em contato com o suporte");
-        }
-    }
-
-    /**
-     * Método para atualizar os dados de um livro.
-     * @author Palmério Júlio
-     * @param livroDto
-     * @param id
-     * @return Entity de Livro atualizado.
-     * @throws ResourceNotFoundException
-     * @exception InternalServerErrorException
-     */
-    @Transactional
-    public Object update(LivroDto livroDto, Long id) {
-        try {
-            var livro = livroRepository.findById(id).
-                    orElseThrow(() -> new ResourceNotFoundException("Livro com id: "+id+" não encontrado!"));
-            BeanUtils.copyProperties(livroDto, livro, "id");
-            livro = livroRepository.save(livro);
-            return convertReturn(livro);
-        } catch (ResourceNotFoundException e) {
-            throw e;
-        } catch (Exception e) {
-            return new InternalServerErrorException("Erro ao atualizar o livro, ");
         }
     }
 
@@ -112,6 +87,30 @@ public class LivroService {
             throw e;
         } catch (Exception e) {
             return new InternalServerErrorException("Erro ao buscar o livro!");
+        }
+    }
+
+    /**
+     * Método para atualizar os dados de um livro.
+     * @author Palmério Júlio
+     * @param livroDto
+     * @param id
+     * @return Entity de Livro atualizado.
+     * @throws ResourceNotFoundException
+     * @exception InternalServerErrorException
+     */
+    @Transactional
+    public Object update(LivroDto livroDto, Long id) {
+        try {
+            var livro = livroRepository.findById(id).
+                    orElseThrow(() -> new ResourceNotFoundException("Livro com id: "+id+" não encontrado!"));
+            BeanUtils.copyProperties(livroDto, livro, "id");
+            livro = livroRepository.save(livro);
+            return convertReturn(livro);
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            return new InternalServerErrorException("Erro ao atualizar o livro, ");
         }
     }
 

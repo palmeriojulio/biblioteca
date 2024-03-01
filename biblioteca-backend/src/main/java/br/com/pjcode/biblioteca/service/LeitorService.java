@@ -50,6 +50,78 @@ public class LeitorService {
     }
 
     /**
+     * Método para buscar todos os registros de Leitores já cadastrados.
+     * @author Palmério Júlio
+     * @return List<Leitor>
+     * @exception InternalServerErrorException
+     */
+    @Transactional(readOnly = true)
+    public Object getAll() {
+        try {
+            return leitorRepository.findAll()
+                    .stream()
+                    .map(l -> LeitorDto.fromLeitor(l))
+                    .sorted((l1, l2) -> l1.getId().compareTo(l2.getId()))
+                    .collect(Collectors.toList());
+        } catch (InternalServerErrorException e) {
+            throw new InternalServerErrorException("Erro ao buscar os leitores");
+        }
+    }
+
+    /**
+     * Método para buscar um leitor já cadastrado.
+     * @author Palmério Júlio
+     * @param id
+     * @return Object com o leitor referente ao "ID" passado como parâmetro
+     * @throws ResourceNotFoundException
+     * @exception InternalServerErrorException
+     */
+    @Transactional(readOnly = true)
+    public Object findById(Long id) {
+        try {
+            var leitor = leitorRepository.findById(id).
+                    orElseThrow(() -> new ResourceNotFoundException("Leitor com id: "+ id +"não encontrado!"));
+            return convertReturn(leitor);
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            return new InternalServerErrorException("Erro ao buscar o leitor!");
+        }
+    }
+
+    /**
+     * Método que busca o leitor pelo CPF
+     * @author Palmério Júlio
+     * @param cpf
+     * @return Object com o leitor referente ao "CPF" passado como parâmetro
+     */
+    @Transactional(readOnly = true)
+    public Object findByCpf(String cpf) {
+        try {
+            Object leitor = leitorRepository.findByCpf(cpf);
+            if (leitor == null) {
+                throw new ResourceNotFoundException("Leitor com cpf: "+ cpf +" não encontrado!");
+            }
+            return convertReturn((Leitor) leitor);
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            return new InternalServerErrorException("Erro ao buscar o leitor!");
+        }
+    }
+
+    /**
+     * Método que pesquisa o leitor pelo nome
+     * @author Palmério Júlio
+     * @param nome
+     * @return Object com o leitor referente ao "Nome" passado como parâmetro
+     */
+    @Transactional(readOnly = true)
+    public Object findByName(String nome) {
+        return null;
+    }
+
+    /**
      * Método para atualizar os dados de um leitor.
      * @author Palmério Júlio
      * @param leitorDto
@@ -75,76 +147,13 @@ public class LeitorService {
     }
 
     /**
-     * Método para buscar todos os registros de Leitores já cadastrados.
-     * @author Palmério Júlio
-     * @return List<Leitor>
-     * @exception InternalServerErrorException
-     */
-    @Transactional(readOnly = true)
-    public Object getAll() {
-        try {
-            return leitorRepository.findAll()
-                    .stream()
-                    .map(l -> LeitorDto.fromLeitor(l))
-                    .sorted((l1, l2) -> l1.getId().compareTo(l2.getId()))
-                    .collect(Collectors.toList());
-        } catch (InternalServerErrorException e) {
-            throw new InternalServerErrorException("Erro ao buscar os leitores");
-        }
-    }
-
-    /**
-     * Método para buscar um leitor já cadastrado.
-     * @param id
-     * @return Object com o leitor referente ao "ID" passado como parâmetro
-     * @throws ResourceNotFoundException
-     * @exception InternalServerErrorException
-     */
-    @Transactional(readOnly = true)
-    public Object findById(Long id) {
-        try {
-            var leitor = leitorRepository.findById(id).
-                    orElseThrow(() -> new ResourceNotFoundException("Leitor com id: "+ id +"não encontrado!"));
-            return convertReturn(leitor);
-        } catch (ResourceNotFoundException e) {
-            throw e;
-        } catch (Exception e) {
-            return new InternalServerErrorException("Erro ao buscar o leitor!");
-        }
-    }
-    @Transactional(readOnly = true)
-    public Object findByCpf(String cpf) {
-        try {
-            Object leitor = leitorRepository.findByCpf(cpf);
-            if (leitor == null) {
-                throw new ResourceNotFoundException("Leitor com cpf: "+ cpf +" não encontrado!");
-            }
-            return convertReturn((Leitor) leitor);
-        } catch (ResourceNotFoundException e) {
-            throw e;
-        } catch (Exception e) {
-            return new InternalServerErrorException("Erro ao buscar o leitor!");
-        }
-    }
-
-    /**
-     *
-     * @param nome
-     * @return
-     */
-    @Transactional(readOnly = true)
-    public Object findByName(String nome) {
-        return null;
-    }
-
-    /**
      * Método para deletar um leitor já cadastrado.
+     * @author Palmério Júlio
      * @param id
      * @return Object, com uma mensagem caso o livro tenho sido deletado.
      * @throws ResourceNotFoundException
      * @exception InternalServerErrorException
      */
-
     @Transactional
     public Object delete(Long id) {
         try {
@@ -161,6 +170,7 @@ public class LeitorService {
 
     /**
      * Método que para converter Entity em DTO.
+     * @author Palmério Júlio
      * @param leitor Optional.
      * @return Dto de livro.
      */
@@ -179,6 +189,7 @@ public class LeitorService {
 
     /**
      * Método que para converter Entity em DTO.
+     * @author Palmério Júlio
      * @param leitor Optional.
      * @return Dto de livro.
      */

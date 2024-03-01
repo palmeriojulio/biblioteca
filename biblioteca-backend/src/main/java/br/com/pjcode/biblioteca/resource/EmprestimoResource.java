@@ -24,19 +24,26 @@ public class EmprestimoResource {
     public ResponseEntity<Object> save(@RequestBody @Validated EmprestimoDto emprestimoDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(emprestimoService.save(emprestimoDto));
     }
+
     @GetMapping("/emprestimos")
     public ResponseEntity<Object> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.getAll());    }
-
-    @PutMapping("/emprestimo/{id}")
-    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody EmprestimoDto emprestimoDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.update(emprestimoDto, id));
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.getAll());
     }
+
     @GetMapping("/emprestimo/{id}")
     public  ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.findById(id));
     }
 
+    @PutMapping("/emprestimo/{id}")
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody EmprestimoDto emprestimoDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.update(emprestimoDto, id));
+    }
+
+    @DeleteMapping("/emprestimo/{id}")
+    public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.delete(id));
+    }
 
 }
 

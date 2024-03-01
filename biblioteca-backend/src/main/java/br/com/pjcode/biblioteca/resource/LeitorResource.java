@@ -19,19 +19,14 @@ public class LeitorResource {
     @Autowired
     private LeitorService leitorService;
 
-    @GetMapping("/leitores")
-    public ResponseEntity<Object> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(leitorService.getAll());
-    }
-
     @PostMapping("/leitor")
     public ResponseEntity<Object> save(@RequestBody @Validated LeitorDto leitorDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(leitorService.save(leitorDto));
     }
 
-    @PutMapping("/leitor/{id}")
-    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody @Validated LeitorDto leitorDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(leitorService.update(leitorDto, id));
+    @GetMapping("/leitores")
+    public ResponseEntity<Object> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(leitorService.getAll());
     }
 
     @GetMapping("/leitor/{id}")
@@ -47,6 +42,11 @@ public class LeitorResource {
     @GetMapping("/leitor/cpf/{cpf}")
     public ResponseEntity<Object> findByCpf(@PathVariable(value = "cpf") String cpf) {
         return ResponseEntity.status(HttpStatus.OK).body(leitorService.findByCpf(cpf));
+    }
+
+    @PutMapping("/leitor/{id}")
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody @Validated LeitorDto leitorDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(leitorService.update(leitorDto, id));
     }
 
     @DeleteMapping("/leitor/{id}")

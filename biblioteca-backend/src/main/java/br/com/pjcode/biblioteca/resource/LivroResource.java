@@ -29,14 +29,19 @@ public class LivroResource {
     @Autowired
     private LivroService livroService;
 
+    @PostMapping("/livro")
+    public ResponseEntity<Object> save(@RequestBody @Validated LivroDto livroDto) throws Exception {
+        return ResponseEntity.status(HttpStatus.CREATED).body(livroService.save(livroDto));
+    }
+
     @GetMapping("/livros")
     public ResponseEntity<Object> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.findAll());
     }
 
-    @PostMapping("/livro")
-    public ResponseEntity<Object> save(@RequestBody @Validated LivroDto livroDto) throws Exception {
-        return ResponseEntity.status(HttpStatus.CREATED).body(livroService.save(livroDto));
+    @GetMapping("/livro/{id}")
+    public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(livroService.findById(id));
     }
 
     @PutMapping("/livro/{id}")
@@ -44,11 +49,6 @@ public class LivroResource {
         return ResponseEntity.status(HttpStatus.CREATED).body(livroService.update(livroDto, id));
     }
 
-    @GetMapping("/livro/{id}")
-    public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(livroService.findById(id));
-    }
-    
     @DeleteMapping("/livro/{id}")
     public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.delete(id));
