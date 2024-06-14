@@ -149,7 +149,7 @@ public class EmprestimoService {
             emprestimo.setLivros(livros);
             emprestimo.setDataDoEmprestimo(LocalDateTime.now());
             emprestimo.setDataDaDevolucao(LocalDateTime.now().plusDays(6));
-            emprestimo.setStatus(StatusEmprestimoEnum.ATIVO.getStatus());
+            emprestimo.setStatus(String.valueOf(StatusEmprestimoEnum.ATIVO));
             return EmprestimoDto.fromEmprestimo(emprestimoRepository.save(emprestimo));
         } catch (InternalServerErrorException e) {
             throw new InternalServerErrorException("Erro ao execultar a regra do emprestimo!");
@@ -158,6 +158,12 @@ public class EmprestimoService {
             return null;
         }
     }
+
+    public Object devolucao(EmprestimoDto emprestimoDto, Long id) {
+
+        return null;
+    }
+
 
     /**
      * Método que procura o leitor com id passodo no JSON.
@@ -217,4 +223,5 @@ public class EmprestimoService {
             return null;
         }
     }
+
 }

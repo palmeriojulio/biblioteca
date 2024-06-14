@@ -45,6 +45,10 @@ public class EmprestimoResource {
         return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.delete(id));
     }
 
+    @GetMapping("/emprestimo/devolucao/{id}")
+    public ResponseEntity<Object> devolucao(@PathVariable Long id, @RequestBody EmprestimoDto emprestimoDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.devolucao(emprestimoDto, id));
+    }
 }
 
 
