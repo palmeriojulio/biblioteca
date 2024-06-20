@@ -21,7 +21,7 @@ public class EmprestimoResource {
     private EmprestimoService emprestimoService;
 
     @PostMapping("/emprestimo")
-    public ResponseEntity<Object> save(@RequestBody @Validated EmprestimoDto emprestimoDto) {
+    public ResponseEntity<Object> createEmprestimos(@RequestBody @Validated EmprestimoDto emprestimoDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(emprestimoService.save(emprestimoDto));
     }
 

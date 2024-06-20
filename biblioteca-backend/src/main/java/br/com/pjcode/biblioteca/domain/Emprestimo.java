@@ -40,17 +40,25 @@ public class Emprestimo implements Serializable {
     @Column(name = "data_emprestimo", nullable = false)
     private LocalDateTime dataDoEmprestimo;
 
-    @Column(name = "data_devolucao", nullable = false)
-    private LocalDateTime dataDaDevolucao;
+    @Column(name = "data_devolucao_prevista", nullable = false)
+    private LocalDateTime dataDevolucaoPrevista;
+
+    @Column(name = "data_devolucao_real", nullable = false)
+    private LocalDateTime dataDevolucaoReal;
 
     @Column(name = "status", length = 20)
     @Enumerated(EnumType.STRING)
     private StatusEmprestimoEnum status;
 
     // Construtor explícito
-    public Emprestimo(Long id, LocalDateTime dataDoEmprestimo, LocalDateTime dataDaDevolucao, StatusEmprestimoEnum status, List<Livro> convertList, Leitor leitor) {
-    }
-
-    public void setStatus(String status) {
+    public Emprestimo(
+            Long id,
+            LocalDateTime dataDoEmprestimo,
+            LocalDateTime dataDevolucaoPrevista,
+            LocalDateTime dataDevolucaoReal,
+            StatusEmprestimoEnum status,
+            List<Livro> convertList,
+            Leitor leitor)
+    {
     }
 }

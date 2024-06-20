@@ -41,6 +41,11 @@ public class LivroResource {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.findByCdu(cdu));
     }
 
+    @GetMapping("/livro/titulo/{titulo}")
+    public ResponseEntity<Object> finfByTitulo(@PathVariable (value = "titulo") String titulo) {
+        return ResponseEntity.status(HttpStatus.OK).body(livroService.findByTitulo(titulo));
+    }
+
     @PutMapping("/livro/{id}")
     public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody @Validated LivroDto livroDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(livroService.update(livroDto, id));

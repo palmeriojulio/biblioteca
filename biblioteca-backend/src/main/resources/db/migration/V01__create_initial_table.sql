@@ -51,7 +51,8 @@ CREATE TABLE public.emprestimo (
     id_emprestimo BIGINT NOT NULL DEFAULT NEXTVAL('emprestimo_id_seq'),
     id_leitor BIGINT NOT NULL,
     data_emprestimo DATE,
-    data_devolucao DATE,
+    data_devolucao_prevista DATE,
+    data_devolucao_real DATE,
     status VARCHAR(20),
     PRIMARY KEY (id_emprestimo),
     FOREIGN KEY (id_leitor) REFERENCES leitor(id_leitor)

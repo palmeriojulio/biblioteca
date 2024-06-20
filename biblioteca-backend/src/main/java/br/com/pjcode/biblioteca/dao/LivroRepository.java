@@ -12,7 +12,6 @@ import java.util.Optional;
 public interface LivroRepository extends JpaRepository<Livro, Long> {
 
     Optional<Livro> findByCdu(String cdu);
-    //Livro findByCdu(String cdu);
-    Livro findByTitulo(String titulo);
+    Optional<Livro> findByTitulo(String titulo);
     Boolean existsByTitulo(String titulo);
 }

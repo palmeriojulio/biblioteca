@@ -46,9 +46,6 @@ public class LeitorDto {
 	 * @return Entity de Leitor
 	 */
 	public static Leitor toLeitor(LeitorDto dto) {
-		if (dto.getId() == null){
-			System.out.println(dto.getId());
-		}
 		return new Leitor(
 				dto.getId(),
 				dto.getNome(),

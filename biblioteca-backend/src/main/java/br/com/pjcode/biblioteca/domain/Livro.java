@@ -36,6 +36,9 @@ public class Livro implements Serializable {
 	@Column(name = "editora", length = 50)
 	private String editora;
 
+	@Column(name = "quantidade_disponivel", length = 20)
+	private int quantidadeDisponivel = 0;
+
 	@Column(name = "status", length = 20)
 	@Enumerated(EnumType.STRING)
 	private StatusLivroEnum status;

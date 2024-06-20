@@ -15,7 +15,8 @@ public class EmprestimoDto {
 
     private Long id;
     private LocalDateTime dataDoEmprestimo;
-    private LocalDateTime dataDaDevolucao;
+    private LocalDateTime dataDevolucaoPrevista;
+    private LocalDateTime dataDevolucaoReal;
     private StatusEmprestimoEnum status;
     private List<LivroDto> livros;
     private LeitorDto leitor;
@@ -25,7 +26,8 @@ public class EmprestimoDto {
         return new Emprestimo(
                 dto.getId(),
                 dto.getDataDoEmprestimo(),
-                dto.getDataDaDevolucao(),
+                dto.getDataDevolucaoPrevista(),
+                dto.getDataDevolucaoReal(),
                 dto.getStatus(),
                 LivroDto.toConvertList(dto.getLivros()),
                 LeitorDto.toLeitor(dto.getLeitor())
@@ -36,7 +38,8 @@ public class EmprestimoDto {
         return new EmprestimoDto(
                 entity.getId(),
                 entity.getDataDoEmprestimo(),
-                entity.getDataDaDevolucao(),
+                entity.getDataDevolucaoPrevista(),
+                entity.getDataDevolucaoReal(),
                 entity.getStatus(),
                 LivroDto.fromConvertList(entity.getLivros()),
                 LeitorDto.fromLeitor(entity.getLeitor())
