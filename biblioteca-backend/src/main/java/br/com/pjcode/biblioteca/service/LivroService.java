@@ -71,7 +71,7 @@ public class LivroService {
     }
 
     /**
-     * Método para buscar um livro já cadastrado.
+     * Método para buscar um livro por ID já cadastrado.
      * @param id
      * @return Object com o Livro referente ao "ID" passado como parâmetro.
      * @throws ResourceNotFoundException
@@ -82,6 +82,46 @@ public class LivroService {
         try {
             var livro = livroRepository.findById(id).
                     orElseThrow(() -> new ResourceNotFoundException("Livro com id: "+id+" não encontrado!"));
+            return convertReturn(livro);
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            return new InternalServerErrorException("Erro ao buscar o livro!");
+        }
+    }
+
+    /**
+     * Método para buscar um livro por CDU já cadastrado.
+     * @param cdu
+     * @return Object com o Livro referente ao "CDU" passado como parâmetro.
+     * @throws ResourceNotFoundException
+     * @exception InternalServerErrorException
+     */
+    @Transactional(readOnly = true)
+    public Object findByCdu(String cdu) {
+        try {
+            var livro = livroRepository.findByCdu(cdu).
+                    orElseThrow(() -> new ResourceNotFoundException("Livro com CDU: "+cdu+" não encontrado"));
+            return convertReturn(livro);
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            return new InternalServerErrorException("Erro ao buscar o livro!");
+        }
+    }
+
+    /**
+     * Método para buscar um livro por Título já cadastrado.
+     * @param titulo
+     * @return Object com o Livro referente ao "Título" passado como parâmetro.
+     * @throws ResourceNotFoundException
+     * @exception InternalServerErrorException
+     */
+    @Transactional(readOnly = true)
+    public Object findByTitulo(String titulo) {
+        try {
+            var livro = livroRepository.findByTitulo(titulo).
+                    orElseThrow(() -> new ResourceNotFoundException("Livro com titulo: "+titulo+" não encontrado"));
             return convertReturn(livro);
         } catch (ResourceNotFoundException e) {
             throw e;
@@ -171,5 +211,4 @@ public class LivroService {
             return null;
         }
     }
-
 }

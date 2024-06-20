@@ -21,7 +21,7 @@ public class EmprestimoResource {
     private EmprestimoService emprestimoService;
 
     @PostMapping("/emprestimo")
-    public ResponseEntity<Object> save(@RequestBody @Validated EmprestimoDto emprestimoDto) {
+    public ResponseEntity<Object> createEmprestimos(@RequestBody @Validated EmprestimoDto emprestimoDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(emprestimoService.save(emprestimoDto));
     }
 
@@ -45,6 +45,10 @@ public class EmprestimoResource {
         return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.delete(id));
     }
 
+    @GetMapping("/emprestimo/devolucao/{id}")
+    public ResponseEntity<Object> devolucao(@PathVariable Long id, @RequestBody EmprestimoDto emprestimoDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.devolucao(emprestimoDto, id));
+    }
 }
 
 

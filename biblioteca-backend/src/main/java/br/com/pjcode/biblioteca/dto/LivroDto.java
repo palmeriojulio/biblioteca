@@ -23,6 +23,7 @@ public class LivroDto {
     private String autor;
     @NotBlank(message = "Editora não pode estar em branco e não pode ser nulo.")
     private String editora;
+    private int quantidadeDisponivel;
     private StatusLivroEnum status  = StatusLivroEnum.DISPONIVEL;
 
     /**
@@ -37,6 +38,7 @@ public class LivroDto {
                 dto.getTitulo(),
                 dto.getAutor(),
                 dto.getEditora(),
+                dto.getQuantidadeDisponivel(),
                 dto.getStatus()
         );
     }
@@ -53,6 +55,7 @@ public class LivroDto {
                 entity.getTitulo(),
                 entity.getAutor(),
                 entity.getEditora(),
+                entity.getQuantidadeDisponivel(),
                 entity.getStatus()
         );
     }

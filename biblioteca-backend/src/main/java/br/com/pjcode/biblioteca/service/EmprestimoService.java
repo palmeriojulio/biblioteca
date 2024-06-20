@@ -11,13 +11,16 @@ import br.com.pjcode.biblioteca.domain.Livro;
 import br.com.pjcode.biblioteca.dto.EmprestimoDto;
 import br.com.pjcode.biblioteca.dto.LeitorDto;
 import br.com.pjcode.biblioteca.dto.LivroDto;
+import br.com.pjcode.biblioteca.service.exceptions.ConflictException;
 import br.com.pjcode.biblioteca.service.exceptions.InternalServerErrorException;
+import br.com.pjcode.biblioteca.service.exceptions.LivroIndisponivelException;
 import br.com.pjcode.biblioteca.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -45,12 +48,14 @@ public class EmprestimoService {
     @Transactional
     public EmprestimoDto save(EmprestimoDto emprestimoDto) {
         try {
-            var leitor = regraLeitor(emprestimoDto.getLeitor());
+            var leitor = regraLeitor(emprestimoDto.getLeitor().getId());
             var livros = regraLivros(emprestimoDto.getLivros());
             return regraEmprestimo(emprestimoDto, leitor, livros);
+        } catch (ResourceNotFoundException | ConflictException e) {
+            throw e;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return null;
+            throw new InternalServerErrorException("Erro ao processar o empréstimo", e);
         }
     }
 
@@ -138,49 +143,60 @@ public class EmprestimoService {
      * @param livros
      * @return Dto com o emprestimo finalizado.
      */
+    @Transactional
     private EmprestimoDto regraEmprestimo(EmprestimoDto emprestimoDto, Leitor leitor, List<Livro> livros) {
         try {
+            //Transforma TDO para Entidade
             var emprestimo = EmprestimoDto.toEmprestimo(emprestimoDto);
-            // Define o status "emprestado" para cada livro na lista.
-            for (Livro livro : livros) {
-                livro.setStatus(StatusLivroEnum.EMPRESTADO);
-            }
-            emprestimo.setLeitor(leitorRepository.getReferenceById(leitor.getId()));
+
+            // Define os detalhes do empréstimo
+            emprestimo.setLeitor(leitorRepository.findById(leitor.getId()).
+                    orElseThrow(()-> new ResourceNotFoundException("Leitor com ID: "+leitor.getId()+" não encontrado!")));
             emprestimo.setLivros(livros);
             emprestimo.setDataDoEmprestimo(LocalDateTime.now());
-            emprestimo.setDataDaDevolucao(LocalDateTime.now().plusDays(6));
-            emprestimo.setStatus(StatusEmprestimoEnum.ATIVO.getStatus());
+            emprestimo.setDataDevolucaoPrevista(LocalDateTime.now().plusDays(6));
+            emprestimo.setStatus(StatusEmprestimoEnum.ATIVO);
+            // Salva o empréstimo no banco de dados
             return EmprestimoDto.fromEmprestimo(emprestimoRepository.save(emprestimo));
-        } catch (InternalServerErrorException e) {
-            throw new InternalServerErrorException("Erro ao execultar a regra do emprestimo!");
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return null;
+        } catch (ResourceNotFoundException | ConflictException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Erro ao gravar no banco!", e);
         }
     }
+
+    public Object devolucao(EmprestimoDto emprestimoDto, Long id) {
+
+        return null;
+    }
+
 
     /**
      * Método que procura o leitor com id passodo no JSON.
      * @author Palmério Júlio
-     * @param leitorDto
+     * @param leitorId
      * @return Dto de Leitor
      * @exception RuntimeException
      */
-    private Leitor regraLeitor(LeitorDto leitorDto) {
+    private Leitor regraLeitor(Long leitorId) {
         try {
-            if (Objects.isNull(leitorDto.getId())) {
-                return leitorRepository.save(LeitorDto.toLeitor(leitorDto));
-            } else {
-                return LeitorDto.toLeitor(leitorDto);
-            }
+            // Tenta recuperar o leitor pelo ID
+            return leitorRepository.findById(leitorId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Leitor não encontrado com o ID: " + leitorId));
+        }  catch (ResourceNotFoundException e) {
+            // Lança a exceção de recurso não encontrado
+            throw e;
         } catch (RuntimeException e) {
+            // Captura qualquer outra exceção que ocorra
             e.printStackTrace();
-            return null;
+            // Lança uma exceção personalizada para indicar um problema interno no servidor
+            throw  new InternalServerErrorException("Erro ao buscar o livro!", e);
         }
     }
 
+
     /**
-     * Método que procura os livros e adiciona a uma lista3
+     * Método que procura os livros e adiciona a uma lista
      * @author Palmério Júlio
      * @param livrosDtos
      * @return List de livros
@@ -189,14 +205,30 @@ public class EmprestimoService {
     private List<Livro> regraLivros(List<LivroDto> livrosDtos) {
         try {
             return livrosDtos.stream()
-                    .map(e -> livroRepository.findById(e.getId()).get())
-                    .sorted((e1,e2) -> e1.getId().compareTo(e2.getId()))
+                    .map(e -> {
+                        Livro livro = livroRepository.findById(e.getId())
+                                .orElseThrow(() -> new ResourceNotFoundException("Livro não encontrado com o ID: " + e.getId()));
+                        if (livro.getQuantidadeDisponivel() > 0) {
+                            livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel() - 1); // Diminui a quantidade do livro
+                            livro.setStatus(StatusLivroEnum.EMPRESTADO); // Atualiza o status do livro
+                            livroRepository.save(livro); // Atualiza o livro no banco de dados
+                        } else {
+                            throw new ConflictException("Livro com ID: " + livro.getId() + " não está disponível para empréstimo.");
+                        }
+                        return livro;
+                    })
+                    .sorted(Comparator.comparing(Livro::getId))
                     .collect(Collectors.toList());
+        } catch (ResourceNotFoundException | ConflictException e) {
+            throw e;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return null;
+            throw new InternalServerErrorException("Erro ao processar os livros", e);
         }
     }
+
+
+
 
     /**
      * Converte para retornoar um DTO.
@@ -217,4 +249,5 @@ public class EmprestimoService {
             return null;
         }
     }
+
 }
