@@ -156,6 +156,7 @@ public class EmprestimoService {
             emprestimo.setDataDoEmprestimo(LocalDateTime.now());
             emprestimo.setDataDevolucaoPrevista(LocalDateTime.now().plusDays(6));
             emprestimo.setStatus(StatusEmprestimoEnum.ATIVO);
+
             // Salva o empréstimo no banco de dados
             return EmprestimoDto.fromEmprestimo(emprestimoRepository.save(emprestimo));
         } catch (ResourceNotFoundException | ConflictException e) {
@@ -165,9 +166,37 @@ public class EmprestimoService {
         }
     }
 
-    public Object devolucao(EmprestimoDto emprestimoDto, Long id) {
+    public Object finalizarEmprestimo(EmprestimoDto emprestimoDto, Long id) {
 
-        return null;
+        try {
+            Emprestimo emprestimo = emprestimoRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Empréstimo não encontrado com o ID: " + id));
+
+            // Verifica se o empréstimo já foi finalizado
+            if (emprestimo.getStatus() == StatusEmprestimoEnum.CONCLUIDO) {
+                throw new ConflictException("Este empréstimo já foi finalizado anteriormente.");
+            }
+
+            // Atualiza o status e a quantidade de exemplares de cada livro
+            for (Livro livro : emprestimo.getLivros()) {
+                livro.setStatus(StatusLivroEnum.DISPONIVEL);
+                livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel() + 1);
+                livroRepository.save(livro);
+            }
+
+            // Define a data de devolução real e atualiza o status do empréstimo
+            emprestimo.setDataDevolucaoReal(LocalDateTime.now());
+            emprestimo.setStatus(StatusEmprestimoEnum.CONCLUIDO);
+
+            // Atualiza o empréstimo no banco de dados
+            Emprestimo emprestimoFinalizado = emprestimoRepository.save(emprestimo);
+            return EmprestimoDto.fromEmprestimo(emprestimoFinalizado);
+
+        } catch (ResourceNotFoundException | ConflictException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Erro ao gravar no banco!", e);
+        }
     }
 
 
