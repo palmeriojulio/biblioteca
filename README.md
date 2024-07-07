@@ -1,4 +1,4 @@
-# Sistema de Gerenciamento de Biblioteca.
+# Sistema de Gerenciamento de Biblioteca Municipal Fenelom Barreto .
 
 <h4 align="center"> 
     :construction:  Projeto em construção  :construction:
@@ -9,20 +9,23 @@
 Funcionalidades
 
     [x] Cadastro, edição e exclusão de livros, leitores, endereços, empréstimos e reservas.
-    [ ] Controle de empréstimos e devoluções de livros.
+    [x] Controle de empréstimos e devoluções de livros.
     [ ] Notificação de empréstimos atrasados.
     [ ] Relatórios e análises sobre o desempenho do sistema.
 
 Tecnologias Utilizadas
 
-    Java
-    Spring Boot
-    Spring Data JPA
-    Spring MVC
-    PostgreSQL (ou outro banco de dados relacional)
-    Thymeleaf (para a camada de visualização)
-    HTML/CSS/JavaScript (para a interface de usuário)
-
+    Back-end
+        Java
+        Spring Boot
+        Spring Data JPA
+        Spring MVC
+        PostgreSQL
+    
+    Front-end
+        Angular/cli 14
+        Angular Material 14.2.7
+        
 Pré-requisitos
 
     JDK 11 ou superior instalado
