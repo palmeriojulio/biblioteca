@@ -1,0 +1,34 @@
+<mat-toolbar class="background-color">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="toggleSideBar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+
+    <span> Biblioteca Fenelon Barreto </span>
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+      <ul fxLayout="row" fxLayoutGap="20px">
+        <li>
+          <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>person_outline</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>settings</mat-icon>
+              Configuração
+            </button>
+            <button mat-menu-item>
+              <mat-icon>help_outline</mat-icon>
+              Ajuda
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon>
+              Sair
+            </button>
+          </mat-menu>
+        </li>
+      </ul>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
