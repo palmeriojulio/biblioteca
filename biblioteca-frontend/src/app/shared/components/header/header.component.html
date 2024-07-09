@@ -4,31 +4,34 @@
       <mat-icon>menu</mat-icon>
     </button>
 
-
     <span> Biblioteca Fenelon Barreto </span>
 
-    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
-      <ul fxLayout="row" fxLayoutGap="20px">
-        <li>
-          <button mat-button [matMenuTriggerFor]="menu">
-            <mat-icon>person_outline</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <mat-icon>settings</mat-icon>
-              Configuração
-            </button>
-            <button mat-menu-item>
-              <mat-icon>help_outline</mat-icon>
-              Ajuda
-            </button>
-            <button mat-menu-item (click)="logout()">
-              <mat-icon>exit_to_app</mat-icon>
-              Sair
-            </button>
-          </mat-menu>
-        </li>
-      </ul>
+    <span class="spacer"></span>
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" fxLayoutGap="20px" class="user-info">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <img src="../../../../assets/profile-pic.png" style="width: 40px;" alt="Administrador">
+        <span style="margin-left: 10%;">Palmério Júlio</span>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          Configuração
+        </button>
+        <button mat-menu-item>
+          <mat-icon>person</mat-icon>
+          Perfil
+        </button>
+        <button mat-menu-item>
+          <mat-icon>help_outline</mat-icon>
+          Ajuda
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          Sair
+        </button>
+      </mat-menu>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

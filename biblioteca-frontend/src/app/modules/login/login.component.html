@@ -1,0 +1,30 @@
+<mat-card style="box-shadow: 5px 5px 2px rgb(207, 206, 206);">
+    <div class="title-login">
+      <h1>Login</h1>
+    </div>
+    <form class="form-login">
+      <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+          <mat-label>Digite o login</mat-label>
+          <input matInput placeholder="Login" formControlName="login"/>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Digite a senha</mat-label>
+          <input matInput placeholder="Senha" formControlName="password"/>
+          <mat-icon matSuffix>key</mat-icon>
+        </mat-form-field>
+      </div>
+    </form>
+    <div>
+      <button mat-raised-button color="primary" style="width: 100%; height: 50px;" routerLink="/principal/dashboard">
+        <mat-icon>login</mat-icon>
+        Login</button>
+    </div>
+    <mat-card-footer>
+    </mat-card-footer>
+    <br>
+</mat-card>
+
+
+

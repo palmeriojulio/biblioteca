@@ -1,0 +1,27 @@
+/* dashboard.component.css */
+.dashboard-container {
+  padding: 5px;
+}
+
+mat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 100px;
+  width: 246px;
+}
+
+.mat-grid-list {
+  margin-bottom: 16px;
+}
+
+.chart-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}

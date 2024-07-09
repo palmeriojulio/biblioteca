@@ -1,0 +1,21 @@
+mat-card {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 10%;
+    background-color: #f3f6f4
+}
+
+mat-form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-raised-button {
+    width: 100%;
+}
+
+.title-login {
+    text-align: center;
+    margin-bottom: 30px;
+}
+

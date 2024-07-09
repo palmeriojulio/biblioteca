@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DefaultComponent } from './default.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -22,14 +22,23 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+
+import { DefaultComponent } from './default.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { LoginComponent } from 'src/app/modules/login/login.component';
+import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.component';
+import { LivroComponent } from 'src/app/modules/livro/livro.component';
+import { LeitorComponent } from 'src/app/modules/leitor/leitor.component';
 
 
 
 @NgModule({
   declarations: [
-    DefaultComponent
+    DefaultComponent,
+    LoginComponent,
+    DashboardComponent,
+    LivroComponent,
+    LeitorComponent
   ],
   imports: [
     CommonModule,
