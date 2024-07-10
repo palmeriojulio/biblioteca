@@ -29,6 +29,8 @@ import { LoginComponent } from 'src/app/modules/login/login.component';
 import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.component';
 import { LivroComponent } from 'src/app/modules/livro/livro.component';
 import { LeitorComponent } from 'src/app/modules/leitor/leitor.component';
+import { LivroFormComponent } from 'src/app/modules/livro-form/livro-form.component';
+import { LeitorFormComponent } from 'src/app/modules/leitor-form/leitor-form.component';
 
 
 
@@ -38,7 +40,9 @@ import { LeitorComponent } from 'src/app/modules/leitor/leitor.component';
     LoginComponent,
     DashboardComponent,
     LivroComponent,
-    LeitorComponent
+    LivroFormComponent,
+    LeitorComponent,
+    LeitorFormComponent
   ],
   imports: [
     CommonModule,

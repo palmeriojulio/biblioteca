@@ -1,1 +1,75 @@
-<p>livro works!</p>
+<mat-card class="example-card">
+
+  <mat-toolbar class="background-color">
+    <mat-icon class="mat-18">menu_book</mat-icon>
+    <span style="margin-left: 10px;">Livros cadastrados</span>
+  </mat-toolbar>
+
+  <button mat-raised-button (click)="openDialog(livro)">Adiconar livro</button>
+
+  <mat-form-field appearance="standard" style="margin-left: 10px; width: 20%;">
+    <input matInput (keyup)="applyFilter($event)" placeholder="digite o nome ou CDU do livro" #input>
+    <mat-label>Pesquisar</mat-label>
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let livro"> {{ livro.id }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cdu">
+        <th mat-header-cell *matHeaderCellDef> CDU </th>
+        <td mat-cell *matCellDef="let livro"> {{ livro.cdu }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef> Título </th>
+        <td mat-cell *matCellDef="let livro"> {{ livro.titulo }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="autor">
+        <th mat-header-cell *matHeaderCellDef> Autor </th>
+        <td mat-cell *matCellDef="let livro"> {{ livro.autor}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantidadeDisponivel">
+        <th mat-header-cell *matHeaderCellDef> Disponivel </th>
+        <td mat-cell *matCellDef="let livro"> {{ livro.quantidadeDisponivel }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let livro"> {{ livro.status }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef> Editar </th>
+        <td mat-cell *matCellDef="let livro">
+          <button mat-icon-button color="primary" aria-label="Editar livro" (click)="editarLivro(livro)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="excluir">
+        <th mat-header-cell *matHeaderCellDef> Excluir </th>
+        <td mat-cell *matCellDef="let livro">
+          <button mat-icon-button color="warn" aria-label="Deletar livro" (click)="deletarLivro(livro.id)">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="100" [pageSize]="8" [pageSizeOptions]="[5, 10, 20, 50]" aria-label="Selecione a página">
+    </mat-paginator>
+
+  </div>
+
+</mat-card>

@@ -1,0 +1,53 @@
+<mat-toolbar class="background-color">
+  <mat-icon class="mat-18">book</mat-icon>
+  <span style="margin-left: 10px;">{{title}}</span>
+</mat-toolbar>
+<br>
+<mat-card>
+  <form [formGroup]="formLivro">
+    <div mat-dialog-content>
+      <input type="hidden" formControlName="id">
+      <mat-form-field class="inputCdu" appearance="outline">
+        <mat-label>CDU</mat-label>
+        <input matInput placeholder="Digite o código CDU" formControlName="cdu" maxlength="15" />
+      </mat-form-field>
+      <mat-form-field class="inputTitulo" appearance="outline">
+        <mat-label>Título</mat-label>
+        <input matInput placeholder="Digite o título do livro" formControlName="titulo" />
+      </mat-form-field>
+      <mat-form-field class="inputAutor" appearance="outline">
+        <mat-label>Autor</mat-label>
+        <input matInput placeholder="Digite o nome do autor" formControlName="autor" />
+      </mat-form-field>
+      <mat-form-field class="inputEditora" appearance="outline">
+        <mat-label>Editora</mat-label>
+        <input matInput placeholder="Digite o nome do editora" formControlName="editora" />
+      </mat-form-field>
+      <mat-form-field class="inputQuant" appearance="outline">
+        <mat-label>Quant.</mat-label>
+        <input matInput type="number" placeholder="" formControlName="quantidadeDisponivel" />
+      </mat-form-field>
+      <mat-form-field class="inputStatus" appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="DISPONIVEL">Disponível</mat-option>
+          <mat-option value="EMPRESTADO">Emprestado</mat-option>
+          <mat-option value="RESERVADO">Reservado</mat-option>
+          <mat-option value="EM_MANUTENCAO">Em Manutenção</mat-option>
+          <mat-option value="PERDIDO">Perdido</mat-option>
+          <mat-option value="DANIFICADO">Danificado</mat-option>
+          <mat-option value="ARQUIVADO">Arquivado</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+  <div mat-dialog-actions [align]="'start'">
+    <button mat-raised-button color="warn" (click)="fecharModal()">
+      Cancelar
+    </button>
+    <button mat-raised-button style="margin-left: 8px" class="background-color" (click)="onSubmit()">
+      {{btn}}
+    </button>
+  </div>
+
+</mat-card>
