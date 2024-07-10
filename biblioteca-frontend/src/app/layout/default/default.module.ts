@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { DefaultComponent } from './default.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -31,6 +32,7 @@ import { LivroComponent } from 'src/app/modules/livro/livro.component';
 import { LeitorComponent } from 'src/app/modules/leitor/leitor.component';
 import { LivroFormComponent } from 'src/app/modules/livro-form/livro-form.component';
 import { LeitorFormComponent } from 'src/app/modules/leitor-form/leitor-form.component';
+import { ConfirmDialogComponent } from 'src/app/modules/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -42,7 +44,8 @@ import { LeitorFormComponent } from 'src/app/modules/leitor-form/leitor-form.com
     LivroComponent,
     LivroFormComponent,
     LeitorComponent,
-    LeitorFormComponent
+    LeitorFormComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -69,6 +72,7 @@ import { LeitorFormComponent } from 'src/app/modules/leitor-form/leitor-form.com
     MatChipsModule,
     MatCheckboxModule,
     MatListModule,
+    MatDialogModule,
   ]
 })
 export class DefaultModule { }

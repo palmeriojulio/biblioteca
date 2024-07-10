@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Livro } from 'src/app/models/livro-model';
 import { LivroService } from 'src/app/services/livro.service';
 import { LivroFormComponent } from '../livro-form/livro-form.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-livro',
@@ -39,16 +40,28 @@ export class LivroComponent implements OnInit {
     });
   }
 
-  // Método para deletar um livro
-  deletarLivro(id: number) {
-    if (confirm("Deseja realmente excluir o livro?")) {
-      this.livroService.deletarLivro(id).subscribe((res: any) => {
-        // Livro deletado com sucesso
-      }, (error) => {
-        alert(error.error.text);
-        this.listarLivros(); // Atualiza a lista de livros após a exclusão
-      });
-    }
+  // Método para deletar um livro com confirmação em diálogo
+  deletarLivro(livro: any) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Confirmar Exclusão',
+        message: 'Deseja realmente excluir o livro?',
+        titulo: `${livro.titulo}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.livroService.deletarLivro(livro.id).subscribe((res: any) => {
+          this.listarLivros(); // Atualiza a lista de livros após a exclusão
+          this.open('Livro excluído com sucesso!', 'Fechar');
+        }, (error) => {
+          alert(error.error.text);
+          this.listarLivros();
+        });
+      }
+    });
   }
 
   // Método para abrir o formulário de edição de livro

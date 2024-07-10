@@ -1,0 +1,15 @@
+<mat-toolbar class="background-color">
+  <mat-icon class="mat-18">delete_outline</mat-icon>
+  <h1 mat-dialog-title>{{ data.title }}</h1>
+</mat-toolbar>
+
+<mat-card>
+  <div mat-dialog-content>
+    <p>{{ data.message }}</p>
+    <strong>{{ data.titulo }}</strong>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="background-color" (click)="onNoClick()">Cancelar</button>
+    <button mat-button [mat-dialog-close]="true">Confirmar</button>
+  </div>
+</mat-card>
