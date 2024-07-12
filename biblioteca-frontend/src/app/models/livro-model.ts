@@ -7,7 +7,16 @@ export class Livro {
   quantidadeDisponivel?: number;
   status?: string;
 
-  constructor(id?: number, cdu?: number, titulo?: string, autor?: string, editora?: string, quantidadeDisponivel?: number, status?: string)
+  constructor (
+    id?: number,
+    cdu?: number,
+    titulo?: string,
+    autor?: string,
+    editora?: string,
+    quantidadeDisponivel?: number,
+    status?: string
+  )
+
   {
     this.id = id;
     this.cdu = cdu;
