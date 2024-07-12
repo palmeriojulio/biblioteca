@@ -1,0 +1,74 @@
+<mat-toolbar class="background-color">
+  <mat-icon class="mat-18">book</mat-icon>
+  <span style="margin-left: 10px;">{{title}}</span>
+</mat-toolbar>
+<br>
+<mat-card>
+  <form [formGroup]="formLeitor">
+    <div mat-dialog-content>
+      <input type="hidden" formControlName="id">
+
+      <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="Digite o nome" formControlName="nome">
+      </mat-form-field>
+
+      <mat-form-field style="width: 25%; margin-inline-end: 8px;" appearance="outline">
+        <mat-label>CPF</mat-label>
+        <input matInput placeholder="Digite o cpf" formControlName="cpf" mask="000.000.000-00">
+      </mat-form-field>
+
+      <mat-form-field style="width: 25%; margin-inline-end: 8px;" appearance="outline">
+        <mat-label>RG</mat-label>
+        <input matInput placeholder="Digite o rg" formControlName="rg" maxlength="20">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 25%; margin-inline-end: 8px">
+        <mat-label>Nascimento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dataNascimento">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field style="width: 25%; margin-inline-end: 8px;" appearance="outline">
+        <mat-label>Telefone</mat-label>
+        <input matInput placeholder="Digite o telefone" formControlName="telefone" mask="(00) 00000-0000">
+      </mat-form-field>
+
+      <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
+        <mat-label>profissao</mat-label>
+        <input matInput placeholder="Digite o profissao" formControlName="profissao">
+      </mat-form-field>
+
+      <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
+        <mat-label>escola</mat-label>
+        <input matInput placeholder="Digite o escola" formControlName="escola">
+      </mat-form-field>
+
+      <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
+        <mat-label>serie</mat-label>
+        <input matInput placeholder="Digite o serie" formControlName="serie">
+      </mat-form-field>
+
+      <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
+        <mat-label>curso</mat-label>
+        <input matInput placeholder="Digite o curso" formControlName="curso">
+      </mat-form-field>
+
+      <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
+        <mat-label>turno</mat-label>
+        <input matInput placeholder="Digite o turno" formControlName="turno">
+      </mat-form-field>
+
+    </div>
+  </form>
+  <div mat-dialog-actions [align]="'start'">
+    <button mat-raised-button color="warn" (click)="fecharModal()">
+      Cancelar
+    </button>
+    <button mat-raised-button style="margin-left: 8px" class="background-color" (click)="onSubmit()">
+      {{btn}}
+    </button>
+  </div>
+
+</mat-card>
