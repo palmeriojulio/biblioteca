@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import ptBr from '@angular/common/locales/pt';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -33,7 +34,10 @@ import { LeitorComponent } from 'src/app/modules/leitor/leitor.component';
 import { LivroFormComponent } from 'src/app/modules/livro-form/livro-form.component';
 import { LeitorFormComponent } from 'src/app/modules/leitor-form/leitor-form.component';
 import { ConfirmDialogComponent } from 'src/app/modules/confirm-dialog/confirm-dialog.component';
+import { CpfPipe } from 'src/app/pipe/cpf.pipe';
+import { TelefonePipe } from 'src/app/pipe/telefone.pipe';
 
+registerLocaleData(ptBr);
 
 
 @NgModule({
@@ -45,7 +49,9 @@ import { ConfirmDialogComponent } from 'src/app/modules/confirm-dialog/confirm-d
     LivroFormComponent,
     LeitorComponent,
     LeitorFormComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CpfPipe,
+    TelefonePipe
   ],
   imports: [
     CommonModule,
