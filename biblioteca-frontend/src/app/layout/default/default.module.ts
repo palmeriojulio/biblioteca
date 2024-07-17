@@ -57,6 +57,7 @@ registerLocaleData(ptBr);
     CommonModule,
     RouterModule,
     SharedModule,
+    ReactiveFormsModule,
     MatSidenavModule,
     MatDividerModule,
     MatCardModule,

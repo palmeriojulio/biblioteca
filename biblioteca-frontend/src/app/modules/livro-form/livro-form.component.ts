@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Livro } from 'src/app/models/livro-model';
 import { LivroService } from 'src/app/services/livro.service';
+import { apenasLetrasValidator } from 'src/app/validators/apenas-letras.validator';
+import { apenasNumerosValidator } from 'src/app/validators/apenas-numeros.validator';
 
 @Component({
   selector: 'app-livro-form',
@@ -33,12 +35,12 @@ export class LivroFormComponent implements OnInit {
   createForm(livro: Livro) {
     // Criação do grupo de controles do formulário com validações
     this.formLivro = new FormGroup({
-      id: new FormControl(livro.id, Validators.required),
-      cdu: new FormControl(livro.cdu, Validators.required),
-      titulo: new FormControl(livro.titulo, Validators.required),
-      autor: new FormControl(livro.autor, Validators.required),
-      editora: new FormControl(livro.editora, Validators.required),
-      quantidadeDisponivel: new FormControl(livro.quantidadeDisponivel, Validators.required),
+      id: new FormControl(livro.id, [Validators.required, apenasNumerosValidator]),
+      cdu: new FormControl(livro.cdu, [Validators.required, Validators.maxLength(15), apenasNumerosValidator]),
+      titulo: new FormControl(livro.titulo, [Validators.required, Validators.maxLength(80), apenasLetrasValidator]),
+      autor: new FormControl(livro.autor, [Validators.required, Validators.maxLength(80), apenasLetrasValidator]),
+      editora: new FormControl(livro.editora, [Validators.required, Validators.maxLength(50), apenasLetrasValidator]),
+      quantidadeDisponivel: new FormControl(livro.quantidadeDisponivel, [Validators.required, apenasNumerosValidator]),
       status: new FormControl(livro.status, Validators.required)
     });
 

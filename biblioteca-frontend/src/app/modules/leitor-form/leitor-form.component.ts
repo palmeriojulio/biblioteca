@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Leitor } from 'src/app/models/leitor-model';
 import { LeitorService } from 'src/app/services/leitor.service';
+import { apenasLetrasValidator } from 'src/app/validators/apenas-letras.validator';
+import { apenasNumerosValidator } from 'src/app/validators/apenas-numeros.validator';
 
 @Component({
   selector: 'app-leitor-form',
@@ -34,16 +36,16 @@ export class LeitorFormComponent implements OnInit {
     // Criação do grupo de controles do formulário com validações
     this.formLeitor = new FormGroup({
       id: new FormControl(leitor.id, Validators.required),
-      nome: new FormControl(leitor.nome, Validators.required),
-      cpf: new FormControl(leitor.cpf, Validators.required),
-      rg: new FormControl(leitor.rg),
+      nome: new FormControl(leitor.nome, [Validators.required, Validators.maxLength(80), apenasLetrasValidator]),
+      cpf: new FormControl(leitor.cpf, [Validators.required, Validators.maxLength(11), apenasNumerosValidator]),
+      rg: new FormControl(leitor.rg, [Validators.required, Validators.maxLength(20), apenasNumerosValidator]),
       dataNascimento: new FormControl(leitor.dataNascimento, Validators.required),
-      telefone: new FormControl(leitor.telefone, Validators.required),
-      profissao: new FormControl(leitor.profissao),
-      escola: new FormControl(leitor.escola),
-      serie: new FormControl(leitor.serie),
-      curso: new FormControl(leitor.curso),
-      turno: new FormControl(leitor.turno)
+      telefone: new FormControl(leitor.telefone, [Validators.required, apenasNumerosValidator]),
+      profissao: new FormControl(leitor.profissao, apenasLetrasValidator),
+      escola: new FormControl(leitor.escola, [Validators.maxLength(50), apenasLetrasValidator]),
+      serie: new FormControl(leitor.serie, [Validators.maxLength(10), apenasLetrasValidator]),
+      curso: new FormControl(leitor.curso, [Validators.maxLength(25), apenasLetrasValidator]),
+      turno: new FormControl(leitor.turno, [Validators.maxLength(15), apenasLetrasValidator])
     });
 
     // Se há um Leitor para editar, preenche os campos do formulário com os dados do leitor

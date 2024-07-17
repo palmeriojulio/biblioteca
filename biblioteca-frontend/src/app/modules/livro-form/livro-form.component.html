@@ -7,26 +7,32 @@
   <form [formGroup]="formLivro">
     <div mat-dialog-content>
       <input type="hidden" formControlName="id">
+
       <mat-form-field class="inputCdu" appearance="outline">
         <mat-label>CDU</mat-label>
         <input matInput placeholder="Digite o código CDU" formControlName="cdu" maxlength="15" />
       </mat-form-field>
+
       <mat-form-field class="inputTitulo" appearance="outline">
         <mat-label>Título</mat-label>
         <input matInput placeholder="Digite o título do livro" formControlName="titulo" />
       </mat-form-field>
+
       <mat-form-field class="inputAutor" appearance="outline">
         <mat-label>Autor</mat-label>
         <input matInput placeholder="Digite o nome do autor" formControlName="autor" />
       </mat-form-field>
+
       <mat-form-field class="inputEditora" appearance="outline">
         <mat-label>Editora</mat-label>
         <input matInput placeholder="Digite o nome do editora" formControlName="editora" />
       </mat-form-field>
+
       <mat-form-field class="inputQuant" appearance="outline">
         <mat-label>Quant.</mat-label>
         <input matInput type="number" placeholder="" formControlName="quantidadeDisponivel" />
       </mat-form-field>
+
       <mat-form-field class="inputStatus" appearance="outline">
         <mat-label>Status</mat-label>
         <mat-select formControlName="status">
@@ -39,6 +45,7 @@
           <mat-option value="ARQUIVADO">Arquivado</mat-option>
         </mat-select>
       </mat-form-field>
+
     </div>
   </form>
   <div mat-dialog-actions [align]="'start'">
