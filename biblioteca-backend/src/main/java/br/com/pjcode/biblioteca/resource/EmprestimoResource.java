@@ -30,6 +30,11 @@ public class EmprestimoResource {
         return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.getAll());
     }
 
+    @GetMapping("/emprestimos/ativos")
+    public ResponseEntity<Object> getAllStatusAtivo() {
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.getAllStatusAtivo());
+    }
+
     @GetMapping("/emprestimo/{id}")
     public  ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.findById(id));
@@ -45,7 +50,7 @@ public class EmprestimoResource {
         return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.delete(id));
     }
 
-    @PostMapping("/emprestimo/finalizar/{id}")
+    @PostMapping("/emprestimo/devolucao/{id}")
     public ResponseEntity<Object> devolucao(@PathVariable Long id, @RequestBody EmprestimoDto emprestimoDto) {
         return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.finalizarEmprestimo(emprestimoDto, id));
     }

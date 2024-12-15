@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.annotation.Documented;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -70,12 +71,22 @@ public class EmprestimoService {
         try {
             return emprestimoRepository.findAll()
                     .stream()
-                    .map(e -> EmprestimoDto.fromEmprestimo(e))
+                    .map(EmprestimoDto::fromEmprestimo)
                     .sorted((e1, e2 ) -> e1.getId().compareTo(e2.getId()))
                     .collect(Collectors.toList());
         } catch (InternalServerErrorException e) {
             throw new InternalServerErrorException("Erro ao buscar os emprestimos!");
         }
+    }
+
+    /**
+     * Método que busca todos os emprestimos realizados com status ativo.
+     * @author Palmério Julio
+     * @return List com todos os emrpestimos realizados com estatos ativo.
+     * @exception InternalServerErrorException
+     */
+    public Object getAllStatusAtivo() {
+        return null;
     }
 
     /**
@@ -278,5 +289,4 @@ public class EmprestimoService {
             return null;
         }
     }
-
 }

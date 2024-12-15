@@ -17,7 +17,7 @@ export class LeitorComponent implements OnInit {
 
   // Variáveis para construção da lista de dos leitor.
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Paginator para a tabela
-  displayedColumns: string[] = ['id', 'nome', 'cpf', 'telefone', 'profissao', 'escola', 'info', 'editar', 'excluir', 'emprestimo'] // Colunas exibidas na tabela
+  displayedColumns: string[] = ['id', 'nome', 'cpf', 'telefone', 'profissao', 'escola', 'info', 'editar', 'excluir'] // Colunas exibidas na tabela
   dataSource!: MatTableDataSource<Leitor>; // Fonte de dados para a tabela
   leitor!: Leitor; // Objeto do tipo Leitor
   durationInSeconds = 5; // Duração para o snackbar

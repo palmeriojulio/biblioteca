@@ -1,11 +1,10 @@
 <mat-card class="example-card">
 
   <mat-toolbar class="background-color">
-    <mat-icon class="mat-18">menu_book</mat-icon>
     <span style="margin-left: 10px;">Leitores cadastrados</span>
   </mat-toolbar>
 
-  <button mat-raised-button (click)="openDialog(leitor)">Adiconar leitor</button>
+  <button mat-raised-button (click)="openDialog(leitor)"><mat-icon>person_add</mat-icon> Adicionar leitor</button>
 
   <mat-form-field appearance="standard" style="margin-left: 10px; width: 25%;">
     <input matInput (keyup)="applyFilter($event)" placeholder="Digite o nome, CPF ou outra informação" #input>
@@ -68,15 +67,6 @@
         <td mat-cell *matCellDef="let leitor">
           <button mat-icon-button color="warn" aria-label="Deletar leitor" (click)="deletarLeitor(leitor)">
             <mat-icon>delete_outline</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="emprestimo">
-        <th mat-header-cell *matHeaderCellDef> Empretimo </th>
-        <td mat-cell *matCellDef="let leitor">
-          <button mat-icon-button style="color: darkgreen;" aria-label="Emprestar livro">
-            <mat-icon>play_lesson</mat-icon>
           </button>
         </td>
       </ng-container>

@@ -1,0 +1,99 @@
+<mat-card class="example-card">
+
+  <mat-toolbar class="background-color">
+    <span style="margin-left: 10px;">Emprestimos realizados</span>
+  </mat-toolbar>
+
+  <button mat-raised-button (click)="openDialog(emprestimo)"><mat-icon>play_lesson</mat-icon>Inicar emprestimo</button>
+
+  <mat-form-field appearance="standard" style="margin-left: 10px; width: 25%;">
+    <input matInput (keyup)="applyFilter($event)" placeholder="Digite o id do emprestimo ou outra informação" #input>
+    <mat-label>Pesquisar</mat-label>
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.id }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="livro">
+        <th mat-header-cell *matHeaderCellDef> Livros emprestados</th>
+        <td mat-cell *matCellDef="let emprestimo">
+          <div *ngFor="let livro of emprestimo.livros">{{ livro.titulo }}</div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="leitor">
+        <th mat-header-cell *matHeaderCellDef> Leitor </th>
+        <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.leitor.nome }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataDoEmprestimo">
+        <th mat-header-cell *matHeaderCellDef> Data do emprestimo</th>
+        <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.dataDoEmprestimo }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataDevolucaoPrevista">
+        <th mat-header-cell *matHeaderCellDef> Data da devolução </th>
+        <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.dataDevolucaoPrevista }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataDevolucaoReal">
+        <th mat-header-cell *matHeaderCellDef> Data da devolução real </th>
+        <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.dataDevolucaoReal }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.status }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="info">
+        <th mat-header-cell *matHeaderCellDef> Informação </th>
+        <td mat-cell *matCellDef="let emprestimo">
+          <button mat-icon-button color="primary" aria-label="Informação">
+            <mat-icon>info_i</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="devolucao">
+        <th mat-header-cell *matHeaderCellDef> Devolução </th>
+        <td mat-cell *matCellDef="let emprestimo">
+          <button mat-icon-button style="color: darkgreen;" aria-label="Devolução">
+            <mat-icon>play_lesson</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef> Editar </th>
+        <td mat-cell *matCellDef="let emprestimo">
+          <button mat-icon-button color="primary" aria-label="Editar leitor" >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="excluir">
+        <th mat-header-cell *matHeaderCellDef> Excluir </th>
+        <td mat-cell *matCellDef="let emprestimo">
+          <button mat-icon-button color="warn" aria-label="Deletar leitor" >
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="100" [pageSize]="8" [pageSizeOptions]="[5, 10, 20, 50]" aria-label="Selecione a página">
+    </mat-paginator>
+
+  </div>
+
+</mat-card>

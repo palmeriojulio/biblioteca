@@ -5,6 +5,7 @@ import { LoginComponent } from './modules/login/login.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { LivroComponent } from './modules/livro/livro.component';
 import { LeitorComponent } from './modules/leitor/leitor.component';
+import { EmprestimoComponent } from './modules/emprestimo/emprestimo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'livro', component: LivroComponent },
-      { path: 'leitor', component: LeitorComponent }
+      { path: 'leitor', component: LeitorComponent },
+      { path: 'emprestimo', component: EmprestimoComponent }
     ]
   },
   { path: 'login', component: LoginComponent },

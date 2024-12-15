@@ -1,11 +1,10 @@
 <mat-card class="example-card">
 
   <mat-toolbar class="background-color">
-    <mat-icon class="mat-18">menu_book</mat-icon>
     <span style="margin-left: 10px;">Livros cadastrados</span>
   </mat-toolbar>
 
-  <button mat-raised-button (click)="openDialog(livro)">Adiconar livro</button>
+  <button mat-raised-button (click)="openDialog(livro)"><mat-icon>play_lesson</mat-icon> Adiconar livro</button>
 
   <mat-form-field appearance="standard" style="margin-left: 10px; width: 20%;">
     <input matInput (keyup)="applyFilter($event)" placeholder="digite o nome ou CDU do livro" #input>

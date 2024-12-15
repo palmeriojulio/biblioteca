@@ -33,6 +33,8 @@ import { LivroComponent } from 'src/app/modules/livro/livro.component';
 import { LeitorComponent } from 'src/app/modules/leitor/leitor.component';
 import { LivroFormComponent } from 'src/app/modules/livro-form/livro-form.component';
 import { LeitorFormComponent } from 'src/app/modules/leitor-form/leitor-form.component';
+import { EmprestimoFormComponent } from 'src/app/modules/emprestimo-form/emprestimo-form.component';
+import { EmprestimoComponent } from 'src/app/modules/emprestimo/emprestimo.component';
 import { ConfirmDialogComponent } from 'src/app/modules/confirm-dialog/confirm-dialog.component';
 import { CpfPipe } from 'src/app/pipe/cpf.pipe';
 import { TelefonePipe } from 'src/app/pipe/telefone.pipe';
@@ -49,6 +51,8 @@ registerLocaleData(ptBr);
     LivroFormComponent,
     LeitorComponent,
     LeitorFormComponent,
+    EmprestimoFormComponent,
+    EmprestimoComponent,
     ConfirmDialogComponent,
     CpfPipe,
     TelefonePipe
