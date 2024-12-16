@@ -1,7 +1,10 @@
 # Sistema de Gerenciamento de Biblioteca Municipal Fenelom Barreto .
 
 Biblioteca Municipal Fenelom Barreto
-![Logo do sistema](/biblioteca-frontend/src/assets/logo_fenelon_barreto.png)
+<div style="text-align: center;">
+  <img src="/biblioteca-frontend/src/assets/logo_fenelon_barreto.png" alt="Logo do sistema" style="width: 100px;">
+</div>
+
 <h4 align="center"> 
     :construction:  Projeto em construção  :construction:
 </h4>
