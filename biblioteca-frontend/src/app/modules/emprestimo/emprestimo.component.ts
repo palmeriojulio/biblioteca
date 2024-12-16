@@ -33,19 +33,20 @@ export class EmprestimoComponent implements OnInit {
   }
 
   // Metodo para listar os emprestimos
- // Metodo para listar os emprestimos
-listarEmprestimos() {
-  this.emprestimoService.listarEmprestimos().subscribe((res: any) => {
-    this.dataSource = new MatTableDataSource<Emprestimo>(res);
-    this.dataSource.paginator = this.paginator; // Associa o paginator à tabela
+  listarEmprestimos() {
+    this.emprestimoService.listarEmprestimos().subscribe((res: any) => {
+      this.dataSource = new MatTableDataSource<Emprestimo>(res);
+      this.dataSource.paginator = this.paginator; // Associa o paginator à tabela
 
-    // Chama o método getLivrosFormatados() em cada objeto Emprestimo da lista
-    this.dataSource.data.forEach(emprestimo => {
-      const livrosFormatados = emprestimo.getLivrosFormatados();
-      // Faça algo com os livros formatados
+      // Chama o método getLivrosFormatados() em cada objeto Emprestimo da lista
+      this.dataSource.data.forEach(emprestimo => {
+        if (emprestimo instanceof Emprestimo) {
+          const livrosFormatados = emprestimo.getLivrosFormatados();
+          // Additional processing can be done here with livrosFormatados
+        }
+      });
     });
-  });
-}
+  }
 
   // Método para deletar um emprestimo com confirmação em diálogo
   deletarEmprestimo(emprestimo: any) {
@@ -72,27 +73,37 @@ listarEmprestimos() {
   }
 
   // Método para abrir o formulário de edição de emprestimo
-    editarEmprestimo(emprestimo: any) {
-      const dialogRef = this.dialog.open(EmprestimoComponent, {
-        width: '800px',
-        data: emprestimo // Passa o emprestimo atual como dado para o diálogo
-      });
+  editarEmprestimo(emprestimo: any) {
+    const dialogRef = this.dialog.open(EmprestimoComponent, {
+      width: '800px',
+      data: emprestimo // Passa o emprestimo atual como dado para o diálogo
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        this.listarEmprestimos(); // Atualiza a lista de emprestimo após o fechamento do diálogo
-      });
-    }
+    dialogRef.afterClosed().subscribe(result => {
+      this.listarEmprestimos(); // Atualiza a lista de emprestimo após o fechamento do diálogo
+    });
+  }
 
-    // Método para abrir o formulário de criação de emprestimo
-    openDialog(emprestimo: Emprestimo) {
-      const dialogRef = this.dialog.open(EmprestimoFormComponent, {
-        width: '800px'
-      });
+  devolucao(emprestimo: any) {
+    this.emprestimoService.devolucao(emprestimo.id, emprestimo).subscribe((res: any) => {
+      this.listarEmprestimos(); // Atualiza a lista de emprestimo depois da devolução
+      this.open('emprestimo devolvido com sucesso!', 'Fechar');
+    }, (error) => {
+      alert(error.error.text);
+      this.listarEmprestimos();
+    });
+  }
 
-      dialogRef.afterClosed().subscribe(result => {
-        this.listarEmprestimos(); // Atualiza a lista de emprestimoes após o fechamento do diálogo
-      });
-    }
+  // Método para abrir o formulário de criação de emprestimo
+  openDialog(emprestimo: Emprestimo) {
+    const dialogRef = this.dialog.open(EmprestimoFormComponent, {
+      width: '800px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.listarEmprestimos(); // Atualiza a lista de emprestimoes após o fechamento do diálogo
+    });
+  }
 
   // Método para abrir um snackbar com uma mensagem
   open(message: string, action: string) {

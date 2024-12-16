@@ -11,3 +11,12 @@ table {
   flex: 1 1 auto;
 }
 
+.ativo {
+  color: darkgreen; /* cor verde */
+}
+
+.desabilitado {
+  pointer-events: none;
+  opacity: 0.5;
+  color: #ccc; /* cor cinza */
+}

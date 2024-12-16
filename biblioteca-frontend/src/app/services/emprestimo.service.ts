@@ -43,6 +43,10 @@ export class EmprestimoService {
     return this.http.delete(`${this.localUrl}emprestimo/${id}`);
   }
 
+  devolucao(id: number, emprestimo: Emprestimo) {
+    return this.http.post(`${this.localUrl}emprestimo/devolucao/${id}`, emprestimo);
+  }
+
  // Método privado para lidar com erros de requisição HTTP
     private handleError<T>(operation = 'operation', result?: T): () => Observable<T> {
       return (): Observable<T> => {
