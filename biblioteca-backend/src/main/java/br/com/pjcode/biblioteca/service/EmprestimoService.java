@@ -41,10 +41,10 @@ public class EmprestimoService {
     LeitorRepository leitorRepository;
 
     /**
-     * Método que salva um emprestimo de um livro.
+     * Método que salva um empréstimo de um livro.
      * @author Palmério Júlio
      * @param emprestimoDto
-     * @return Object da classe Emprestimo.
+     * @return Object da classe Empréstimo.
      */
     @Transactional
     public EmprestimoDto save(EmprestimoDto emprestimoDto) {
@@ -61,9 +61,9 @@ public class EmprestimoService {
     }
 
     /**
-     * Método que busca todos os emprestimos realizados.
+     * Método que busca todos os empréstimos realizados.
      * @author Palmério Júlio
-     * @return List com todos os emrpestimos realizados.
+     * @return List com todos os empréstimos realizados.
      * @exception InternalServerErrorException
      */
     @Transactional
@@ -75,14 +75,14 @@ public class EmprestimoService {
                     .sorted((e1, e2 ) -> e1.getId().compareTo(e2.getId()))
                     .collect(Collectors.toList());
         } catch (InternalServerErrorException e) {
-            throw new InternalServerErrorException("Erro ao buscar os emprestimos!");
+            throw new InternalServerErrorException("Erro ao buscar os empréstimos!");
         }
     }
 
     /**
-     * Método que busca todos os emprestimos realizados com status ativo.
+     * Método que busca todos os empréstimos realizados com status ativo.
      * @author Palmério Julio
-     * @return List com todos os emrpestimos realizados com estatos ativo.
+     * @return List com todos os empréstimos realizados com status ativo.
      * @exception InternalServerErrorException
      */
     public Object getAllStatusAtivo() {
@@ -90,10 +90,10 @@ public class EmprestimoService {
     }
 
     /**
-     * Método para buscar um emprestimo realizado.
+     * Método para buscar um empréstimo realizado.
      * @author Palmério Júlio
      * @param id
-     * @return Object com o Emprestimo referente ao "ID" passado como parâmetro.
+     * @return Object com o Empréstimo referente ao "ID" passado como parâmetro.
      * @throws ResourceNotFoundException
      * @exception InternalServerErrorException
      */
@@ -101,21 +101,21 @@ public class EmprestimoService {
     public Object findById(Long id) {
         try {
             var emprestimo = emprestimoRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Emprestimo com ID: "+ id +" não encontrado!"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Empréstimo com ID: "+ id +" não encontrado!"));
             return convertReturn(emprestimo);
         } catch (ResourceNotFoundException e) {
             throw e;
         } catch (InternalServerErrorException e) {
-            return new InternalServerErrorException("Erro ao buscar o emprestimo!");
+            return new InternalServerErrorException("Erro ao buscar o empréstimo!");
         }
     }
 
     /**
-     * Método para atualizar os dados de um emrpestimo.
+     * Método para atualizar os dados de um empréstimo.
      * @author Palmério Júlio
      * @param emprestimoDto
      * @param id
-     * @return Entity de Emprestimo atualizado.
+     * @return Entity de Empréstimo atualizado.
      * @throws ResourceNotFoundException
      * @exception InternalServerErrorException
      */
@@ -124,10 +124,10 @@ public class EmprestimoService {
     }
 
     /**
-     * Método para deletar um emrpestimo.
+     * Método para excluído um empréstimo.
      * @author Palmério Júlio
      * @param id
-     * @return Object com uma mensagem caso o emrpestimo tenho sido deletado.
+     * @return Object com uma mensagem caso o empréstimo tenho sido excluído.
      * @throws ResourceNotFoundException
      * @exception InternalServerErrorException
      */
@@ -135,24 +135,24 @@ public class EmprestimoService {
     public Object delete(Long id) {
         try {
             var emprestimo = emprestimoRepository.findById(id)
-                    .orElseThrow(()-> new ResourceNotFoundException("Emprestimo com ID: "+ id +" não encontrado!"));
+                    .orElseThrow(()-> new ResourceNotFoundException("Empréstimo com ID: "+ id +" não encontrado!"));
             emprestimoRepository.delete(emprestimo);
-            return "Emprestimo deletado!";
+            return "Empréstimo deletado!";
         } catch (ResourceNotFoundException e) {
             throw e;
         } catch (InternalServerErrorException e) {
-            return new InternalServerErrorException("Erro ao deletar o emprestimo!");
+            return new InternalServerErrorException("Erro ao deletar o empréstimo!");
         }
     }
 
     /**
-     * Método para regra do emprestimo, seta EMPRESTADO nos livros que forem escolhidos,
-     * coloca a data atual no emprestimo e seta a data de devolução.
+     * Método para regra do empréstimo, seta EMPRESTADO nos livros que forem escolhidos,
+     * coloca a data atual no empréstimo e seta a data de devolução.
      * @author Palmério Júlio
      * @param emprestimoDto
      * @param leitor
      * @param livros
-     * @return Dto com o emprestimo finalizado.
+     * @return Dto com o empréstimo finalizado.
      */
     @Transactional
     private EmprestimoDto regraEmprestimo(EmprestimoDto emprestimoDto, Leitor leitor, List<Livro> livros) {
@@ -177,6 +177,16 @@ public class EmprestimoService {
         }
     }
 
+    /**
+     * Finaliza um empréstimo de um livro, atualiza o status do empréstimo e dos livros,
+     * e salva o empréstimo finalizado no banco de dados.
+     * @param emprestimoDto
+     * @param id
+     * @return Dto com o empréstimo finalizado.
+     * @throws ResourceNotFoundException
+     * @throws ConflictException
+     * @throws InternalServerErrorException
+     */
     public Object finalizarEmprestimo(EmprestimoDto emprestimoDto, Long id) {
 
         try {
@@ -212,7 +222,7 @@ public class EmprestimoService {
 
 
     /**
-     * Método que procura o leitor com id passodo no JSON.
+     * Método que procura o leitor com id passado no JSON.
      * @author Palmério Júlio
      * @param leitorId
      * @return Dto de Leitor
@@ -271,10 +281,10 @@ public class EmprestimoService {
 
 
     /**
-     * Converte para retornoar um DTO.
+     * Converte para retornar um DTO.
      * @author Palmério Júlio
      * @param emprestimo
-     * @return Dto de emprestimo.
+     * @return Dto de empréstimo.
      * @exception RuntimeException
      */
     private Object convertReturn(Emprestimo emprestimo) {
