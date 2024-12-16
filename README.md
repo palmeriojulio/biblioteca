@@ -2,7 +2,7 @@
 
 Biblioteca Municipal Fenelom Barreto
 <div style="text-align: center;">
-  <img src="/biblioteca-frontend/src/assets/logo_fenelon_barreto.png" alt="Logo do sistema" style="width: 100px;">
+  <img src="/biblioteca-frontend/src/assets/logo_fenelon_barreto.png" alt="Logo do sistema" style="width: 300px;">
 </div>
 
 <h4 align="center"> 
