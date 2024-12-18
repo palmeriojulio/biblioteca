@@ -4,6 +4,7 @@ import { API } from "app.api";
 import { Emprestimo } from "../models/emprestimo";
 import { Observable, of, throwError } from "rxjs";
 import { Injectable } from "@angular/core";
+import { Livro } from "../models/livro-model";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class EmprestimoService {
 
   salvarEmprestimo(emprestimo: Emprestimo) {
     // Envia uma requisição POST para o backend com os dados do emprestimo
+    console.log(emprestimo.leitor);
     return this.http.post(`${this.localUrl}emprestimo`, emprestimo);
   }
 
@@ -48,19 +50,18 @@ export class EmprestimoService {
   }
 
  // Método privado para lidar com erros de requisição HTTP
-    private handleError<T>(operation = 'operation', result?: T): () => Observable<T> {
-      return (): Observable<T> => {
-        // Cria uma mensagem de erro para o snackbar
-        const toastMessage = 'Erro ao ' + operation + '.';
-        // Exibe a mensagem de erro usando MatSnackBar
-        this.snackBar.open(toastMessage, 'X');
-
-        if (!result) {
-          // Se não há um resultado padrão, lança um erro
-          return throwError(new Error());
-        }
-        // Retorna um resultado padrão para manter a aplicação funcionando
-        return of(result as T);
-      };
-    }
+  private handleError<T>(operation = 'operation', result?: T): () => Observable<T> {
+    return (): Observable<T> => {
+      // Cria uma mensagem de erro para o snackbar
+      const toastMessage = 'Erro ao ' + operation + '.';
+      // Exibe a mensagem de erro usando MatSnackBar
+      this.snackBar.open(toastMessage, 'X');
+     if (!result) {
+        // Se não há um resultado padrão, lança um erro
+        return throwError(new Error());
+      }
+      // Retorna um resultado padrão para manter a aplicação funcionando
+      return of(result as T);
+    };
+  }
 }

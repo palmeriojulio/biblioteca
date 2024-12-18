@@ -19,6 +19,14 @@ export class LeitorFormComponent implements OnInit {
   btn: string = "Salvar"// Texto do botão
   title: string = "Adicionar Leitor"// Título do formulário
 
+  /**
+   * Construtor do componente LeitorFormComponent.
+   *
+   * @param LeitorService - Serviço para manipulação de leitores.
+   * @param dialogRef - Referência ao diálogo atual.
+   * @param snackBar - Serviço de snack bar para exibir mensagens.
+   * @param LeitorEdit - Dados injetados ao abrir o diálogo, para edição.
+   */
   constructor(
     private LeitorService: LeitorService, // Serviço para manipulação de leitores
     public dialogRef: MatDialogRef<LeitorFormComponent>, // Referência ao diálogo atual
@@ -26,12 +34,20 @@ export class LeitorFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public LeitorEdit: Leitor // Dados injetados ao abrir o diálogo, para edição
   ) { }
 
-  // Método executado quando o componente é inicializado
+/**
+ * Método executado ao inicializar o componente.
+ * Responsável por criar o formulário do leitor com uma nova instância de Leitor.
+ */
   ngOnInit(): void {
     this.createForm(new Leitor());// Criação do formulário com um novo leitor
   }
 
-  // Método para criar o formulário do leitor
+
+  /**
+   * Cria o formulário do leitor com as propriedades necessárias.
+   *
+   * @param leitor - Dados do leitor a serem preenchidos no formulário.
+   */
   createForm(leitor: Leitor) {
     // Criação do grupo de controles do formulário com validações
     this.formLeitor = new FormGroup({
@@ -66,9 +82,14 @@ export class LeitorFormComponent implements OnInit {
     }
   }
 
-  // Método chamado ao submeter o formulário
+  /**
+   * Método executado ao submeter o formulário.
+   * Responsável por chamar o método para salvar ou editar um leitor, dependendo do valor da variável btn.
+   * Se btn for diferente de "Editar", salva um novo leitor.
+   * Se btn for "Editar", atualiza o leitor existente.
+   * Em seguida, fecha o diálogo e reseta o formulário para um novo leitor.
+   */
   onSubmit() {
-    // Se não for edição, salva um novo leitor
     if (this.btn != "Editar") {
       this.LeitorService.salvarLeitor(this.formLeitor.value).subscribe((res: any) => {
         if (res != null) {
@@ -80,7 +101,6 @@ export class LeitorFormComponent implements OnInit {
       })
       this.formLeitor.reset(new Leitor());// Reseta o formulário para um novo leitor
 
-    // Se for edição, atualiza o leitor existente
     } else {
       this.LeitorService.editarLeitor(this.formLeitor.value).subscribe((res: any) => {
         if (res != null) {
@@ -93,15 +113,22 @@ export class LeitorFormComponent implements OnInit {
     }
   }
 
-  // Método para exibir uma mensagem usando o snack bar
+  /**
+   * Exibe uma mensagem na tela usando o snack bar.
+   *
+   * @param message - A mensagem a ser exibida.
+   * @param action - O texto do bot o do snack bar.
+   */
   open(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: this.durationInSeconds * 1000,
     });
   }
 
-  // Método para fechar o diálogo
-  public fecharModal() {
+  /**
+   * Fecha o di logo e retorna o valor da propriedade `result` do di logo como `undefined`.
+   */
+ public fecharModal() {
     this.dialogRef.close();
   }
 }

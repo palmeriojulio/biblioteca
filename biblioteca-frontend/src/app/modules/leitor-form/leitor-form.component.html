@@ -11,11 +11,11 @@
       <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>Nome</mat-label>
         <input matInput placeholder="Digite o nome" formControlName="nome">
-        <mat-error *ngIf="formLeitor.get('nome')?.hasError('required')">
-          Nome é obrigatório
-        </mat-error>
         <mat-error *ngIf="formLeitor.get('nome')?.hasError('apenasLetras')">
           Apenas letras são permitidas
+        </mat-error>
+        <mat-error *ngIf="formLeitor.get('nome')?.hasError('required')">
+          Nome é obrigatório
         </mat-error>
       </mat-form-field>
 

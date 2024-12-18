@@ -12,6 +12,20 @@ export class Leitor {
   turno?: string;
   //endereco? Endereco[];
 
+  /**
+   * Cria um novo Leitor.
+   * @param id O ID do Leitor, se for um Leitor existente.
+   * @param nome O nome do Leitor.
+   * @param cpf O CPF do Leitor.
+   * @param rg O RG do Leitor.
+   * @param dataNascimento A data de nascimento do Leitor.
+   * @param telefone O telefone do Leitor.
+   * @param profissao A profiss o do Leitor.
+   * @param escola A escola do Leitor.
+   * @param serie A série do Leitor.
+   * @param curso O curso do Leitor.
+   * @param turno O turno do Leitor.
+   */
   constructor (
     id?: number,
     nome?: string,
