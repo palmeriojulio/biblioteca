@@ -11,55 +11,55 @@
       <mat-form-field class="inputCdu" appearance="outline">
         <mat-label>CDU</mat-label>
         <input matInput placeholder="Digite o código CDU" formControlName="cdu" />
-        <mat-error *ngIf="formLivro.get('cdu')?.hasError('required')">
-          O código CDU é obrigatório
-        </mat-error>
         <mat-error *ngIf="formLivro.get('cdu')?.hasError('apenasNumeros')">
           Apenas letras são permitidas
+        </mat-error>
+        <mat-error *ngIf="formLivro.get('cdu')?.hasError('required')">
+          O código CDU é obrigatório
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="inputTitulo" appearance="outline">
         <mat-label>Título</mat-label>
         <input matInput placeholder="Digite o título do livro" formControlName="titulo" />
-        <mat-error *ngIf="formLivro.get('titulo')?.hasError('required')">
-          O título é obrigatório
-        </mat-error>
         <mat-error *ngIf="formLivro.get('titulo')?.hasError('apenasLetras')">
           Apenas letras são permitidas
+        </mat-error>
+        <mat-error *ngIf="formLivro.get('titulo')?.hasError('required')">
+          O título é obrigatório
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="inputAutor" appearance="outline">
         <mat-label>Autor</mat-label>
         <input matInput placeholder="Digite o nome do autor" formControlName="autor" />
-        <mat-error *ngIf="formLivro.get('autor')?.hasError('required')">
-          O nome do autor é obrigatório
-        </mat-error>
         <mat-error *ngIf="formLivro.get('autor')?.hasError('apenasLetras')">
           Apenas letras são permitidas
+        </mat-error>
+        <mat-error *ngIf="formLivro.get('autor')?.hasError('required')">
+          O nome do autor é obrigatório
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="inputEditora" appearance="outline">
         <mat-label>Editora</mat-label>
         <input matInput placeholder="Digite o nome do editora" formControlName="editora" />
-        <mat-error *ngIf="formLivro.get('editora')?.hasError('required')">
-          O nome da editora é obrigatório
-        </mat-error>
         <mat-error *ngIf="formLivro.get('editora')?.hasError('apenasLetras')">
           Apenas letras são permitidas
+        </mat-error>
+        <mat-error *ngIf="formLivro.get('editora')?.hasError('required')">
+          O nome da editora é obrigatório
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="inputQuant" appearance="outline">
         <mat-label>Quant.</mat-label>
         <input matInput type="number" formControlName="quantidadeDisponivel" />
-        <mat-error *ngIf="formLivro.get('quantidadeDisponivel')?.hasError('required')">
-          Quant é obrigatória
-        </mat-error>
         <mat-error *ngIf="formLivro.get('quantidadeDisponivel')?.hasError('apenasNumeros')">
           Apenas letras são permitidas
+        </mat-error>
+        <mat-error *ngIf="formLivro.get('quantidadeDisponivel')?.hasError('required')">
+          Quant é obrigatória
         </mat-error>
       </mat-form-field>
 

@@ -54,16 +54,19 @@
       <ng-container matColumnDef="info">
         <th mat-header-cell *matHeaderCellDef> Informação </th>
         <td mat-cell *matCellDef="let emprestimo">
-          <button mat-icon-button color="primary" aria-label="Informação">
+          <button mat-icon-button color="primary" aria-label="Informação" (click)="listarEmprestimosById(emprestimo.id)">
             <mat-icon>info_i</mat-icon>
           </button>
         </td>
       </ng-container>
 
+      <app-emprestimo-info *ngIf="mostrarInfo" [emprestimo]="emprestimo"></app-emprestimo-info>
+
       <ng-container matColumnDef="devolucao">
         <th mat-header-cell *matHeaderCellDef> Devolução </th>
         <td mat-cell *matCellDef="let emprestimo">
-          <button mat-icon-button [ngClass]="{'ativo': emprestimo.status === 'ATIVO', 'desabilitado': emprestimo.status === 'CONCLUIDO'}" aria-label="Devolução">
+          <button mat-icon-button [ngClass]="{'ativo': emprestimo.status === 'ATIVO',
+              'desabilitado': emprestimo.status === 'CONCLUIDO'}" aria-label="Devolução">
             <mat-icon (click)="devolucao(emprestimo)" >play_lesson</mat-icon>
           </button>
         </td>
@@ -91,7 +94,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [length]="100" [pageSize]="8" [pageSizeOptions]="[5, 10, 20, 50]" aria-label="Selecione a página">
+    <mat-paginator [length]="100" [pageSize]="7" [pageSizeOptions]="[5, 10, 20, 50]" aria-label="Selecione a página">
     </mat-paginator>
 
   </div>

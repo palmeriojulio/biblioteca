@@ -11,33 +11,33 @@
       <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>Nome</mat-label>
         <input matInput placeholder="Digite o nome" formControlName="nome">
-        <mat-error *ngIf="formLeitor.get('nome')?.hasError('apenasLetras')">
-          Apenas letras são permitidas
-        </mat-error>
         <mat-error *ngIf="formLeitor.get('nome')?.hasError('required')">
           Nome é obrigatório
+        </mat-error>
+        <mat-error *ngIf="formLeitor.get('nome')?.hasError('apenasLetras')">
+          Apenas letras são permitidas
         </mat-error>
       </mat-form-field>
 
       <mat-form-field style="width: 25%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>CPF</mat-label>
         <input matInput placeholder="Digite o CPF" formControlName="cpf" mask="000.000.000-00">
-        <mat-error *ngIf="formLeitor.get('cpf')?.hasError('required')">
-          CPF é obrigatório
-        </mat-error>
         <mat-error *ngIf="formLeitor.get('cpf')?.hasError('apenasNumeros')">
           Apenas números são permitidos
+        </mat-error>
+        <mat-error *ngIf="formLeitor.get('cpf')?.hasError('required')">
+          CPF é obrigatório
         </mat-error>
       </mat-form-field>
 
       <mat-form-field style="width: 25%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>RG</mat-label>
         <input matInput placeholder="Digite o RG" formControlName="rg" maxlength="20">
-        <mat-error *ngIf="formLeitor.get('rg')?.hasError('required')">
-          RG é obrigatório
-        </mat-error>
         <mat-error *ngIf="formLeitor.get('rg')?.hasError('apenasNumeros')">
           Apenas números são permitidos
+        </mat-error>
+        <mat-error *ngIf="formLeitor.get('rg')?.hasError('required')">
+          RG é obrigatório
         </mat-error>
       </mat-form-field>
 
@@ -54,66 +54,66 @@
       <mat-form-field style="width: 25%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>Telefone</mat-label>
         <input matInput placeholder="Digite o telefone" formControlName="telefone" mask="(00) 00000-0000">
-        <mat-error *ngIf="formLeitor.get('telefone')?.hasError('required')">
-          Telefone é obrigatório
-        </mat-error>
         <mat-error *ngIf="formLeitor.get('telefone')?.hasError('apenasNumeros')">
           Apenas números são permitidos
+        </mat-error>
+        <mat-error *ngIf="formLeitor.get('telefone')?.hasError('required')">
+          Telefone é obrigatório
         </mat-error>
       </mat-form-field>
 
       <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>Profissão</mat-label>
         <input matInput placeholder="Digite a profissão" formControlName="profissao">
-        <mat-error *ngIf="formLeitor.get('profissao')?.hasError('required')">
-          Profissão é obrigatória
-        </mat-error>
         <mat-error *ngIf="formLeitor.get('profissao')?.hasError('apenasLetras')">
           Apenas letras são permitidas
+        </mat-error>
+        <mat-error *ngIf="formLeitor.get('profissao')?.hasError('required')">
+          Profissão é obrigatória
         </mat-error>
       </mat-form-field>
 
       <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>Escola</mat-label>
         <input matInput placeholder="Digite a escola" formControlName="escola">
-        <mat-error *ngIf="formLeitor.get('escola')?.hasError('required')">
-          Escola é obrigatória
-        </mat-error>
         <mat-error *ngIf="formLeitor.get('escola')?.hasError('apenasLetras')">
           Apenas letras são permitidas
+        </mat-error>
+        <mat-error *ngIf="formLeitor.get('escola')?.hasError('required')">
+          Escola é obrigatória
         </mat-error>
       </mat-form-field>
 
       <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>Série</mat-label>
         <input matInput placeholder="Digite a série" formControlName="serie">
-        <mat-error *ngIf="formLeitor.get('serie')?.hasError('required')">
-          Série é obrigatória
-        </mat-error>
         <mat-error *ngIf="formLeitor.get('serie')?.hasError('apenasNumeros')">
           Apenas números são permitidos
+        </mat-error>
+        <mat-error *ngIf="formLeitor.get('serie')?.hasError('required')">
+          Série é obrigatória
         </mat-error>
       </mat-form-field>
 
       <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>Curso</mat-label>
         <input matInput placeholder="Digite o curso" formControlName="curso">
-        <mat-error *ngIf="formLeitor.get('curso')?.hasError('required')">
-          Curso é obrigatório
-        </mat-error>
         <mat-error *ngIf="formLeitor.get('curso')?.hasError('apenasLetras')">
           Apenas letras são permitidas
+        </mat-error>
+        <mat-error *ngIf="formLeitor.get('curso')?.hasError('required')">
+          Curso é obrigatório
         </mat-error>
       </mat-form-field>
 
       <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>Turno</mat-label>
         <input matInput placeholder="Digite o turno" formControlName="turno">
-        <mat-error *ngIf="formLeitor.get('turno')?.hasError('required')">
-          Turno é obrigatório
-        </mat-error>
         <mat-error *ngIf="formLeitor.get('turno')?.hasError('apenasLetras')">
           Apenas letras são permitidas
+        </mat-error>
+        <mat-error *ngIf="formLeitor.get('turno')?.hasError('required')">
+          Turno é obrigatório
         </mat-error>
       </mat-form-field>
     </div>
