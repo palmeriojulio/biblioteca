@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -8,19 +8,17 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ConfirmDialogComponent {
 
-
   /**
    * Construtor do componente `ConfirmDialogComponent`.
    *
    * @param dialogRef Referência ao diálogo atual.
    * @param data Dados injetados ao abrir o diálogo, contendo o título e a mensagem
-   *            a serem exibidos.
+   * a serem exibidos.
    */
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
-
 
   /**
    * Fecha o diálogo e retorna `false` como resultado.

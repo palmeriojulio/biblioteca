@@ -1,14 +1,19 @@
-<div>
-  <mat-card class="info-card">
-    <mat-card-title>Informações do Empréstimo</mat-card-title>
-    <mat-card-content>
-      <p>ID: {{ emprestimo.id }}</p>
-      <p>livros: {{ emprestimo.livros }}</p>
-      <p>Leitor: {{ emprestimo.leitor }}</p>
-      <p>Data do Empréstimo: {{ emprestimo.dataEmprestimo }}</p>
-      <p>Data de Devolução Prevista: {{ emprestimo.dataDevolucaoPrevista }}</p>
-      <p>Data de Devolução Real: {{ emprestimo.dataDevolucaoReal }}</p>
-    </mat-card-content>
-  </mat-card>
-  <p>Card renderizado!</p>
+<mat-toolbar class="background-color">
+  <mat-icon class="mat-18">info_i</mat-icon>
+  <span style="margin-left: 10px">Informaçãos do Empréstimo</span>
+</mat-toolbar>
+<br>
+<mat-card-content>
+  <p><b>Leitor: </b> {{ emprestimo.leitor.nome }}</p>
+  <p><b>Telefone: </b> {{ emprestimo.leitor.telefone }}</p>
+  <p><b>Endereço: </b> {{ emprestimo.leitor.endereco.logradouro }}</p>
+  <p *ngFor="let livro of emprestimo.livros"><b>Livro: </b> {{ livro.titulo }}</p>
+  <p><b>Data do emprestimo: </b> {{ emprestimo.dataDoEmprestimo | date: 'dd/MM/yyyy' }}</p>
+  <p><b>Data de devolução: </b> {{ emprestimo.dataDevolucaoPrevista | date: 'dd/MM/yyyy' }}</p>
+  <p><b>Data da devolução real: </b> {{ emprestimo.dataDevolucaoReal | date: 'dd/MM/yyyy' }} </p>
+  <p><b>Status: </b> {{ emprestimo.status }} </p>
+</mat-card-content>
+
+<div mat-dialog-actions align="end">
+  <button mat-button color="warn" [mat-dialog-close]="true">Sair</button>
 </div>

@@ -3,13 +3,11 @@
   <h1 mat-dialog-title>{{ data.title }}</h1>
 </mat-toolbar>
 
-<mat-card>
-  <div mat-dialog-content>
-    <p>{{ data.message }}</p>
-    <strong>{{ data.titulo }}</strong>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-button class="background-color" (click)="onNoClick()">Cancelar</button>
-    <button mat-button [mat-dialog-close]="true">Confirmar</button>
-  </div>
-</mat-card>
+<div mat-dialog-content>
+  <p>{{ data.message }}</p>
+  <strong>{{ data.titulo }}</strong>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button color="warn" [mat-dialog-close]="true">Confirmar</button>
+  <button mat-button color="primary" (click)="onNoClick()">Cancelar</button>
+</div>

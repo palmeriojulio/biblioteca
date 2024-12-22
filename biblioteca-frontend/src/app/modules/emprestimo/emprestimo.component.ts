@@ -22,7 +22,8 @@ export class EmprestimoComponent implements OnInit {
   dataSource: MatTableDataSource<Emprestimo> = new MatTableDataSource<Emprestimo>();
   emprestimo!: Emprestimo; // Objeto do tipo Emprestimo.
   durationInSeconds = 5; // Duração para o snackbar.
-  mostrarInfo = false; // Variável para controlar a visibilidade do card de informação do emprestimo selecionado.
+  btn: string = "Salvar"// Texto do botão
+  title: string = "Adicionar livro"// Título do formulário
 
   /**
    * Construtor do componente EmprestimoComponent.
@@ -32,9 +33,9 @@ export class EmprestimoComponent implements OnInit {
    * @param snackBar - Serviço para snackbars.
    */
   constructor(
-    private emprestimoService: EmprestimoService, // Serviço para comunicação com o backend.
-    private dialog: MatDialog, // Serviço para diálogos.
-    private snackBar: MatSnackBar // Serviço para snackbars.
+    private emprestimoService: EmprestimoService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) { }
 
   /**
@@ -46,15 +47,30 @@ export class EmprestimoComponent implements OnInit {
   }
 
   /**
+   * Abre um diálogo para iniciar um empréstimo.
+   *
+   * Chama o método listarEmprestimos() após o fechamento do diálogo para atualizar a lista de emprestimos.
+   * @param emprestimo O emprestimo a ser iniciado.
+   */
+  iniciarEmprestimo(emprestimo: Emprestimo) {
+    const dialogRef = this.dialog.open(EmprestimoFormComponent, {
+      width: '800px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.listarEmprestimos();
+    });
+  }
+
+  /**
    * Chama o serviço para listar os empréstimos e popula a tabela.
    * Chama o método getLivrosFormatados() em cada objeto Emprestimo da lista para formatar os livros.
    */
   listarEmprestimos() {
     this.emprestimoService.listarEmprestimos().subscribe((res: any) => {
       this.dataSource = new MatTableDataSource<Emprestimo>(res);
-      this.dataSource.paginator = this.paginator; // Associa o paginator à tabela
+      this.dataSource.paginator = this.paginator;
 
-      // Chama o método getLivrosFormatados() em cada objeto Emprestimo da lista
       this.dataSource.data.forEach(emprestimo => {
         if (emprestimo instanceof Emprestimo) {
           const livrosFormatados = emprestimo.getLivrosFormatados();
@@ -71,8 +87,6 @@ export class EmprestimoComponent implements OnInit {
   listarEmprestimosById(id: number) {
     this.emprestimoService.listarEmprestimosById(id).subscribe((res: any) => {
       this.emprestimo = res;
-      this.mostrarInfo = true;
-      console.log('mostrarInfo:', this.mostrarInfo);
     });
   }
 
@@ -94,7 +108,7 @@ export class EmprestimoComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.emprestimoService.excluirEmprestimo(emprestimo.id).subscribe((res: any) => {
-          this.listarEmprestimos(); // Atualiza a lista de emprestimo após a exclusão
+          this.listarEmprestimos();
           this.open('emprestimo excluído com sucesso!', 'Fechar');
         }, (error) => {
           alert(error.error.text);
@@ -111,11 +125,27 @@ export class EmprestimoComponent implements OnInit {
   editarEmprestimo(emprestimo: any) {
     const dialogRef = this.dialog.open(EmprestimoComponent, {
       width: '800px',
-      data: emprestimo // Passa o emprestimo atual como dado para o diálogo
+      data: emprestimo
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.listarEmprestimos(); // Atualiza a lista de emprestimo após o fechamento do diálogo
+      this.listarEmprestimos();
+    });
+  }
+
+  /**
+   * Abre um diálogo para mostrar as informações de um empréstimo.
+   * Chama o método listarEmprestimos() após o fechamento do diálogo para atualizar a lista de emprestimos.
+   * @param emprestimo O emprestimo a ser exibido.
+   */
+  informacaoDoEmprestimo(emprestimo: any) {
+    const dialogRef = this.dialog.open(EmprestimoInfoComponent, {
+      width: '800px',
+      data: emprestimo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.listarEmprestimos();
     });
   }
 
@@ -126,29 +156,13 @@ export class EmprestimoComponent implements OnInit {
    */
   devolucao(emprestimo: any) {
     this.emprestimoService.devolucao(emprestimo.id, emprestimo).subscribe((res: any) => {
-      this.listarEmprestimos(); // Atualiza a lista de emprestimo depois da devolução
+      this.listarEmprestimos();
       this.open('emprestimo devolvido com sucesso!', 'Fechar');
     }, (error) => {
       alert(error.error.text);
       this.listarEmprestimos();
     });
   }
-
-
-  /**
-   * Abre um diálogo para adicionar um novo empréstimo ou editar um existente.
-   * @param emprestimo O emprestimo a ser editado, ou undefined para adicionar um novo.
-   */
-  openDialog(emprestimo: Emprestimo) {
-    const dialogRef = this.dialog.open(EmprestimoFormComponent, {
-      width: '800px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.listarEmprestimos(); // Atualiza a lista de empréstimos após o fechamento do diálogo
-    });
-  }
-
 
   /**
    * Exibe uma mensagem usando o snack bar.

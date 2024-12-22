@@ -87,7 +87,7 @@ export class EmprestimoFormComponent implements OnInit {
         this.formEmprestimo.controls['id'].setValue(this.EmprestimoEdit.id),
         this.formEmprestimo.controls['leitor'].setValue(this.EmprestimoEdit.leitor),
         this.formEmprestimo.controls['livro'].setValue(this.EmprestimoEdit.livros),
-        this.formEmprestimo.controls['dataEmprestimo'].setValue(this.EmprestimoEdit.dataEmprestimo),
+        this.formEmprestimo.controls['dataDoEmprestimo'].setValue(this.EmprestimoEdit.dataDoEmprestimo),
         this.formEmprestimo.controls['dataDevolucaoPrevista'].setValue(this.EmprestimoEdit.dataDevolucaoPrevista),
         this.formEmprestimo.controls['dataDevolucaoReal'].setValue(this.EmprestimoEdit.dataDevolucaoReal);
       }

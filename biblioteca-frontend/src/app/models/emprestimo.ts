@@ -5,23 +5,26 @@ export class Emprestimo {
   id?: number;
   leitor: Leitor;
   livros: Livro[] = [];
-  dataEmprestimo?: string;
+  dataDoEmprestimo?: string;
   dataDevolucaoPrevista?: string;
   dataDevolucaoReal?: string;
+  status?: string;
 
   constructor(
     leitor: Leitor,
     livros: Livro[],
-    dataEmprestimo?: string,
+    dataDoEmprestimo?: string,
     dataDevolucaoPrevista?: string,
-    dataDevolucaoReal?: string
+    dataDevolucaoReal?: string,
+    status?: string
   )
   {
     this.leitor = leitor;
     this.livros = livros;
-    this.dataEmprestimo = dataEmprestimo;
+    this.dataDoEmprestimo = dataDoEmprestimo;
     this.dataDevolucaoPrevista = dataDevolucaoPrevista;
     this.dataDevolucaoReal = dataDevolucaoReal;
+    this.status = status;
   }
 
   /**

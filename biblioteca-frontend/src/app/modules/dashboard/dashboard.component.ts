@@ -28,10 +28,10 @@ export class DashboardComponent implements OnInit {
       new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Memórias póst...', 'O cortiço', 'Broquéis', 'Triste fim de...', 'Macunaíma'],
+          labels: ['O Código da Inteligência', 'Pai Rico Pai Pobre', 'Como Fazer Amigos...', 'Macunaíma', 'O Senhor dos Aneis'],
           datasets: [{
             label: 'Os 5 Livros Mais Emprestados',
-            data: [30, 25, 15, 20, 10],
+            data: [30, 25, 20, 10, 5],
             backgroundColor: 'rgba(33, 150, 243, 0.2)',
             borderColor: 'rgba(33, 150, 243, 1)',
             borderWidth: 1
