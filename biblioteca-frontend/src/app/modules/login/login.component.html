@@ -1,31 +1,34 @@
-<mat-card style=" box-shadow: 2px 2px 2px 2px rgb(207, 206, 206);">
-  <img mat-card-image src="../../../../assets/logo_fenelon_login.png">
-    <div class="title-login">
-      <h1>Login</h1>
-    </div>
+<br><br>
+<mat-card>
+  <img class="logo" mat-card-image src="../../../../assets/logo_login.svg">
     <form class="form-login">
       <div mat-dialog-content>
+
         <mat-form-field appearance="outline">
           <mat-label>Digite o login</mat-label>
-          <input matInput placeholder="Login" formControlName="login"/>
+          <input matInput type="text" placeholder="Login" formControlName="login"/>
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
+
         <mat-form-field appearance="outline">
           <mat-label>Digite a senha</mat-label>
-          <input matInput placeholder="Senha" formControlName="password"/>
+          <input matInput type="password" placeholder="Senha" formControlName="password"/>
           <mat-icon matSuffix>key</mat-icon>
         </mat-form-field>
+
       </div>
     </form>
     <div>
       <button mat-raised-button color="primary" style="width: 100%; height: 50px;" routerLink="/principal/dashboard">
         <mat-icon>login</mat-icon>
         Login</button>
-    </div>
-    <mat-card-footer>
-    </mat-card-footer>
-    <br>
-</mat-card>
+      </div>
+      <mat-card-footer>
+      </mat-card-footer>
+      <br>
+    </mat-card>
+
+    <br><br><br><br><br><br><br><br><br><br>
 
 
 

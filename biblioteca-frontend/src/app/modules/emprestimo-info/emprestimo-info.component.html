@@ -10,7 +10,8 @@
   <p *ngFor="let livro of emprestimo.livros"><b>Livro: </b> {{ livro.titulo }}</p>
   <p><b>Data do emprestimo: </b> {{ emprestimo.dataDoEmprestimo | date: 'dd/MM/yyyy' }}</p>
   <p><b>Data de devolução: </b> {{ emprestimo.dataDevolucaoPrevista | date: 'dd/MM/yyyy' }}</p>
-  <p><b>Data da devolução real: </b> {{ emprestimo.dataDevolucaoReal | date: 'dd/MM/yyyy' }} </p>
+  <p *ngIf="emprestimo.dataDevolucaoReal !== null"><b>Data da devolução real: </b> {{ emprestimo.dataDevolucaoReal | date: 'dd/MM/yyyy' }} </p>
+  <p *ngIf="emprestimo.dataDevolucaoReal === null"><b>Data da devolução real: </b> {{ emprestimo.dataDevolucaoReal | date: 'dd/MM/yyyy' }} </p>
   <p><b>Status: </b> {{ emprestimo.status }} </p>
 </mat-card-content>
 

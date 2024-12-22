@@ -1,13 +1,15 @@
 mat-card {
   width: 300px;
   margin: 0 auto;
-  margin-top: 10%;
+  box-shadow: 3px 3px 3px 3px rgb(207, 206, 206) !important;;
+  padding: 15px;
+  background-color: rgb(253, 253, 253);
 }
 
 img {
-  align-items: center;
-  width: 130px;
-  height: 150px;
+  display: flex;
+  margin: 0 auto;
+  width: 300px;
 }
 
 mat-form-field {
@@ -17,10 +19,19 @@ mat-form-field {
 
 mat-raised-button {
   width: 100%;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+mat-raised-button:hover {
+  background-color: #3e8e41;
+  color: #fff;
 }
 
 .title-login {
-  text-align: center;
-  margin-bottom: 30px;
+  text-align: start;
 }
-
