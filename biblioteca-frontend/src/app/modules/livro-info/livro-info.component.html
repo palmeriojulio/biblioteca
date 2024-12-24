@@ -1,0 +1,24 @@
+<mat-toolbar class="background-color">
+  <mat-icon class="mat-18">info</mat-icon>
+  <span>Informações do Livro</span>
+</mat-toolbar>
+
+<mat-card class="info-card">
+  <mat-card-content>
+
+    <mat-card-title>📖 Livro</mat-card-title>
+    <div class="info-row">
+      <p><b>DCU:</b> {{ livro.cdu }}</p>
+      <p><b>Título:</b> {{ livro.titulo }}</p>
+      <p><b>Autor:</b> {{ livro.autor }}</p>
+      <p><b>Editora:</b> {{ livro.editora }}</p>
+      <p><b>Disponível:</b> {{ livro.quantidadeDisponivel }}</p>
+    </div>
+    <mat-divider></mat-divider>
+
+  </mat-card-content>
+</mat-card>
+
+<div mat-dialog-actions align="start">
+  <button mat-raised-button [mat-dialog-close]="true">Fechar</button>
+</div>

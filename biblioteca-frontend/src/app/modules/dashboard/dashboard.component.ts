@@ -30,9 +30,9 @@ export class DashboardComponent implements OnInit {
         data: {
           labels: ['O Código da Inteligência', 'Pai Rico Pai Pobre', 'Como Fazer Amigos...', 'Macunaíma', 'O Senhor dos Aneis'],
           datasets: [{
-            label: 'Os 5 Livros Mais Emprestados',
+            label: '5 Livros mais emprestados',
             data: [30, 25, 20, 10, 5],
-            backgroundColor: 'rgba(33, 150, 243, 0.2)',
+            backgroundColor: 'rgba(33, 149, 243, 0.47)',
             borderColor: 'rgba(33, 150, 243, 1)',
             borderWidth: 1
           }]

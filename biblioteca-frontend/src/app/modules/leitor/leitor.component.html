@@ -35,7 +35,7 @@
       </ng-container>
 
       <ng-container matColumnDef="profissao">
-        <th mat-header-cell *matHeaderCellDef> Profissao </th>
+        <th mat-header-cell *matHeaderCellDef> Profissão </th>
         <td mat-cell *matCellDef="let leitor"> {{ leitor.profissao }} </td>
       </ng-container>
 
@@ -47,7 +47,7 @@
       <ng-container matColumnDef="info">
         <th mat-header-cell *matHeaderCellDef> Informação </th>
         <td mat-cell *matCellDef="let leitor">
-          <button mat-icon-button color="basic" aria-label="Informação">
+          <button mat-icon-button class="info" aria-label="Informação" (click)="informacaoDoLeitor(leitor)">
             <mat-icon>info_i</mat-icon>
           </button>
         </td>
@@ -56,7 +56,7 @@
       <ng-container matColumnDef="editar">
         <th mat-header-cell *matHeaderCellDef> Editar </th>
         <td mat-cell *matCellDef="let leitor">
-          <button mat-icon-button color="primary" aria-label="Editar leitor" (click)="editarLeitor(leitor)">
+          <button mat-icon-button class="btn" aria-label="Editar leitor" (click)="editarLeitor(leitor)">
             <mat-icon>edit</mat-icon>
           </button>
         </td>

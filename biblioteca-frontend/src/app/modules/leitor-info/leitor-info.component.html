@@ -1,0 +1,29 @@
+<mat-toolbar class="background-color">
+  <mat-icon class="mat-18">info</mat-icon>
+  <span>Informações do Leitor</span>
+</mat-toolbar>
+
+<mat-card class="info-card">
+  <mat-card-content>
+
+    <mat-card-title>📖 Leitor</mat-card-title>
+    <div class="info-row">
+      <p><b>Leitor:</b> {{ leitor.nome }}</p>
+      <p><b>CPF:</b> {{ leitor.cpf }}</p>
+      <p><b>RG:</b> {{ leitor.rg }} </p>
+      <p><b>Telefone:</b> {{ leitor.telefone }}</p>
+      <p><b>Profissão:</b> {{ leitor.profissao }}</p>
+    </div>
+    <mat-divider></mat-divider>
+
+    <mat-card-title>📚 Endereço</mat-card-title>
+    <div class="info-row">
+      <p><b>Endereço:</b> {{ leitor.endereco.logradouro }}</p>
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+<div mat-dialog-actions align="start">
+  <button mat-raised-button [mat-dialog-close]="true">Fechar</button>
+</div>

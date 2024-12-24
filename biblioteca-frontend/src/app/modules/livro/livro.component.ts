@@ -7,8 +7,7 @@ import { Livro } from 'src/app/models/livro-model';
 import { LivroService } from 'src/app/services/livro.service';
 import { LivroFormComponent } from '../livro-form/livro-form.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { Emprestimo } from 'src/app/models/emprestimo';
-import { EmprestimoComponent } from '../emprestimo/emprestimo.component';
+import { LivroInfoComponent } from '../livro-info/livro-info.component';
 
 @Component({
   selector: 'app-livro',
@@ -19,7 +18,7 @@ export class LivroComponent implements OnInit {
 
   // Variáveis para construção da lista de dos livros.
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Paginator para a tabela
-  displayedColumns: string[] = ['id', 'cdu', 'titulo', 'autor', 'quantidadeDisponivel', 'status', 'editar', 'excluir'] // Colunas exibidas na tabela
+  displayedColumns: string[] = ['id', 'cdu', 'titulo', 'autor', 'quantidadeDisponivel', 'status', 'info', 'editar', 'excluir'] // Colunas exibidas na tabela
   dataSource!: MatTableDataSource<Livro>; // Fonte de dados para a tabela
   livro!: Livro; // Objeto do tipo Livro
   durationInSeconds = 5; // Duração para o snackbar
@@ -100,6 +99,17 @@ export class LivroComponent implements OnInit {
           this.listarLivros();
         });
       }
+    });
+  }
+
+  informacaoDoLivro(livro: any) {
+    const dialogRef = this.dialog.open(LivroInfoComponent, {
+      width: '800px',
+      data: livro
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.listarLivros();
     });
   }
 

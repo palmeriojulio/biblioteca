@@ -24,8 +24,8 @@ export class EmprestimoInfoComponent {
   ) { }
 
   /**
-     * Fecha o diálogo e retorna `false` como resultado.
-     */
+   * Fecha o diálogo e retorna `false` como resultado.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }

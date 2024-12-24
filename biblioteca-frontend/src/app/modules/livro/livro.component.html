@@ -44,10 +44,19 @@
         <td mat-cell *matCellDef="let livro"> {{ livro.status }} </td>
       </ng-container>
 
+      <ng-container matColumnDef="info">
+        <th mat-header-cell *matHeaderCellDef> Informação </th>
+        <td mat-cell *matCellDef="let livro">
+          <button mat-icon-button class="info" aria-label="Informação" (click)="informacaoDoLivro(livro)">
+            <mat-icon>info_i</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="editar">
         <th mat-header-cell *matHeaderCellDef> Editar </th>
         <td mat-cell *matCellDef="let livro">
-          <button mat-icon-button color="primary" aria-label="Editar livro" (click)="editarLivro(livro)">
+          <button mat-icon-button class="btn" aria-label="Editar livro" (click)="editarLivro(livro)">
             <mat-icon>edit</mat-icon>
           </button>
         </td>

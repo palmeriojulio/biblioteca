@@ -7,6 +7,7 @@ import { Leitor } from 'src/app/models/leitor-model';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { LeitorService } from 'src/app/services/leitor.service';
 import { LeitorFormComponent } from '../leitor-form/leitor-form.component';
+import { LeitorInfoComponent } from '../leitor-info/leitor-info.component';
 
 @Component({
   selector: 'app-leitor',
@@ -61,6 +62,17 @@ export class LeitorComponent implements OnInit {
           this.listarLeitores();
         });
       }
+    });
+  }
+
+  informacaoDoLeitor(leitor: any) {
+    const dialogRef = this.dialog.open(LeitorInfoComponent, {
+      width: '800px',
+      data: leitor
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      this.listarLeitores();
     });
   }
 
