@@ -166,7 +166,7 @@ public class EmprestimoService {
             emprestimo.setLivros(livros);
             emprestimo.setDataDoEmprestimo(LocalDateTime.now());
             emprestimo.setDataDevolucaoPrevista(LocalDateTime.now().plusDays(6));
-            emprestimo.setStatus(StatusEmprestimoEnum.ATIVO);
+            emprestimo.setStatus(StatusEmprestimoEnum.ATIVO.getDescricao());
 
             // Salva o empréstimo no banco de dados
             return EmprestimoDto.fromEmprestimo(emprestimoRepository.save(emprestimo));
@@ -194,20 +194,20 @@ public class EmprestimoService {
                     .orElseThrow(() -> new ResourceNotFoundException("Empréstimo não encontrado com o ID: " + id));
 
             // Verifica se o empréstimo já foi finalizado
-            if (emprestimo.getStatus() == StatusEmprestimoEnum.CONCLUIDO) {
+            if (emprestimo.getStatus().equals(StatusEmprestimoEnum.CONCLUIDO.getDescricao())) {
                 throw new ConflictException("Este empréstimo já foi finalizado anteriormente.");
             }
 
             // Atualiza o status e a quantidade de exemplares de cada livro
             for (Livro livro : emprestimo.getLivros()) {
-                livro.setStatus(StatusLivroEnum.DISPONIVEL);
+                livro.setStatus(StatusLivroEnum.EMPRESTADO.getDescricao());
                 livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel() + 1);
                 livroRepository.save(livro);
             }
 
             // Define a data de devolução real e atualiza o status do empréstimo
             emprestimo.setDataDevolucaoReal(LocalDateTime.now());
-            emprestimo.setStatus(StatusEmprestimoEnum.CONCLUIDO);
+            emprestimo.setStatus(StatusEmprestimoEnum.CONCLUIDO.getDescricao());
 
             // Atualiza o empréstimo no banco de dados
             Emprestimo emprestimoFinalizado = emprestimoRepository.save(emprestimo);
@@ -260,7 +260,7 @@ public class EmprestimoService {
                                 .orElseThrow(() -> new ResourceNotFoundException("Livro não encontrado com o ID: " + e.getId()));
                         if (livro.getQuantidadeDisponivel() > 0) {
                             livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel() - 1); // Diminui a quantidade do livro
-                            livro.setStatus(StatusLivroEnum.EMPRESTADO); // Atualiza o status do livro
+                            livro.setStatus(StatusLivroEnum.EMPRESTADO.getDescricao()); // Atualiza o status do livro
                             livroRepository.save(livro); // Atualiza o livro no banco de dados
                         } else {
                             throw new ConflictException("Livro com ID: " + livro.getId() + " não está disponível para empréstimo.");

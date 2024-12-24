@@ -16,8 +16,8 @@ public enum StatusLivroEnum {
     DANIFICADO("Danificado"), //O livro foi danificado e precisa ser reparado ou substituído.
     ARQUIVADO("Arquivado"); //O livro não está mais disponível para empréstimo e foi movido para o arquivo.
 
-    private String status;
-    StatusLivroEnum(String status) {
-        this.status= status;
+    private String descricao;
+    StatusLivroEnum(String descricao) {
+        this.descricao= descricao;
     }
 }

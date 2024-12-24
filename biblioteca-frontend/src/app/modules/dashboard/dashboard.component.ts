@@ -10,7 +10,7 @@ export class DashboardComponent implements OnInit {
 
   cards = [
     { title: 'Livros', value: '786', icon: 'book'},
-    { title: 'Leitores', value: '150', icon: 'people'},
+    { title: 'Leitores', value: '150', icon: '🧒'},
     { title: 'Emprestimos', value: '15', icon: 'book'},
     { title: 'Entregas de Hoje', value: '8', icon: 'today'},
     { title: 'Entregas em Atraso', value: '3', icon: 'schedule'}

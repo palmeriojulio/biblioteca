@@ -49,8 +49,7 @@ public class Emprestimo implements Serializable {
     private LocalDateTime dataDevolucaoReal;
 
     @Column(name = "status", length = 20)
-    @Enumerated(EnumType.STRING)
-    private StatusEmprestimoEnum status;
+    private String status;
 
     // Construtor explícito
     public Emprestimo(
@@ -58,7 +57,7 @@ public class Emprestimo implements Serializable {
             LocalDateTime dataDoEmprestimo,
             LocalDateTime dataDevolucaoPrevista,
             LocalDateTime dataDevolucaoReal,
-            StatusEmprestimoEnum status,
+            String status,
             List<Livro> convertList,
             Leitor leitor)
     {

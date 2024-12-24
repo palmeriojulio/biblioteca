@@ -24,7 +24,7 @@ public class LivroDto {
     @NotBlank(message = "Editora não pode estar em branco e não pode ser nulo.")
     private String editora;
     private int quantidadeDisponivel;
-    private StatusLivroEnum status  = StatusLivroEnum.DISPONIVEL;
+    private String status  = StatusLivroEnum.DISPONIVEL.getDescricao();
 
     /**
      * Converte de Dto para Entity
@@ -67,7 +67,7 @@ public class LivroDto {
      */
     public static List<Livro> toConvertList(List<LivroDto> livros) {
         return livros.stream()
-                .map((e -> LivroDto.toLivro(e)))
+                .map((LivroDto::toLivro))
                 .collect(Collectors.toList());
     }
 
@@ -78,7 +78,7 @@ public class LivroDto {
      */
     public static List<LivroDto> fromConvertList(List<Livro> livros) {
         return livros.stream()
-                .map((e -> LivroDto.fromLivro(e)))
+                .map((LivroDto::fromLivro))
                 .collect(Collectors.toList());
     }
 

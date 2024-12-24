@@ -17,7 +17,7 @@ public class EmprestimoDto {
     private LocalDateTime dataDoEmprestimo;
     private LocalDateTime dataDevolucaoPrevista;
     private LocalDateTime dataDevolucaoReal;
-    private StatusEmprestimoEnum status;
+    private String status;
     private List<LivroDto> livros;
     private LeitorDto leitor;
 

@@ -10,12 +10,14 @@ import lombok.Getter;
 public enum StatusEmprestimoEnum {
     PENDENTE("Pendente"), // O empréstimo foi solicitado, mas ainda não foi concluído.
     ATIVO("Ativo"), // O empréstimo está em andamento e os livros foram emprestados para o leitor.
-    CONCLUIDO("Concluido"), // O empréstimo foi devolvido e todos os livros foram devolvidos com sucesso.
+    CONCLUIDO("Concluído"), // O empréstimo foi devolvido e todos os livros foram devolvidos com sucesso.
     ATRASADO("Atrasado"), // O empréstimo não foi devolvido dentro do prazo estabelecido.
     CANCELADO("Cancelado"); // O empréstimo foi cancelado antes da conclusão.
 
-    private String status;
-    StatusEmprestimoEnum(String status) {
-        this.status= status;
+    private String descricao;
+
+    StatusEmprestimoEnum(String descricao) {
+        this.descricao = descricao;
     }
+
 }

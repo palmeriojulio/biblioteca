@@ -40,7 +40,5 @@ public class Livro implements Serializable {
 	private int quantidadeDisponivel = 0;
 
 	@Column(name = "status", length = 20)
-	@Enumerated(EnumType.STRING)
-	private StatusLivroEnum status;
-
+	private String status;
 }
