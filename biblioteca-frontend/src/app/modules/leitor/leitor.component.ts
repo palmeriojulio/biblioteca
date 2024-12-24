@@ -94,7 +94,12 @@ export class LeitorComponent implements OnInit {
     });
   }
 
-  // Método para aplicar filtro na tabela
+  /**
+   * Aplica um filtro na tabela de leitores com base no valor digitado.
+   * Chamado ao digitar na barra de pesquisa.
+   *
+   * @param event - O evento de input do formulário, usado para obter o valor do filtro.
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase(); // Aplica o filtro na tabela

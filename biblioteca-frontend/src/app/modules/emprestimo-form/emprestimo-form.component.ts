@@ -58,7 +58,7 @@ export class EmprestimoFormComponent implements OnInit {
     );
     this.createForm(emprestimo); // Criação do formulário com um novo empréstimo
 
-    this.livroService.listarLivros().subscribe(livros => {
+    this.livroService.listarLivrosDisponiveis().subscribe(livros => {
       this.livros = livros;
     });
 
@@ -102,13 +102,12 @@ export class EmprestimoFormComponent implements OnInit {
    */
   onSubmit() {
     if (this.btn != 'Editar') {
-      this.emprestimoService.salvarEmprestimo(
-        this.formEmprestimo.value
-      ).subscribe((res: any) => {
+      this.emprestimoService.salvarEmprestimo(this.formEmprestimo.value).subscribe((res: any) => {
+        console.log(res);
         if (res != null) {
-          this.open('Leitor salvo com sucesso!', 'X');
+          this.open('Empréstimo salvo com sucesso!', 'X');
         } else {
-          this.open('Erro ao salvar o leitor!', 'X');
+          this.open('Erro ao realizar o empréstimo!', 'X');
         }
         this.fecharModal();
       });
@@ -116,16 +115,28 @@ export class EmprestimoFormComponent implements OnInit {
 
       // Se for edição, atualiza o leitor existente
     } else {
-      this.emprestimoService.editarEmprestimo(
-        this.formEmprestimo.value
-      ).subscribe((res: any) => {
+      this.emprestimoService.editarEmprestimo(this.formEmprestimo.value).subscribe((res: any) => {
         if (res != null) {
-          this.open('Leitor alterado com sucesso!', 'X');
+          this.open('Empréstimo alterado com sucesso!', 'X');
         } else {
-          this.open('Erro ao alterar o leitor!', 'X');
+          this.open('Erro ao alterar o empréstimo!', 'X');
         }
         this.fecharModal();
       });
+    }
+  }
+
+  /**
+   * Função chamada ao selecionar um item na lista de livros.
+   * Responsável por limitar a quantidade de livros selecionados para 3.
+   * Se o usuário selecionar mais de 3 livros, este método remove o último item da lista e exibe uma mensagem de alerta.
+   * @param event - O evento de seleção do item.
+   */
+  limitarSelecao(event: any) {
+    const selcionados = event.value;
+    if (selcionados.length > 3) {
+      selcionados.pop();
+      alert('Você só pode selecionar no máximo 3 livros.');
     }
   }
 

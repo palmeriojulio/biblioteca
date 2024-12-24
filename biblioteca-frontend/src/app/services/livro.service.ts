@@ -14,54 +14,97 @@ export class LivroService {
   // Variável que recebe a URL base do backend
   localUrl: string;
 
+  /**
+   * Construtor do serviço LivroService.
+   *
+   * @param http - Serviço o para requisições HTTP.
+   * @param snackBar - Serviço o para exibir mensagens na tela.
+   */
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {
     // Inicializa a URL base concatenando com o endpoint da biblioteca
     this.localUrl = `${API}biblioteca/`;
   }
 
-  // Método para salvar um novo livro
+  /**
+   * Envia uma requisição POST para o backend com os dados do livro.
+   *
+   * @param livro O livro a ser salvo.
+   * @returns Uma promessa com o resultado da requisição.
+   */
   salvarLivro(livro: Livro) {
-    // Envia uma requisição POST para o backend com os dados do livro
     return this.http.post(`${this.localUrl}livro`, livro);
   }
 
-  // Método para listar todos os livros
+  /**
+   * Envia uma requisição GET para obter a lista de livros.
+   *
+   * @returns Uma promessa com a lista de livros.
+   */
   listarLivros(): Observable<Livro[]> {
-    // Envia uma requisição GET para obter a lista de livros
     return this.http.get<Livro[]>(`${this.localUrl}livros`);
   }
 
-  // Método para obter os detalhes de um livro pelo seu ID
+  /**
+   * Envia uma requisição GET para obter a lista de livros disponíveis.
+   *
+   * @returns Uma promessa com a lista de livros disponíveis.
+   */
+  listarLivrosDisponiveis(): Observable<Livro[]> {
+    return this.http.get<Livro[]>(`${this.localUrl}livros/disponiveis`);
+  }
+
+  /**
+   * Envia uma requisição GET para obter os dados de um livro específico.
+   *
+   * @param id O ID do livro a ser buscado.
+   * @returns Uma promessa com o livro buscado.
+   */
   listarById(id: number): Observable<Livro> {
     // Envia uma requisição GET para obter os dados de um livro específico
     return this.http.get<Livro>(`${this.localUrl}livro/${id}`);
   }
 
-  // Método para editar um livro existente
+  /**
+   * Envia uma requisição PUT para atualizar os dados de um livro específico.
+   *
+   * @param livro O livro a ser atualizado.
+   * @returns Uma promessa com o resultado da requisição.
+   */
   editarLivro(livro: Livro) {
     // Envia uma requisição PUT para atualizar os dados do livro
     return this.http.put(`${this.localUrl}livro/${livro.id}`, livro);
   }
 
-  // Método para deletar um livro pelo seu ID
+  /**
+   * Envia uma requisição DELETE para remover um livro específico.
+   *
+   * @param id O ID do livro a ser deletado.
+   * @returns Uma promessa com o resultado da requisição.
+   */
   deletarLivro(id: number) {
     // Envia uma requisição DELETE para remover um livro específico
     return this.http.delete(`${this.localUrl}livro/${id}`);
   }
 
-  // Método privado para lidar com erros de requisição HTTP
+  /**
+   * Função privada para lidar com erros de requisição HTTP.
+   * Cria uma mensagem de erro para o snackbar e a exibe.
+   * Se não há um resultado padrão, lança um erro.
+   * Caso contrário, retorna um resultado padrão para manter a aplicação funcionando.
+   *
+   * @param operation O nome da operação que falhou.
+   * @param result O resultado padrão a ser retornado, caso seja fornecido.
+   * @returns Uma função que retorna uma promessa com o resultado padrão.
+   */
   private handleError<T>(operation = 'operation', result?: T): () => Observable<T> {
     return (): Observable<T> => {
-      // Cria uma mensagem de erro para o snackbar
+
       const toastMessage = 'Erro ao ' + operation + '.';
-      // Exibe a mensagem de erro usando MatSnackBar
       this.snackBar.open(toastMessage, 'X');
 
       if (!result) {
-        // Se não há um resultado padrão, lança um erro
         return throwError(new Error());
       }
-      // Retorna um resultado padrão para manter a aplicação funcionando
       return of(result as T);
     };
   }

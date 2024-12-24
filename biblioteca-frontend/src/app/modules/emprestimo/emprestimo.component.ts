@@ -176,7 +176,6 @@ export class EmprestimoComponent implements OnInit {
     });
   }
 
-
   /**
    * Aplica o filtro na tabela de emprestimos.
    * Chamado ao digitar na barra de pesquisa.

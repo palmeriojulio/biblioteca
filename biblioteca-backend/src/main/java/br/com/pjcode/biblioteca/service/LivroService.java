@@ -62,7 +62,27 @@ public class LivroService {
         try {
             return livroRepository.findAll()
                     .stream()
-                    .map(l -> LivroDto.fromLivro(l))
+                    .map(LivroDto::fromLivro)
+                    .sorted((l1, l2) -> l1.getId().compareTo(l2.getId()))
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Erro ao buscar os livros");
+        }
+    }
+
+    /**
+     * Método para buscar todos os registros de livro já cadastrados que possuem ao menos uma unidade disponível.
+     * @author Palmério Júlio
+     * @return List<Livro>
+     * @exception InternalServerErrorException
+     */
+    @Transactional(readOnly = true)
+    public List<LivroDto> findAllByDisponiveis() {
+        try {
+            return livroRepository.findAll()
+                    .stream()
+                    .filter(l -> l.getQuantidadeDisponivel() > 0)
+                    .map(LivroDto::fromLivro)
                     .sorted((l1, l2) -> l1.getId().compareTo(l2.getId()))
                     .collect(Collectors.toList());
         } catch (Exception e) {

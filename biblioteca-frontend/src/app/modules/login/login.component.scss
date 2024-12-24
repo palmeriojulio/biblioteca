@@ -1,4 +1,4 @@
-mat-card {
+.card {
   width: 300px;
   margin: 0 auto;
   box-shadow: 3px 3px 3px 3px rgb(207, 206, 206) !important;;
@@ -17,9 +17,9 @@ mat-form-field {
   flex-direction: column;
 }
 
-mat-raised-button {
+.button {
   width: 100%;
-  background-color: #4CAF50;
+  background-color: #45754c;
   color: #fff;
   padding: 10px;
   border: none;
@@ -27,11 +27,5 @@ mat-raised-button {
   cursor: pointer;
 }
 
-mat-raised-button:hover {
-  background-color: #3e8e41;
-  color: #fff;
-}
 
-.title-login {
-  text-align: start;
-}
+

@@ -31,6 +31,11 @@ public class LivroResource {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.findAll());
     }
 
+    @GetMapping("/livros/disponiveis")
+    public ResponseEntity<Object> findAllByDisponiveis() {
+        return ResponseEntity.status(HttpStatus.OK).body(livroService.findAllByDisponiveis());
+    }
+
     @GetMapping("/livro/{id}")
     public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.findById(id));
