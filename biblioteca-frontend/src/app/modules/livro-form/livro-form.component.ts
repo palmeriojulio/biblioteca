@@ -19,6 +19,14 @@ export class LivroFormComponent implements OnInit {
   btn: string = "Salvar"// Texto do botão
   title: string = "Adicionar livro"// Título do formulário
 
+/**
+ * Construtor do componente LivroFormComponent.
+ *
+ * @param livroService - Serviço para manipulação de livros.
+ * @param dialogRef - Referência ao diálogo atual.
+ * @param snackBar - Serviço de snack bar para exibir mensagens.
+ * @param livroEdit - Dados injetados ao abrir o diálogo, para edição.
+ */
   constructor(
     private livroService: LivroService, // Serviço para manipulação de livros
     public dialogRef: MatDialogRef<LivroFormComponent>, // Referência ao diálogo atual
@@ -26,12 +34,21 @@ export class LivroFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public livroEdit: Livro // Dados injetados ao abrir o diálogo, para edição
   ) { }
 
-  // Método executado quando o componente é inicializado
+
+  /**
+   * Método executado ao inicializar o componente.
+   * Responsável por criar o formulário do livro com uma nova instância de Livro.
+   */
   ngOnInit(): void {
     this.createForm(new Livro());// Criação do formulário com um novo livro
   }
 
-  // Método para criar o formulário do livro
+  /**
+   * Cria o formulário do livro com as propriedades necessárias.
+   * Se houver um livro para editar, preenche os campos do formulário com os dados do livro.
+   *
+   * @param livro - Dados do livro a serem preenchidos no formulário.
+   */
   createForm(livro: Livro) {
     // Criação do grupo de controles do formulário com validações
     this.formLivro = new FormGroup({
@@ -59,7 +76,13 @@ export class LivroFormComponent implements OnInit {
     }
   }
 
-  // Método chamado ao submeter o formulário
+  /**
+   * Método chamado ao submeter o formulário.
+   * Responsável por salvar ou editar um livro, dependendo do valor do botão.
+   * Se o botão for "Salvar", salva um novo livro.
+   * Se o botão for "Editar", atualiza o livro existente.
+   * Em seguida, fecha o diálogo e exibe uma mensagem com o resultado da operação.
+   */
   onSubmit() {
     // Se não for edição, salva um novo livro
     if (this.btn != "Editar") {
@@ -86,17 +109,22 @@ export class LivroFormComponent implements OnInit {
     }
   }
 
-  // Método para exibir uma mensagem usando o snack bar
+  /**
+   * Exibe uma mensagem na tela usando o snack bar.
+   *
+   * @param message - A mensagem a ser exibida.
+   * @param action - O texto do bot o do snack bar.
+   */
   open(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: this.durationInSeconds * 1000,
     });
   }
 
-  // Método para fechar o diálogo
+  /**
+   * Fecha o di logo e retorna o valor da propriedade `result` do di logo como `undefined`.
+   */
   public fecharModal() {
     this.dialogRef.close();
   }
-
-
 }

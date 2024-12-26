@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NgxMaskModule, IConfig} from 'ngx-mask';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Endereco } from 'src/app/models/endereco';
 import { Leitor } from 'src/app/models/leitor-model';
 import { LeitorService } from 'src/app/services/leitor.service';
 import { apenasLetrasValidator } from 'src/app/validators/apenas-letras.validator';
@@ -19,6 +19,7 @@ export class LeitorFormComponent implements OnInit {
   durationInSeconds = 5;// Duração da exibição do snack bar em segundos
   btn: string = "Salvar"// Texto do botão
   title: string = "Adicionar Leitor"// Título do formulário
+  endereco = new Endereco();
 
   /**
    * Construtor do componente LeitorFormComponent.
@@ -35,10 +36,10 @@ export class LeitorFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public LeitorEdit: Leitor // Dados injetados ao abrir o diálogo, para edição
   ) { }
 
-/**
- * Método executado ao inicializar o componente.
- * Responsável por criar o formulário do leitor com uma nova instância de Leitor.
- */
+  /**
+   * Método executado ao inicializar o componente.
+   * Responsável por criar o formulário do leitor com uma nova instância de Leitor.
+   */
   ngOnInit(): void {
     this.createForm(new Leitor());// Criação do formulário com um novo leitor
   }
@@ -46,6 +47,7 @@ export class LeitorFormComponent implements OnInit {
 
   /**
    * Cria o formulário do leitor com as propriedades necessárias.
+   * Se houver um leitor para editar, preenche os campos do formulário com os dados do leitor.
    *
    * @param leitor - Dados do leitor a serem preenchidos no formulário.
    */
@@ -53,21 +55,23 @@ export class LeitorFormComponent implements OnInit {
     // Criação do grupo de controles do formulário com validações
     this.formLeitor = new FormGroup({
       id: new FormControl(leitor.id, Validators.required),
-      nome: new FormControl(leitor.nome, [Validators.required, Validators.maxLength(80), apenasLetrasValidator]),
+      nome: new FormControl(leitor.nome, [Validators.required, apenasLetrasValidator]),
       cpf: new FormControl(leitor.cpf, [Validators.required, Validators.maxLength(14), apenasNumerosValidator]),
       rg: new FormControl(leitor.rg, [Validators.required, Validators.maxLength(20), apenasNumerosValidator]),
-      dataNascimento: new FormControl(leitor.dataNascimento, Validators.required),
+      dataNascimento: new FormControl(leitor.dataNascimento),
       telefone: new FormControl(leitor.telefone, [Validators.required, apenasNumerosValidator]),
       profissao: new FormControl(leitor.profissao, apenasLetrasValidator),
       escola: new FormControl(leitor.escola, [Validators.maxLength(30), apenasLetrasValidator]),
       serie: new FormControl(leitor.serie, [Validators.maxLength(10)]),
       curso: new FormControl(leitor.curso, [Validators.maxLength(25), apenasLetrasValidator]),
       turno: new FormControl(leitor.turno, [Validators.maxLength(15), apenasLetrasValidator]),
-      logradouro: new FormControl(leitor.endereco.logradouro, [Validators.required, Validators.maxLength(50), apenasLetrasValidator]),
-      numero: new FormControl(leitor.endereco.numero, [Validators.required, apenasNumerosValidator]),
-      bairro: new FormControl(leitor.endereco.bairro, [Validators.required, Validators.maxLength(30), apenasLetrasValidator]),
-      cidade: new FormControl(leitor.endereco.cidade, [Validators.required, Validators.maxLength(30), apenasLetrasValidator]),
-      uf: new FormControl(leitor.endereco.uf, [Validators.required, Validators.maxLength(2), apenasLetrasValidator])
+      endereco: new FormGroup ({
+        logradouro: new FormControl(leitor.endereco?.logradouro, [Validators.required, Validators.maxLength(50), apenasLetrasValidator]),
+        numero: new FormControl(leitor.endereco?.numero, [Validators.required, apenasNumerosValidator]),
+        bairro: new FormControl(leitor.endereco?.bairro, [Validators.required, Validators.maxLength(30), apenasLetrasValidator]),
+        cidade: new FormControl(leitor.endereco?.cidade, [Validators.required, Validators.maxLength(30), apenasLetrasValidator]),
+        uf: new FormControl(leitor.endereco?.uf, [Validators.required, Validators.maxLength(2), apenasLetrasValidator]),
+      }),
     });
 
     // Se há um Leitor para editar, preenche os campos do formulário com os dados do leitor
@@ -84,11 +88,11 @@ export class LeitorFormComponent implements OnInit {
         this.formLeitor.controls['serie'].setValue(this.LeitorEdit.serie),
         this.formLeitor.controls['curso'].setValue(this.LeitorEdit.curso),
         this.formLeitor.controls['turno'].setValue(this.LeitorEdit.turno),
-        this.formLeitor.controls['logradouro'].setValue(this.LeitorEdit.endereco.logradouro),
-        this.formLeitor.controls['numero'].setValue(this.LeitorEdit.endereco.numero),
-        this.formLeitor.controls['bairro'].setValue(this.LeitorEdit.endereco.bairro),
-        this.formLeitor.controls['cidade'].setValue(this.LeitorEdit.endereco.cidade),
-        this.formLeitor.controls['uf'].setValue(this.LeitorEdit.endereco.uf)
+        this.formLeitor.controls['logradouro'].setValue(this.LeitorEdit.endereco?.logradouro),
+        this.formLeitor.controls['numero'].setValue(this.LeitorEdit.endereco?.numero),
+        this.formLeitor.controls['bairro'].setValue(this.LeitorEdit.endereco?.bairro),
+        this.formLeitor.controls['cidade'].setValue(this.LeitorEdit.endereco?.cidade),
+        this.formLeitor.controls['uf'].setValue(this.LeitorEdit.endereco?.uf)
 
     }
   }
@@ -100,7 +104,7 @@ export class LeitorFormComponent implements OnInit {
    * Se btn for "Editar", atualiza o leitor existente.
    * Em seguida, fecha o diálogo e reseta o formulário para um novo leitor.
    */
-  onSubmit() {
+  cadastrar() {
     if (this.btn != "Editar") {
       this.LeitorService.salvarLeitor(this.formLeitor.value).subscribe((res: any) => {
         if (res != null) {

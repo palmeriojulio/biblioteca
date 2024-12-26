@@ -10,7 +10,7 @@
     <div class="info-row">
       <p><b>Leitor:</b> {{ emprestimo.leitor.nome }}</p>
       <p><b>Telefone:</b> {{ emprestimo.leitor.telefone }}</p>
-      <p><b>Endereço:</b> {{ emprestimo.leitor.endereco.logradouro }}</p>
+      <p><b>Endereço:</b> {{ emprestimo.leitor.endereco?.logradouro }}</p>
     </div>
     <mat-divider></mat-divider>
 

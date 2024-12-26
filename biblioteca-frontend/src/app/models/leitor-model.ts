@@ -12,7 +12,7 @@ export class Leitor {
   serie?: string;
   curso?: string;
   turno?: string;
-  endereco: Endereco = new Endereco();
+  endereco?: Endereco;
 
   /**
    * Cria um novo Leitor.
@@ -54,7 +54,7 @@ export class Leitor {
     this.serie = serie;
     this.curso = curso;
     this.turno = turno;
-    this.endereco = endereco || new Endereco();
+    this.endereco = endereco
   }
 
 }
