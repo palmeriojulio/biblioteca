@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgxMaskModule, IConfig} from 'ngx-mask';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Leitor } from 'src/app/models/leitor-model';
 import { LeitorService } from 'src/app/services/leitor.service';
@@ -53,15 +54,20 @@ export class LeitorFormComponent implements OnInit {
     this.formLeitor = new FormGroup({
       id: new FormControl(leitor.id, Validators.required),
       nome: new FormControl(leitor.nome, [Validators.required, Validators.maxLength(80), apenasLetrasValidator]),
-      cpf: new FormControl(leitor.cpf, [Validators.required, Validators.maxLength(11), apenasNumerosValidator]),
+      cpf: new FormControl(leitor.cpf, [Validators.required, Validators.maxLength(14), apenasNumerosValidator]),
       rg: new FormControl(leitor.rg, [Validators.required, Validators.maxLength(20), apenasNumerosValidator]),
       dataNascimento: new FormControl(leitor.dataNascimento, Validators.required),
       telefone: new FormControl(leitor.telefone, [Validators.required, apenasNumerosValidator]),
       profissao: new FormControl(leitor.profissao, apenasLetrasValidator),
-      escola: new FormControl(leitor.escola, [Validators.maxLength(50), apenasLetrasValidator]),
-      serie: new FormControl(leitor.serie, [Validators.maxLength(10), apenasLetrasValidator]),
+      escola: new FormControl(leitor.escola, [Validators.maxLength(30), apenasLetrasValidator]),
+      serie: new FormControl(leitor.serie, [Validators.maxLength(10)]),
       curso: new FormControl(leitor.curso, [Validators.maxLength(25), apenasLetrasValidator]),
-      turno: new FormControl(leitor.turno, [Validators.maxLength(15), apenasLetrasValidator])
+      turno: new FormControl(leitor.turno, [Validators.maxLength(15), apenasLetrasValidator]),
+      logradouro: new FormControl(leitor.endereco.logradouro, [Validators.required, Validators.maxLength(50), apenasLetrasValidator]),
+      numero: new FormControl(leitor.endereco.numero, [Validators.required, apenasNumerosValidator]),
+      bairro: new FormControl(leitor.endereco.bairro, [Validators.required, Validators.maxLength(30), apenasLetrasValidator]),
+      cidade: new FormControl(leitor.endereco.cidade, [Validators.required, Validators.maxLength(30), apenasLetrasValidator]),
+      uf: new FormControl(leitor.endereco.uf, [Validators.required, Validators.maxLength(2), apenasLetrasValidator])
     });
 
     // Se há um Leitor para editar, preenche os campos do formulário com os dados do leitor
@@ -77,7 +83,12 @@ export class LeitorFormComponent implements OnInit {
         this.formLeitor.controls['escola'].setValue(this.LeitorEdit.escola),
         this.formLeitor.controls['serie'].setValue(this.LeitorEdit.serie),
         this.formLeitor.controls['curso'].setValue(this.LeitorEdit.curso),
-        this.formLeitor.controls['turno'].setValue(this.LeitorEdit.turno)
+        this.formLeitor.controls['turno'].setValue(this.LeitorEdit.turno),
+        this.formLeitor.controls['logradouro'].setValue(this.LeitorEdit.endereco.logradouro),
+        this.formLeitor.controls['numero'].setValue(this.LeitorEdit.endereco.numero),
+        this.formLeitor.controls['bairro'].setValue(this.LeitorEdit.endereco.bairro),
+        this.formLeitor.controls['cidade'].setValue(this.LeitorEdit.endereco.cidade),
+        this.formLeitor.controls['uf'].setValue(this.LeitorEdit.endereco.uf)
 
     }
   }

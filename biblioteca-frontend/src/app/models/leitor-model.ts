@@ -1,3 +1,5 @@
+import { Endereco } from "./endereco";
+
 export class Leitor {
   id?: number;
   nome?: string;
@@ -10,7 +12,7 @@ export class Leitor {
   serie?: string;
   curso?: string;
   turno?: string;
-  endereco: any;
+  endereco: Endereco = new Endereco();
 
   /**
    * Cria um novo Leitor.
@@ -20,11 +22,12 @@ export class Leitor {
    * @param rg O RG do Leitor.
    * @param dataNascimento A data de nascimento do Leitor.
    * @param telefone O telefone do Leitor.
-   * @param profissao A profiss o do Leitor.
+   * @param profissao A profissão do Leitor.
    * @param escola A escola do Leitor.
    * @param serie A série do Leitor.
    * @param curso O curso do Leitor.
    * @param turno O turno do Leitor.
+   * @param endereco O endereço do Leitor.
    */
   constructor (
     id?: number,
@@ -38,10 +41,8 @@ export class Leitor {
     serie?: string,
     curso?: string,
     turno?: string,
-    endereco?: any
-  )
-
-  {
+    endereco?: Endereco
+  ) {
     this.id = id;
     this.nome = nome;
     this.cpf = cpf;
@@ -53,6 +54,7 @@ export class Leitor {
     this.serie = serie;
     this.curso = curso;
     this.turno = turno;
-    this.endereco = endereco;
+    this.endereco = endereco || new Endereco();
   }
+
 }

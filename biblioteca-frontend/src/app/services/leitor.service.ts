@@ -20,6 +20,7 @@ export class LeitorService {
 
    // Método para salvar um novo leitor
    salvarLeitor(leitor: Leitor) {
+    console.log(leitor);
      // Envia uma requisição POST para o backend com os dados do leitor
      return this.http.post(`${this.localUrl}leitor`, leitor);
    }

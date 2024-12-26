@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import ptBr from '@angular/common/locales/pt';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -43,7 +44,6 @@ import { CpfPipe } from 'src/app/pipe/cpf.pipe';
 import { TelefonePipe } from 'src/app/pipe/telefone.pipe';
 
 registerLocaleData(ptBr);
-
 
 @NgModule({
   declarations: [
@@ -90,6 +90,7 @@ registerLocaleData(ptBr);
     MatCheckboxModule,
     MatListModule,
     MatDialogModule,
+    NgxMaskModule.forRoot(),
   ]
 })
 export class DefaultModule { }
