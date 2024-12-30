@@ -103,7 +103,6 @@ export class EmprestimoFormComponent implements OnInit {
   onSubmit() {
     if (this.btn != 'Editar') {
       this.emprestimoService.salvarEmprestimo(this.formEmprestimo.value).subscribe((res: any) => {
-        console.log(res);
         if (res != null) {
           this.open('Empréstimo salvo com sucesso!', 'X');
         } else {

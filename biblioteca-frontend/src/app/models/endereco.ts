@@ -1,4 +1,5 @@
 export class Endereco {
+
   logradouro?: string;
   numero?: string;
   bairro?: string;
@@ -26,4 +27,5 @@ export class Endereco {
     this.cidade = cidade;
     this.uf = uf;
   }
+
 }

@@ -62,12 +62,6 @@
       <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>Profissão</mat-label>
         <input matInput placeholder="Digite a profissão" formControlName="profissao">
-        <mat-error *ngIf="formLeitor.get('profissao')?.hasError('apenasLetras')">
-          Apenas letras são permitidas
-        </mat-error>
-        <mat-error *ngIf="formLeitor.get('profissao')?.hasError('required')">
-          Profissão é obrigatória
-        </mat-error>
       </mat-form-field>
 
       <mat-form-field style="width: 45%; margin-inline-end: 8px;" appearance="outline">
@@ -111,10 +105,10 @@
         <mat-form-field style="width: 35%; margin-inline-end: 8px;" appearance="outline">
           <mat-label>Logradouro</mat-label>
           <input matInput placeholder="Digite o logradouro" formControlName="logradouro">
-          <mat-error *ngIf="formLeitor.get('logradouro')?.hasError('apenasLetras')">
+          <mat-error *ngIf="formLeitor.get('endereco.logradouro')?.hasError('apenasLetras')">
             Apenas letras são permitidas
           </mat-error>
-          <mat-error *ngIf="formLeitor.get('logradouro')?.hasError('required')">
+          <mat-error *ngIf="formLeitor.get('endereco.logradouro')?.hasError('required')">
             Logradouro é obrigatório
           </mat-error>
         </mat-form-field>
@@ -122,10 +116,10 @@
         <mat-form-field style="width: 9%; margin-inline-end: 8px;" appearance="outline">
           <mat-label>Número</mat-label>
           <input matInput placeholder="N" formControlName="numero">
-          <mat-error *ngIf="formLeitor.get('numero')?.hasError('apenasNumeros')">
+          <mat-error *ngIf="formLeitor.get('endereco.numero')?.hasError('apenasNumeros')">
             Apenas números são permitidos
           </mat-error>
-          <mat-error *ngIf="formLeitor.get('numero')?.hasError('required')">
+          <mat-error *ngIf="formLeitor.get('endereco.numero')?.hasError('required')">
             Número é obrigatório
           </mat-error>
         </mat-form-field>
@@ -133,10 +127,10 @@
         <mat-form-field style="width: 20%; margin-inline-end: 8px;" appearance="outline">
           <mat-label>Bairro</mat-label>
           <input matInput placeholder="Digite o bairro" formControlName="bairro">
-          <mat-error *ngIf="formLeitor.get('bairro')?.hasError('apenasLetras')">
+          <mat-error *ngIf="formLeitor.get('endereco.bairro')?.hasError('apenasLetras')">
             Apenas letras são permitidas
           </mat-error>
-          <mat-error *ngIf="formLeitor.get('bairro')?.hasError('required')">
+          <mat-error *ngIf="formLeitor.get('endereco.bairro')?.hasError('required')">
             Bairro é obrigatório
           </mat-error>
         </mat-form-field>
@@ -144,10 +138,10 @@
         <mat-form-field style="width: 20%; margin-inline-end: 8px;" appearance="outline">
           <mat-label>Cidade</mat-label>
           <input matInput placeholder="Digite a cidade" formControlName="cidade">
-          <mat-error *ngIf="formLeitor.get('cidade')?.hasError('apenasLetras')">
+          <mat-error *ngIf="formLeitor.get('endereco.cidade')?.hasError('apenasLetras')">
             Apenas letras são permitidas
           </mat-error>
-          <mat-error *ngIf="formLeitor.get('cidade')?.hasError('required')">
+          <mat-error *ngIf="formLeitor.get('endereco.cidade')?.hasError('required')">
             Cidade é obrigatória
           </mat-error>
         </mat-form-field>
@@ -155,10 +149,10 @@
         <mat-form-field style="width: 10%; margin-inline-end: 8px;" appearance="outline">
           <mat-label>Estado</mat-label>
           <input matInput placeholder="Estado" formControlName="uf">
-          <mat-error *ngIf="formLeitor.get('uf')?.hasError('apenasLetras')">
+          <mat-error *ngIf="formLeitor.get('endereco.uf')?.hasError('apenasLetras')">
             Apenas letras são permitidas
           </mat-error>
-          <mat-error *ngIf="formLeitor.get('uf')?.hasError('required')">
+          <mat-error *ngIf="formLeitor.get('endereco.uf')?.hasError('required')">
             Estado é obrigatório
           </mat-error>
         </mat-form-field>

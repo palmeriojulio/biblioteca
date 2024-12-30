@@ -60,40 +60,46 @@ export class LeitorFormComponent implements OnInit {
       rg: new FormControl(leitor.rg, [Validators.required, Validators.maxLength(20), apenasNumerosValidator]),
       dataNascimento: new FormControl(leitor.dataNascimento),
       telefone: new FormControl(leitor.telefone, [Validators.required, apenasNumerosValidator]),
-      profissao: new FormControl(leitor.profissao, apenasLetrasValidator),
+      profissao: new FormControl(leitor.profissao, [apenasLetrasValidator]),
       escola: new FormControl(leitor.escola, [Validators.maxLength(30), apenasLetrasValidator]),
-      serie: new FormControl(leitor.serie, [Validators.maxLength(10)]),
-      curso: new FormControl(leitor.curso, [Validators.maxLength(25), apenasLetrasValidator]),
+      serie: new FormControl(leitor.serie, [Validators.maxLength(10), apenasLetrasValidator]),
+      curso: new FormControl(leitor.curso, [Validators.maxLength(15), apenasLetrasValidator]),
       turno: new FormControl(leitor.turno, [Validators.maxLength(15), apenasLetrasValidator]),
       endereco: new FormGroup ({
-        logradouro: new FormControl(leitor.endereco?.logradouro, [Validators.required, Validators.maxLength(50), apenasLetrasValidator]),
-        numero: new FormControl(leitor.endereco?.numero, [Validators.required, apenasNumerosValidator]),
-        bairro: new FormControl(leitor.endereco?.bairro, [Validators.required, Validators.maxLength(30), apenasLetrasValidator]),
-        cidade: new FormControl(leitor.endereco?.cidade, [Validators.required, Validators.maxLength(30), apenasLetrasValidator]),
-        uf: new FormControl(leitor.endereco?.uf, [Validators.required, Validators.maxLength(2), apenasLetrasValidator]),
+        logradouro: new FormControl(leitor.endereco?.logradouro, [Validators.required, apenasLetrasValidator]),
+        numero: new FormControl(leitor.endereco?.numero, [Validators.required,apenasNumerosValidator]),
+        bairro: new FormControl(leitor.endereco?.bairro, [Validators.required,apenasLetrasValidator]),
+        cidade: new FormControl(leitor.endereco?.cidade, [Validators.required,apenasLetrasValidator]),
+        uf: new FormControl(leitor.endereco?.uf, [Validators.required, apenasLetrasValidator]),
       }),
     });
 
     // Se há um Leitor para editar, preenche os campos do formulário com os dados do leitor
     if (this.LeitorEdit) {
-      this.btn = "Editar",
-        this.title = "Editar leitor",
-        this.formLeitor.controls['id'].setValue(this.LeitorEdit.id),
-        this.formLeitor.controls['nome'].setValue(this.LeitorEdit.nome),
-        this.formLeitor.controls['cpf'].setValue(this.LeitorEdit.cpf),
-        this.formLeitor.controls['rg'].setValue(this.LeitorEdit.rg),
-        this.formLeitor.controls['dataNascimento'].setValue(this.LeitorEdit.dataNascimento),
-        this.formLeitor.controls['telefone'].setValue(this.LeitorEdit.telefone),
-        this.formLeitor.controls['escola'].setValue(this.LeitorEdit.escola),
-        this.formLeitor.controls['serie'].setValue(this.LeitorEdit.serie),
-        this.formLeitor.controls['curso'].setValue(this.LeitorEdit.curso),
-        this.formLeitor.controls['turno'].setValue(this.LeitorEdit.turno),
-        this.formLeitor.controls['logradouro'].setValue(this.LeitorEdit.endereco?.logradouro),
-        this.formLeitor.controls['numero'].setValue(this.LeitorEdit.endereco?.numero),
-        this.formLeitor.controls['bairro'].setValue(this.LeitorEdit.endereco?.bairro),
-        this.formLeitor.controls['cidade'].setValue(this.LeitorEdit.endereco?.cidade),
-        this.formLeitor.controls['uf'].setValue(this.LeitorEdit.endereco?.uf)
 
+        this.btn = "Editar",
+        this.title = "Editar leitor",
+
+        this.formLeitor.patchValue({
+          id: this.LeitorEdit.id,
+          nome: this.LeitorEdit.nome,
+          cpf: this.LeitorEdit.cpf,
+          rg: this.LeitorEdit.rg,
+          dataNascimento: this.LeitorEdit.dataNascimento,
+          telefone: this.LeitorEdit.telefone,
+          profissao: this.LeitorEdit.profissao,
+          escola: this.LeitorEdit.escola,
+          serie: this.LeitorEdit.serie,
+          curso: this.LeitorEdit.curso,
+          turno: this.LeitorEdit.turno,
+          endereco: {
+            logradouro: this.LeitorEdit.endereco?.logradouro,
+            numero: this.LeitorEdit.endereco?.numero,
+            bairro: this.LeitorEdit.endereco?.bairro,
+            cidade: this.LeitorEdit.endereco?.cidade,
+            uf: this.LeitorEdit.endereco?.uf,
+          }
+        });
     }
   }
 
@@ -143,7 +149,7 @@ export class LeitorFormComponent implements OnInit {
   /**
    * Fecha o di logo e retorna o valor da propriedade `result` do di logo como `undefined`.
    */
- public fecharModal() {
-    this.dialogRef.close();
-  }
+  public fecharModal() {
+     this.dialogRef.close();
+   }
 }

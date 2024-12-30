@@ -20,7 +20,6 @@ export class LeitorService {
 
    // Método para salvar um novo leitor
    salvarLeitor(leitor: Leitor) {
-    console.log(leitor, "Chamou o método salvar");
      // Envia uma requisição POST para o backend com os dados do leitor
      return this.http.post(`${this.localUrl}leitor`, leitor);
    }
@@ -40,7 +39,7 @@ export class LeitorService {
    // Método para editar um Leitor existente
    editarLeitor(leitor: Leitor) {
      // Envia uma requisição PUT para atualizar os dados do Leitor
-     return this.http.put(`${this.localUrl}Leitor/${leitor.id}`, leitor);
+     return this.http.put(`${this.localUrl}leitor/${leitor.id}`, leitor);
    }
 
    // Método para deletar um Leitor pelo seu ID
