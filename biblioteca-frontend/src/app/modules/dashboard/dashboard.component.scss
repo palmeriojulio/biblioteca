@@ -3,13 +3,44 @@
   padding: 5px;
 }
 
-mat-card {
+.mat-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   height: 100px;
   width: 246px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.mat-card:hover {
+  box-shadow: 0 4px 4px rgba(37, 37, 37, 0.2);
+}
+
+.mat-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.mat-card-title {
+  font-size: larger;
+}
+
+.mat-icon {
+  font-size: 26px;
+  color: #4caf50;
+}
+
+.mat-card-content {
+  padding: 16px;
+}
+
+.mat-card-content h2 {
+  font-size: 24px;
+  color: #333;
 }
 
 .mat-grid-list {
@@ -17,11 +48,23 @@ mat-card {
 }
 
 .chart-container {
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chart-container-bar {
+  height: 400px; /* define a altura de cada gráfico */
+}
+
+.chart-container-doughnut {
+  width: 400px; /* define a largura de cada gráfico */
 }
 
 canvas {
   width: 100% !important;
-  height: auto !important;
+  height: 100% !important; /* define a altura do canvas para 100% da altura do container */
 }
+
+
