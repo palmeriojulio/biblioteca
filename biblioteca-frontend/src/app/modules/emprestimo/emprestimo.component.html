@@ -54,7 +54,7 @@
       <ng-container matColumnDef="info">
         <th mat-header-cell *matHeaderCellDef> Informação </th>
         <td mat-cell *matCellDef="let emprestimo">
-          <button mat-icon-button class="info" aria-label="Informação" (click)="informacaoDoEmprestimo(emprestimo)">
+          <button matTooltip="Informações do empréstimo" mat-icon-button class="info" aria-label="Informação" (click)="informacaoDoEmprestimo(emprestimo)">
             <mat-icon>info_i</mat-icon>
           </button>
         </td>
@@ -63,7 +63,7 @@
       <ng-container matColumnDef="devolucao">
         <th mat-header-cell *matHeaderCellDef> Devolução </th>
         <td mat-cell *matCellDef="let emprestimo">
-          <button mat-icon-button [ngClass]="{'ativo': emprestimo.status === 'Ativo',
+          <button matTooltip="Realizar devolução" mat-icon-button [ngClass]="{'ativo': emprestimo.status === 'Ativo',
               'desabilitado': emprestimo.status === 'Concluído'}" aria-label="Devolução">
             <mat-icon (click)="devolucao(emprestimo)" >play_lesson</mat-icon>
           </button>
@@ -73,7 +73,7 @@
       <ng-container matColumnDef="editar">
         <th mat-header-cell *matHeaderCellDef> Editar </th>
         <td mat-cell *matCellDef="let emprestimo">
-          <button mat-icon-button color="primary" aria-label="Editar leitor" >
+          <button matTooltip="Editar empréstimo" mat-icon-button color="primary" aria-label="Editar leitor" >
             <mat-icon>edit</mat-icon>
           </button>
         </td>
