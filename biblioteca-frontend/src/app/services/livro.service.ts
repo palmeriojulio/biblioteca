@@ -21,7 +21,7 @@ export class LivroService {
    * @param snackBar - Serviço o para exibir mensagens na tela.
    */
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {
-    // Inicializa a URL base concatenando com o endpoint da biblioteca
+    // Inicializa a URL base concatenando com o endpoint da api
     this.localUrl = `${API}biblioteca/`;
   }
 
@@ -60,7 +60,6 @@ export class LivroService {
    * @returns Uma promessa com o livro buscado.
    */
   listarById(id: number): Observable<Livro> {
-    // Envia uma requisição GET para obter os dados de um livro específico
     return this.http.get<Livro>(`${this.localUrl}livro/${id}`);
   }
 
@@ -71,7 +70,6 @@ export class LivroService {
    * @returns Uma promessa com o resultado da requisição.
    */
   editarLivro(livro: Livro) {
-    // Envia uma requisição PUT para atualizar os dados do livro
     return this.http.put(`${this.localUrl}livro/${livro.id}`, livro);
   }
 
@@ -82,7 +80,6 @@ export class LivroService {
    * @returns Uma promessa com o resultado da requisição.
    */
   deletarLivro(id: number) {
-    // Envia uma requisição DELETE para remover um livro específico
     return this.http.delete(`${this.localUrl}livro/${id}`);
   }
 

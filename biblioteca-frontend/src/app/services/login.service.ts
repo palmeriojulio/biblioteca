@@ -19,14 +19,18 @@ export class LoginService {
   * @param snackBar - Serviço para exibir mensagens na tela.
   */
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {
-    // Inicializa a URL base concatenando com o endpoint da biblioteca
     this.localUrl = `${API}biolab/`;
   }
 
+  /**
+   * Faz uma requisição HTTP GET para validar a senha do usuário.
+   *
+   * @param login O login do usuário.
+   * @param password A senha do usuário.
+   * @returns Uma promessa com o resultado da requisição.
+   */
   realizarLogin(login: string, password: string): Observable<any> {
-    // Cria um objeto de parâmetros com as credenciais do usuário
     let params = { login: login, password: password };
-    // Faz uma requisição HTTP GET para validar a senha, passando os parâmetros de login
     return this.http.get<any>(`${this.localUrl}validarSenha`, { params });
   }
 }

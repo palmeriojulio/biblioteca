@@ -21,7 +21,7 @@ export class EmprestimoService {
    * @param snackBar - Serviço para exibir mensagens na tela.
    */
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {
-    // Inicializa a URL base concatenando com o endpoint da biblioteca
+    // Inicializa a URL base concatenando com o endpoint da api
     this.localUrl = `${API}biblioteca/`;
   }
 
@@ -32,7 +32,6 @@ export class EmprestimoService {
    * @returns Uma promessa com o resultado da requisição.
    */
   salvarEmprestimo(emprestimo: Emprestimo) {
-    // Envia uma requisição POST para o backend com os dados do emprestimo
     return this.http.post(`${this.localUrl}emprestimo`, emprestimo);
   }
 
@@ -42,7 +41,6 @@ export class EmprestimoService {
    * @returns Uma promessa com a lista de emprestimos.
    */
   listarEmprestimos(): Observable<Emprestimo[]> {
-    // Envia uma requisição GET para obter a lista de emprestimos
     return this.http.get<Emprestimo[]>(`${this.localUrl}emprestimos`);
   }
 
@@ -53,7 +51,6 @@ export class EmprestimoService {
    * @returns Uma promessa com o emprestimo buscado.
    */
   listarEmprestimosById(id: number): Observable<Emprestimo> {
-    // Envia uma requisição GET para obter os dados de um emprestimo específico
     return this.http.get<Emprestimo>(`${this.localUrl}emprestimo/${id}`);
   }
 
@@ -64,7 +61,6 @@ export class EmprestimoService {
    * @returns Uma promessa com o resultado da requisição.
    */
   editarEmprestimo(emprestimo: Emprestimo) {
-    // Envia uma requisição PUT para atualizar os dados do emprestimo
     return this.http.put(`${this.localUrl}emprestimo/${emprestimo.id}`, emprestimo);
   }
 
@@ -75,7 +71,6 @@ export class EmprestimoService {
    * @returns Uma promessa com o resultado da requisição.
    */
   excluirEmprestimo(id: number) {
-    // Envia uma requisição DELETE para excluir o emprestimo
     return this.http.delete(`${this.localUrl}emprestimo/${id}`);
   }
 
@@ -90,7 +85,6 @@ export class EmprestimoService {
     return this.http.post(`${this.localUrl}emprestimo/devolucao/${id}`, emprestimo);
   }
 
-
   /**
    * Função privada para lidar com erros de requisição HTTP.
    * Cria uma mensagem de erro para o snackbar e a exibe.
@@ -103,15 +97,13 @@ export class EmprestimoService {
    */
   private handleError<T>(operation = 'operation', result?: T): () => Observable<T> {
     return (): Observable<T> => {
-      // Cria uma mensagem de erro para o snackbar
+
       const toastMessage = 'Erro ao ' + operation + '.';
-      // Exibe a mensagem de erro usando MatSnackBar
       this.snackBar.open(toastMessage, 'X');
-     if (!result) {
-        // Se não há um resultado padrão, lança um erro
+
+      if (!result) {
         return throwError(new Error());
       }
-      // Retorna um resultado padrão para manter a aplicação funcionando
       return of(result as T);
     };
   }

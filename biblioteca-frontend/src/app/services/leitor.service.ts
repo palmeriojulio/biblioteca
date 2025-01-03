@@ -20,7 +20,7 @@ export class LeitorService {
    * @param snackBar - Serviço o para exibir mensagens na tela.
    */
    constructor(private http: HttpClient, private snackBar: MatSnackBar) {
-     // Inicializa a URL base concatenando com o endpoint da biblioteca
+     // Inicializa a URL base concatenando com o endpoint da api
      this.localUrl = `${API}biblioteca/`;
    }
 
@@ -30,7 +30,6 @@ export class LeitorService {
     * @returns Uma promessa com o resultado da requisição.
     */
    salvarLeitor(leitor: Leitor) {
-     // Envia uma requisição POST para o backend com os dados do leitor
      return this.http.post(`${this.localUrl}leitor`, leitor);
    }
 
@@ -40,7 +39,6 @@ export class LeitorService {
     * @returns Um Observable contendo a lista de leitores.
     */
    listarLeitores(): Observable<Leitor[]> {
-     // Envia uma requisição GET para obter a lista de leitores
      return this.http.get<Leitor[]>(`${this.localUrl}leitores`);
    }
 
@@ -51,7 +49,6 @@ export class LeitorService {
     * @returns Um Observable contendo o leitor buscado.
     */
    listarById(id: number): Observable<Leitor> {
-     // Envia uma requisição GET para obter os dados de um leitor específico
      return this.http.get<Leitor>(`${this.localUrl}leitor/${id}`);
    }
 
@@ -62,19 +59,18 @@ export class LeitorService {
     * @returns Um Observable com o resultado da requisição.
     */
    editarLeitor(leitor: Leitor) {
-     // Envia uma requisição PUT para atualizar os dados do Leitor
      return this.http.put(`${this.localUrl}leitor/${leitor.id}`, leitor);
    }
 
    /**
-    * Envia uma requisição DELETE para remover um leitor específico.
-    * @param id O ID do leitor a ser deletado.
-    * @returns Uma promessa com o resultado da requisição.
+    * Envia uma requisição DELETE para desativar um leitor específico.
+    * Isso remove o leitor da lista de leitores ativos.
+    *
+    * @param id O ID do leitor a ser desativado.
+    * @returns Um Observable com o resultado da requisição.
     */
-   deletarLeitor(id: number) {
-     // Envia uma requisição DELETE para remover um leitor específico
-     return this.http.delete(`${this.localUrl}leitor/${id}`);
-     console.log(this.localUrl);
+   desativarLeitor(id: number) {
+     return this.http.delete(`${this.localUrl}leitor/desativar/${id}`);
    }
 
    /**
