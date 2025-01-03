@@ -195,7 +195,7 @@ public class EmprestimoService {
 
             // Verifica se o empréstimo já foi finalizado
             if (emprestimo.getStatus().equals(StatusEmprestimoEnum.CONCLUIDO.getDescricao())) {
-                throw new ConflictException("Este empréstimo já foi finalizado anteriormente.");
+                throw new ConflictException("Este empréstimo já foi devolvido anteriormente.");
             }
 
             // Atualiza o status e a quantidade de exemplares de cada livro

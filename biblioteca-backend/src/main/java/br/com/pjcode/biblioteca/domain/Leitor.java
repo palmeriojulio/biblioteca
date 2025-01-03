@@ -54,6 +54,9 @@ public class Leitor implements Serializable {
 	@Column(name = "turno", length = 15)
 	private String turno;
 
+	@Column(name = "ativo")
+	private Boolean ativo;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
 	private Endereco endereco;

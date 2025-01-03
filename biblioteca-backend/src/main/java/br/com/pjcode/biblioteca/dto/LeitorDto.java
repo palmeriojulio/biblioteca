@@ -38,6 +38,7 @@ public class LeitorDto {
 	private String serie;
 	private String curso;
 	private String turno;
+	private Boolean ativo;
 	private EnderecoDto endereco;
 
 	/**
@@ -58,6 +59,7 @@ public class LeitorDto {
 				dto.getSerie(),
 				dto.getCurso(),
 				dto.getTurno(),
+				dto.getAtivo(),
 				EnderecoDto.toEndereco(dto.getEndereco())
 		);
 	}
@@ -80,6 +82,7 @@ public class LeitorDto {
 				entity.getSerie(),
 				entity.getCurso(),
 				entity.getTurno(),
+				entity.getAtivo(),
 				EnderecoDto.fromEndereco(entity.getEndereco())
 		);
 	}

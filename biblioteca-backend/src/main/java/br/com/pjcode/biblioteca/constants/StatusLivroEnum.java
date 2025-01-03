@@ -9,6 +9,7 @@ import lombok.Getter;
 @Getter
 public enum StatusLivroEnum {
     DISPONIVEL("Disponível"), // O livro está disponível para empréstimo.
+    INDISPONIVEL("Indisponível"), // O livro está indisponível para empréstimo.
     EMPRESTADO("Emprestado"), // O livro está atualmente emprestado a um leitor.
     RESERVADO("Reservado"), // O livro foi reservado por um leitor e está aguardando para ser emprestado.
     EM_MANUTENCAO("Em Manutenção"), // O livro está temporariamente fora de circulação devido a manutenção ou reparo.
