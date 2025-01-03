@@ -62,11 +62,12 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="excluir">
-        <th mat-header-cell *matHeaderCellDef> Excluir </th>
-        <td mat-cell *matCellDef="let leitor">
-          <button mat-icon-button color="warn" aria-label="Deletar leitor" (click)="deletarLeitor(leitor)">
-            <mat-icon>delete_outline</mat-icon>
+      <ng-container matColumnDef="desativar">
+        <th mat-header-cell *matHeaderCellDef class="desativar">Ativar/Desativar</th>
+        <td mat-cell *matCellDef="let leitor" class="desativar">
+          <button mat-icon-button [ngSwitch]="leitor.ativo"(click)="desativarLeitor(leitor)">
+            <mat-icon *ngSwitchCase="true" class="btn">check_circle</mat-icon>
+            <mat-icon *ngSwitchCase="false" color="warn">person_off</mat-icon>
           </button>
         </td>
       </ng-container>

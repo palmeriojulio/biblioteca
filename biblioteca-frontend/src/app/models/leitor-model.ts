@@ -12,6 +12,7 @@ export class Leitor {
   serie?: string;
   curso?: string;
   turno?: string;
+  ativo?: string;
   endereco?: Endereco;
 
   /**
@@ -27,6 +28,7 @@ export class Leitor {
    * @param serie A série do Leitor.
    * @param curso O curso do Leitor.
    * @param turno O turno do Leitor.
+   * @param ativo O Leitor está ativo?
    * @param endereco O endereço do Leitor.
    */
   constructor (
@@ -41,6 +43,7 @@ export class Leitor {
     serie?: string,
     curso?: string,
     turno?: string,
+    ativo?: string,
     endereco?: Endereco
   ) {
     this.id = id;
@@ -54,6 +57,7 @@ export class Leitor {
     this.serie = serie;
     this.curso = curso;
     this.turno = turno;
+    this.ativo = ativo;
     this.endereco = endereco
   }
 

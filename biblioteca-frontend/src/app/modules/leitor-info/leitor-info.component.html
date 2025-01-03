@@ -8,21 +8,23 @@
 
     <mat-card-title>Leitor</mat-card-title>
     <div class="info-row">
-      <p><b>Leitor:</b> {{ leitor.nome }}</p>
-      <p><b>CPF:</b> {{ leitor.cpf }}</p>
-      <p><b>RG:</b> {{ leitor.rg }} </p>
-      <p><b>Telefone:</b> {{ leitor.telefone }}</p>
-      <p><b>Profissão:</b> {{ leitor.profissao }}</p>
+      <p><b>Leitor: </b> {{ leitor.nome }}</p>
+      <p><b>CPF: </b> {{ leitor.cpf }}</p>
+      <p><b>RG: </b> {{ leitor.rg }} </p>
+      <p><b>Telefone: </b> {{ leitor.telefone }}</p>
+      <p><b>Profissão: </b> {{ leitor.profissao }}</p>
+      <!-- Usando operador !! para converter o valor booleano -->
+      <p><b>Ativo: </b> {{ !!leitor.ativo ? 'Sim' : 'Não'}}</p>
     </div>
     <mat-divider></mat-divider>
 
     <mat-card-title>Endereço</mat-card-title>
     <div class="info-row">
-      <p><b>Endereço:</b> {{ leitor.endereco?.logradouro }}</p>
-      <p><b>Número:</b> {{ leitor.endereco?.numero }}</p>
-      <p><b>Bairro:</b> {{ leitor.endereco?.bairro }}</p>
-      <p><b>Cidade:</b> {{ leitor.endereco?.cidade }}</p>
-      <p><b>UF:</b> {{ leitor.endereco?.uf }}</p>
+      <p><b>Endereço: </b> {{ leitor.endereco?.logradouro }}</p>
+      <p><b>Número: </b> {{ leitor.endereco?.numero }}</p>
+      <p><b>Bairro: </b> {{ leitor.endereco?.bairro }}</p>
+      <p><b>Cidade: </b> {{ leitor.endereco?.cidade }}</p>
+      <p><b>UF: </b> {{ leitor.endereco?.uf }}</p>
     </div>
 
   </mat-card-content>
