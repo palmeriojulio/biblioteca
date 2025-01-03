@@ -49,7 +49,7 @@ public class LeitorResource {
         return ResponseEntity.status(HttpStatus.CREATED).body(leitorService.update(leitorDto, id));
     }
 
-    @DeleteMapping("/leitor/{id}")
+    @DeleteMapping("/leitor/desativar/{id}")
     public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(leitorService.delete(id));
     }

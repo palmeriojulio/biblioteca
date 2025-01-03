@@ -147,10 +147,10 @@ public class LeitorService {
     }
 
     /**
-     * Método para deletar um leitor já cadastrado.
+     * Método para desativar um leitor.
      * @author Palmério Júlio
      * @param id
-     * @return Object, com uma mensagem caso o livro tenho sido deletado.
+     * @return ‘String’ com uma mensagem caso o leitor tenho sido desativado.
      * @throws ResourceNotFoundException
      * @exception InternalServerErrorException
      */
@@ -159,12 +159,16 @@ public class LeitorService {
         try {
             var leitor = leitorRepository.findById(id).
                     orElseThrow(() -> new ResourceNotFoundException("Leitor com id: "+ id +" não encontrado!"));
-            leitorRepository.deleteById(id);
-            return "Leitor excluído com sucesso!";
+
+            leitor.setAtivo(!leitor.getAtivo());
+
+            leitorRepository.save(leitor);
+
+            return "Leitor desativado!";
         } catch (ResourceNotFoundException e) {
             return e.getMessage();
         } catch (Exception e) {
-            throw new InternalServerErrorException("Erro ao deletar o Leitor");
+            throw new InternalServerErrorException("Erro ao destivar o Leitor");
         }
     }
 
