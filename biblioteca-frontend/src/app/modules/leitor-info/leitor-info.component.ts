@@ -22,7 +22,6 @@ export class LeitorInfoComponent {
     public dialogRef: MatDialogRef<LeitorInfoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
-
   /**
    * Fecha o diálogo e retorna `false` como resultado.
    */
