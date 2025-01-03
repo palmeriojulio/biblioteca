@@ -6,6 +6,7 @@
 <mat-card>
   <form [formGroup]="formLivro" (ngSubmit)="onSubmit()">
     <div mat-dialog-content>
+
       <input type="hidden" formControlName="id">
 
       <mat-form-field class="inputCdu" appearance="outline">
@@ -66,7 +67,8 @@
       <mat-form-field class="inputStatus" appearance="outline">
         <mat-label>Status</mat-label>
         <mat-select formControlName="status">
-          <mat-option value="Disponivel">Disponível</mat-option>
+          <mat-option value="Disponível">Disponível</mat-option>
+          <mat-option value="Indisponível">Indisponível</mat-option>
           <mat-option value="Emprestado">Emprestado</mat-option>
           <mat-option value="Reservado">Reservado</mat-option>
           <mat-option value="Em_Manutencao">Em Manutenção</mat-option>

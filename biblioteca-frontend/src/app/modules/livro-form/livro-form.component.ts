@@ -19,14 +19,14 @@ export class LivroFormComponent implements OnInit {
   btn: string = "Salvar"// Texto do botão
   title: string = "Adicionar livro"// Título do formulário
 
-/**
- * Construtor do componente LivroFormComponent.
- *
- * @param livroService - Serviço para manipulação de livros.
- * @param dialogRef - Referência ao diálogo atual.
- * @param snackBar - Serviço de snack bar para exibir mensagens.
- * @param livroEdit - Dados injetados ao abrir o diálogo, para edição.
- */
+  /**
+   * Construtor do componente LivroFormComponent.
+   *
+   * @param livroService - Serviço para manipulação de livros.
+   * @param dialogRef - Referência ao diálogo atual.
+   * @param snackBar - Serviço de snack bar para exibir mensagens.
+   * @param livroEdit - Dados injetados ao abrir o diálogo, para edição.
+   */
   constructor(
     private livroService: LivroService, // Serviço para manipulação de livros
     public dialogRef: MatDialogRef<LivroFormComponent>, // Referência ao diálogo atual
@@ -50,6 +50,7 @@ export class LivroFormComponent implements OnInit {
    * @param livro - Dados do livro a serem preenchidos no formulário.
    */
   createForm(livro: Livro) {
+
     // Criação do grupo de controles do formulário com validações
     this.formLivro = new FormGroup({
       id: new FormControl(livro.id, [Validators.required, apenasNumerosValidator]),
@@ -58,21 +59,22 @@ export class LivroFormComponent implements OnInit {
       autor: new FormControl(livro.autor, [Validators.required, Validators.maxLength(80), apenasLetrasValidator]),
       editora: new FormControl(livro.editora, [Validators.required, Validators.maxLength(50), apenasLetrasValidator]),
       quantidadeDisponivel: new FormControl(livro.quantidadeDisponivel, [Validators.required, apenasNumerosValidator]),
-      status: new FormControl(livro.status, Validators.required)
+      status: new FormControl(livro.status = "Disponível")
     });
 
     // Se há um livro para editar, preenche os campos do formulário com os dados do livro
     if (this.livroEdit) {
       this.btn = "Editar",
-        this.title = "Editar livro",
-        this.formLivro.controls['id'].setValue(this.livroEdit.id),
-        this.formLivro.controls['cdu'].setValue(this.livroEdit.cdu),
-        this.formLivro.controls['titulo'].setValue(this.livroEdit.titulo),
-        this.formLivro.controls['autor'].setValue(this.livroEdit.autor),
-        this.formLivro.controls['editora'].setValue(this.livroEdit.editora),
-        this.formLivro.controls['quantidadeDisponivel'].setValue(this.livroEdit.quantidadeDisponivel),
-        this.formLivro.controls['status'].setValue(this.livroEdit.status)
-
+      this.title = "Editar livro",
+      this.formLivro.controls['id'].setValue(this.livroEdit.id),
+      this.formLivro.controls['cdu'].setValue(this.livroEdit.cdu),
+      this.formLivro.controls['titulo'].setValue(this.livroEdit.titulo),
+      this.formLivro.controls['autor'].setValue(this.livroEdit.autor),
+      this.formLivro.controls['editora'].setValue(this.livroEdit.editora),
+      this.formLivro.controls['quantidadeDisponivel'].setValue(this.livroEdit.quantidadeDisponivel);
+      if (this.livroEdit.quantidadeDisponivel == 0) {
+        this.formLivro.controls['status'].setValue(this.livroEdit.status = "Indisponível")
+      }
     }
   }
 
