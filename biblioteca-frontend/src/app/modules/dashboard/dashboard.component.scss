@@ -26,21 +26,22 @@
 }
 
 .mat-card-title {
-  font-size: larger;
+  font-size: 19px;
 }
 
 .mat-icon {
-  font-size: 26px;
-  color: #4caf50;
+  font-size: 25px;
+  color: rgb(75, 192, 192);
 }
 
 .mat-card-content {
-  padding: 16px;
+  padding: 10px;
 }
 
 .mat-card-content h2 {
-  font-size: 24px;
+  font-size: 34px;
   color: #333;
+  background-color: rgba(247, 247, 247, 0.568);
 }
 
 .mat-grid-list {
