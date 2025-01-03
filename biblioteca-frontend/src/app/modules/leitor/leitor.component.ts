@@ -41,14 +41,20 @@ export class LeitorComponent implements OnInit {
     });
   }
 
-  // Método para deletar um leitor com confirmação em diálogo
+
+  /**
+   * Abre um diálogo de confirmação para excluir um leitor.
+   * Se confirmado, chama o serviço para deletar o leitor e exibe uma mensagem de sucesso ou erro.
+   *
+   * @param leitor O leitor a ser deletado.
+   */
   deletarLeitor(leitor: any) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {
         title: 'Confirmar Exclusão',
         message: 'Deseja realmente excluir o leitor?',
-        titulo: `${leitor.titulo}`
+        titulo: `${leitor.nome}`
       }
     });
 
@@ -79,7 +85,7 @@ export class LeitorComponent implements OnInit {
   // Método para abrir o formulário de edição de leitor
   editarLeitor(leitor: any) {
     const dialogRef = this.dialog.open(LeitorFormComponent, {
-      width: '800px',
+      width: '900px',
       data: leitor // Passa o leitor atual como dado para o diálogo
     });
 
@@ -91,7 +97,7 @@ export class LeitorComponent implements OnInit {
   // Método para abrir o formulário de criação de leitor
   openDialog(leitor: Leitor) {
     const dialogRef = this.dialog.open(LeitorFormComponent, {
-      width: '800px'
+      width: '900px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
