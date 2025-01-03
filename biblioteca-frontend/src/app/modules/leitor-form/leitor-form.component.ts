@@ -65,6 +65,7 @@ export class LeitorFormComponent implements OnInit {
       serie: new FormControl(leitor.serie, [Validators.maxLength(10), apenasLetrasValidator]),
       curso: new FormControl(leitor.curso, [Validators.maxLength(15), apenasLetrasValidator]),
       turno: new FormControl(leitor.turno, [Validators.maxLength(15), apenasLetrasValidator]),
+      ativo: new FormControl(leitor.ativo = "Ativo"),
       endereco: new FormGroup ({
         logradouro: new FormControl(leitor.endereco?.logradouro, [Validators.required, apenasLetrasValidator]),
         numero: new FormControl(leitor.endereco?.numero, [Validators.required,apenasNumerosValidator]),
@@ -92,6 +93,7 @@ export class LeitorFormComponent implements OnInit {
           serie: this.LeitorEdit.serie,
           curso: this.LeitorEdit.curso,
           turno: this.LeitorEdit.turno,
+          ativo: this.LeitorEdit.ativo,
           endereco: {
             logradouro: this.LeitorEdit.endereco?.logradouro,
             numero: this.LeitorEdit.endereco?.numero,
