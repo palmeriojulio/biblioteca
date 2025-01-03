@@ -13,54 +13,89 @@ export class LeitorService {
    // Variável que recebe a URL base do backend
    localUrl: string;
 
+  /**
+   * Construtor do serviço LeitorService.
+   *
+   * @param http - Serviço o para requisições em HTTP.
+   * @param snackBar - Serviço o para exibir mensagens na tela.
+   */
    constructor(private http: HttpClient, private snackBar: MatSnackBar) {
      // Inicializa a URL base concatenando com o endpoint da biblioteca
      this.localUrl = `${API}biblioteca/`;
    }
 
-   // Método para salvar um novo leitor
+   /**
+    * Envia uma requisição o POST para o backend com os dados do leitor.
+    * @param leitor O leitor a ser salvo.
+    * @returns Uma promessa com o resultado da requisição.
+    */
    salvarLeitor(leitor: Leitor) {
      // Envia uma requisição POST para o backend com os dados do leitor
      return this.http.post(`${this.localUrl}leitor`, leitor);
    }
 
-   // Método para listar todos os leitores
+   /**
+    * Envia uma requisição GET para obter a lista de leitores.
+    *
+    * @returns Um Observable contendo a lista de leitores.
+    */
    listarLeitores(): Observable<Leitor[]> {
      // Envia uma requisição GET para obter a lista de leitores
      return this.http.get<Leitor[]>(`${this.localUrl}leitores`);
    }
 
-   // Método para obter os detalhes de um Leitor pelo seu ID
+   /**
+    * Envia uma requisição GET para obter os dados de um leitor específico.
+    *
+    * @param id O ID do leitor a ser buscado.
+    * @returns Um Observable contendo o leitor buscado.
+    */
    listarById(id: number): Observable<Leitor> {
      // Envia uma requisição GET para obter os dados de um leitor específico
      return this.http.get<Leitor>(`${this.localUrl}leitor/${id}`);
    }
 
-   // Método para editar um Leitor existente
+   /**
+    * Envia uma requisição PUT para atualizar os dados de um leitor específico.
+    *
+    * @param leitor O leitor a ser atualizado.
+    * @returns Um Observable com o resultado da requisição.
+    */
    editarLeitor(leitor: Leitor) {
      // Envia uma requisição PUT para atualizar os dados do Leitor
      return this.http.put(`${this.localUrl}leitor/${leitor.id}`, leitor);
    }
 
-   // Método para deletar um Leitor pelo seu ID
+   /**
+    * Envia uma requisição DELETE para remover um leitor específico.
+    * @param id O ID do leitor a ser deletado.
+    * @returns Uma promessa com o resultado da requisição.
+    */
    deletarLeitor(id: number) {
      // Envia uma requisição DELETE para remover um leitor específico
      return this.http.delete(`${this.localUrl}leitor/${id}`);
+     console.log(this.localUrl);
    }
 
-   // Método privado para lidar com erros de requisição HTTP
+   /**
+    * Função privada para lidar com erros de requisição HTTP.
+    * Cria uma mensagem de erro para o snackbar e a exibe.
+    * Se não há um resultado padrão, lança um erro.
+    * Caso contrário, retorna um resultado padrão para manter a aplicação funcionando.
+    *
+    * @param operation O nome da operação que falhou.
+    * @param result O resultado padrão a ser retornado, caso seja fornecido.
+    * @returns Uma função que retorna uma promessa com o resultado padrão.
+    */
    private handleError<T>(operation = 'operation', result?: T): () => Observable<T> {
      return (): Observable<T> => {
-       // Cria uma mensagem de erro para o snackbar
+
        const toastMessage = 'Erro ao ' + operation + '.';
-       // Exibe a mensagem de erro usando MatSnackBar
        this.snackBar.open(toastMessage, 'X');
 
        if (!result) {
-         // Se não há um resultado padrão, lança um erro
          return throwError(new Error());
        }
-       // Retorna um resultado padrão para manter a aplicação funcionando
        return of(result as T);
      };
    }

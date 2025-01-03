@@ -12,12 +12,17 @@ export class LoginService {
   // Variável que recebe a URL base do backend
   localUrl: string;
 
+ /**
+  * Construtor do serviço LoginService.
+  *
+  * @param http - Serviço para requisições HTTP.
+  * @param snackBar - Serviço para exibir mensagens na tela.
+  */
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {
     // Inicializa a URL base concatenando com o endpoint da biblioteca
     this.localUrl = `${API}biolab/`;
   }
 
-  // Método para realizar login. Recebe login e senha como parâmetros.
   realizarLogin(login: string, password: string): Observable<any> {
     // Cria um objeto de parâmetros com as credenciais do usuário
     let params = { login: login, password: password };
