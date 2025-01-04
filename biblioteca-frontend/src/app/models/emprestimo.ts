@@ -28,8 +28,8 @@ export class Emprestimo {
   }
 
   /**
-   * Retorna os t tulos dos livros formatados para serem exibidos em uma lista.
-   * @returns {string} Uma string com os t tulos dos livros formatados para serem exibidos em uma lista.
+   * Retorna os títulos dos livros formatados para serem exibidos em uma lista.
+   * @returns {string} Uma string com os títulos dos livros formatados para serem exibidos em uma lista.
    */
   getLivrosFormatados(): string {
     return this.livros.map(livro => livro.titulo).join("\n");

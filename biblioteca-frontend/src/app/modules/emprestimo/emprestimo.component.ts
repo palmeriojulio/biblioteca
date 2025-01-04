@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Emprestimo } from 'src/app/models/emprestimo';
 import { EmprestimoService } from 'src/app/services/emprestimo.service';
@@ -18,8 +20,9 @@ export class EmprestimoComponent implements OnInit {
 
   // Variáveis para construção da lista de dos emprestimos.
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Paginator para a tabela.
+  @ViewChild(MatSort) sort!: MatSort; // Ordenação da tabela
   displayedColumns: string[] = ['id', 'livro', 'leitor', 'dataDoEmprestimo', 'dataDevolucaoPrevista', 'dataDevolucaoReal', 'status', 'info', 'devolucao'];
-  dataSource: MatTableDataSource<Emprestimo> = new MatTableDataSource<Emprestimo>();
+  dataSource!: MatTableDataSource<Emprestimo>;
   emprestimo!: Emprestimo; // Objeto do tipo Emprestimo.
   durationInSeconds = 5; // Duração para o snackbar.
   btn: string = "Salvar"// Texto do botão
@@ -31,16 +34,20 @@ export class EmprestimoComponent implements OnInit {
    * @param emprestimoService - Serviço para manipulação de empréstimos.
    * @param dialog - Serviço para diálogos.
    * @param snackBar - Serviço para snackbars.
+   * @param _liveAnnouncer - Serviço para acessibilidade (anuncia eventos para o usuario).
    */
   constructor(
     private emprestimoService: EmprestimoService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private _liveAnnouncer: LiveAnnouncer
   ) { }
 
   /**
    * Método chamado ao inicializar o componente.
-   * Responsável por listar os empréstimos e inicializar a tabela de dados.
+   * Responsável por inicair a lista de emprestimos e
+   * chama o método ngAfterViewInit() para configurar o sort(ordem de classificação) da
+   * tabela de leitores ao iniciar o componente.
    */
   ngOnInit(): void {
     this.listarEmprestimos();
@@ -63,14 +70,16 @@ export class EmprestimoComponent implements OnInit {
   }
 
   /**
-   * Chama o serviço para listar os empréstimos e popula a tabela.
-   * Chama o método getLivrosFormatados() em cada objeto Emprestimo da lista para formatar os livros.
+   * Listar todos os emprestimos.
+   * Chama o serviço para listar todos os emprestimos e preenche a lista de emprestimos.
+   * Configura o paginator e sort para a tabela de emprestimos.
+   * itera sobre a lista de emprestimos e chama o método getLivrosFormatados() para formatar os livros de cada emprestimo.
    */
   listarEmprestimos() {
     this.emprestimoService.listarEmprestimos().subscribe((res: any) => {
       this.dataSource = new MatTableDataSource<Emprestimo>(res);
       this.dataSource.paginator = this.paginator;
-
+      this.dataSource.sort = this.sort;
       this.dataSource.data.forEach(emprestimo => {
         if (emprestimo instanceof Emprestimo) {
           const livrosFormatados = emprestimo.getLivrosFormatados();
@@ -185,4 +194,23 @@ export class EmprestimoComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  /**
+   * Anuncia a mudança na ordem de classificação usando um locutor ao vivo.
+   *
+   * Este método é chamado sempre que o estado de classificação muda. Ele usa o
+   * Serviço LiveAnnouncer para anunciar a direção de classificação atual em uma
+   * forma amigável ao usuário, melhorando a acessibilidade para usuários com deficiência visual.
+   *
+   * @param sortState – O estado atual da classificação, incluindo o ativo
+   * classificar direção. Pode ser ascendente, descendente,
+   * ou nenhum (desmarcado).
+   */
+   announceSortChange(sortState: Sort) {
+     if (sortState.direction) {
+       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+     } else {
+       this._liveAnnouncer.announce('Sorting cleared');
+     }
+   }
 }

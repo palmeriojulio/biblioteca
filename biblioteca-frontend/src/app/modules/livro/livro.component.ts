@@ -51,7 +51,6 @@ export class LivroComponent implements OnInit {
    */
   ngOnInit(): void {
     this.listarLivros();
-    this.ngAfterViewInit();
   }
 
   /**
@@ -79,6 +78,7 @@ export class LivroComponent implements OnInit {
     this.livroService.listarLivros().subscribe((res: any) => {
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -169,15 +169,6 @@ export class LivroComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  /**
-   * Inicializa o ngAfterViewInit.
-   * Este método é chamado após o conteúdo do componente ter sido inicializado.
-   * Neste caso, é usado para configurar o sort(ordem de classificação) da tabela de livros.
-   */
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
   }
 
  /**

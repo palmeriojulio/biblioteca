@@ -5,8 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Leitor } from 'src/app/models/leitor-model';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { Leitor } from 'src/app/models/leitor-model';
 import { LeitorService } from 'src/app/services/leitor.service';
 import { LeitorFormComponent } from '../leitor-form/leitor-form.component';
 import { LeitorInfoComponent } from '../leitor-info/leitor-info.component';
@@ -21,7 +21,7 @@ export class LeitorComponent implements OnInit {
   // Variáveis para construção da lista de dos leitor.
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Paginator para a tabela
   @ViewChild(MatSort) sort!: MatSort; // Ordenação da tabela
-  displayedColumns: string[] = ['id', 'nome', 'cpf', 'telefone', 'profissao', 'escola', 'info', 'editar', 'desativar'] // Colunas exibidas na tabela
+  displayedColumns: string[] = ['id', 'nome', 'cpf', 'telefone', 'profissao', 'escola', 'info', 'editar', 'desativar'];
   dataSource!: MatTableDataSource<Leitor>; // Fonte de dados para a tabela
   leitor!: Leitor; // Objeto do tipo Leitor
   durationInSeconds = 5; // Duração para o snackbar
@@ -44,12 +44,11 @@ export class LeitorComponent implements OnInit {
   /**
    * Método chamado ao inicializar o componente.
    * Responsável por carregar a lista de leitores e
-   * configurar o sort(ordem de classificação) da
+   * chama o método ngAfterViewInit() para configurar o sort(ordem de classificação) da
    * tabela de leitores ao iniciar o componente.
    */
   ngOnInit(): void {
     this.listarLeitores();
-    this.ngAfterViewInit();
   }
 
 
@@ -71,13 +70,15 @@ export class LeitorComponent implements OnInit {
   }
 
   /**
-   * Chama o serviço para listar os leitores e popula a tabela.
-   * Responsável por carregar a lista de leitores ao iniciar o componente.
+   * Lista todos os leitores.
+   * Chama o serviço para listar todos os leitores e preenche a tabela de leitores.
+   * Configura o paginator e sort para a tabela de leitores.
    */
   listarLeitores() {
     this.leitorService.listarLeitores().subscribe((res: any) => {
       this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator; // Associa o paginator à tabela
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -169,15 +170,6 @@ export class LeitorComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-  /**
-   * Inicializa o ngAfterViewInit.
-   * Este método é chamado após o conteúdo do componente ter sido inicializado.
-   * Neste caso, é usado para configurar o sort(ordem de classificação) da tabela de livros.
-   */
-   ngAfterViewInit() {
-     this.dataSource.sort = this.sort;
-   }
 
   /**
    * Anuncia a mudança na ordem de classificação usando um locutor ao vivo.
