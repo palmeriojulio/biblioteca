@@ -7,47 +7,47 @@
   <button mat-raised-button (click)="iniciarEmprestimo(emprestimo)"><mat-icon>play_lesson</mat-icon>Inicar empréstimo</button>
 
   <mat-form-field appearance="standard" style="margin-left: 10px; width: 25%;">
-    <input matInput (keyup)="applyFilter($event)" placeholder="Digite o id do empréstimo ou outra informação" #input>
     <mat-label>Pesquisar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Digite o id do empréstimo ou outra informação" #input>
   </mat-form-field>
 
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
 
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > ID </th>
         <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.id }} </td>
       </ng-container>
 
       <ng-container matColumnDef="livro">
-        <th mat-header-cell *matHeaderCellDef> Livros emprestados</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > Livros emprestados</th>
         <td mat-cell *matCellDef="let emprestimo">
           <div *ngFor="let livro of emprestimo.livros">{{ livro.titulo }}</div>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="leitor">
-        <th mat-header-cell *matHeaderCellDef> Leitor </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > Leitor </th>
         <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.leitor.nome }} </td>
       </ng-container>
 
       <ng-container matColumnDef="dataDoEmprestimo">
-        <th mat-header-cell *matHeaderCellDef> Data do emprestimo</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > Data do emprestimo</th>
         <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.dataDoEmprestimo | date: 'dd/MM/yyyy' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="dataDevolucaoPrevista">
-        <th mat-header-cell *matHeaderCellDef> Data da devolução </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > Data da devolução </th>
         <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.dataDevolucaoPrevista | date: 'dd/MM/yyyy' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="dataDevolucaoReal">
-        <th mat-header-cell *matHeaderCellDef> Data da devolução real </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > Data da devolução real </th>
         <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.dataDevolucaoReal | date: 'dd/MM/yyyy' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > Status </th>
         <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.status }} </td>
       </ng-container>
 
@@ -92,7 +92,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [length]="100" [pageSize]="7" [pageSizeOptions]="[5, 10, 20, 50]" aria-label="Selecione a página">
+    <mat-paginator [length]="100" [pageSize]="30" [pageSizeOptions]="[5, 10, 20, 50]" aria-label="Selecione a página">
     </mat-paginator>
 
   </div>

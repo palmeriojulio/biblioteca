@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import ptBr from '@angular/common/locales/pt';
 import { NgxMaskModule } from 'ngx-mask';
 
+import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -92,6 +93,7 @@ registerLocaleData(ptBr);
     MatListModule,
     MatDialogModule,
     MatTooltipModule,
+    MatSortModule,
     NgxMaskModule.forRoot(),
   ]
 })

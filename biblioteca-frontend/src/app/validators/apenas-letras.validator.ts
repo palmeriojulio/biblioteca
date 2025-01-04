@@ -14,7 +14,7 @@ export function apenasLetrasValidator(control: AbstractControl): ValidationError
     return null; // se o campo está vazio, não exibe erro
   }
 
-  const regex = /^[a-zA-ZÀ-ú\s.,;:_-]+$/;
+  const regex = /^[a-zA-ZÀ-ú\s.,;:º()_-]+$/;
 
   // Verifica se o valor do controle atende à expressão regular
   const valid = regex.test(control.value);

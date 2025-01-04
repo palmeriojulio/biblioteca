@@ -65,7 +65,7 @@ export class LeitorFormComponent implements OnInit {
       serie: new FormControl(leitor.serie, [Validators.maxLength(10), apenasLetrasValidator]),
       curso: new FormControl(leitor.curso, [Validators.maxLength(15), apenasLetrasValidator]),
       turno: new FormControl(leitor.turno, [Validators.maxLength(15), apenasLetrasValidator]),
-      ativo: new FormControl(leitor.ativo = "Ativo"),
+      ativo: new FormControl(leitor.ativo = "true"),
       endereco: new FormGroup ({
         logradouro: new FormControl(leitor.endereco?.logradouro, [Validators.required, apenasLetrasValidator]),
         numero: new FormControl(leitor.endereco?.numero, [Validators.required,apenasNumerosValidator]),

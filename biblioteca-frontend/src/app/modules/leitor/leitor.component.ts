@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Leitor } from 'src/app/models/leitor-model';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { LeitorService } from 'src/app/services/leitor.service';
@@ -18,6 +20,7 @@ export class LeitorComponent implements OnInit {
 
   // Variáveis para construção da lista de dos leitor.
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Paginator para a tabela
+  @ViewChild(MatSort) sort!: MatSort; // Ordenação da tabela
   displayedColumns: string[] = ['id', 'nome', 'cpf', 'telefone', 'profissao', 'escola', 'info', 'editar', 'desativar'] // Colunas exibidas na tabela
   dataSource!: MatTableDataSource<Leitor>; // Fonte de dados para a tabela
   leitor!: Leitor; // Objeto do tipo Leitor
@@ -29,19 +32,42 @@ export class LeitorComponent implements OnInit {
    * @param leitorService - Serviço para comunição o com o backend.
    * @param dialog - Serviço para diálogos.
    * @param snackBar - Serviço para snackbars.
+   * @param _liveAnnouncer - Serviço para acessibilidade (anuncia eventos para o usuario).
    */
   constructor(
     private leitorService: LeitorService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private _liveAnnouncer: LiveAnnouncer
   ) { }
 
   /**
-   * Método executado ao inicializar o componente.
-   * Responsável por carregar a lista de leitores ao iniciar o componente.
+   * Método chamado ao inicializar o componente.
+   * Responsável por carregar a lista de leitores e
+   * configurar o sort(ordem de classificação) da
+   * tabela de leitores ao iniciar o componente.
    */
   ngOnInit(): void {
-    this.listarLeitores(); // Carrega a lista de leitores ao iniciar o componente
+    this.listarLeitores();
+    this.ngAfterViewInit();
+  }
+
+
+  /**
+   * Abre um diálogo para adicionar um novo leitor ou editar um existente.
+   * Chama o componente LeitorFormComponent e passa o leitor atual como dado para o diálogo.
+   * Atualiza a lista de leitores após o fechamento do diálogo.
+   *
+   * @param leitor O leitor a ser editado, ou undefined para adicionar um novo.
+   */
+  addLeitor(leitor: Leitor) {
+    const dialogRef = this.dialog.open(LeitorFormComponent, {
+      width: '800px'
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      this.listarLeitores();
+    });
   }
 
   /**
@@ -56,10 +82,11 @@ export class LeitorComponent implements OnInit {
   }
 
   /**
-   * Chama o serviço para excluir um leitor e atualiza a lista de leitores.
-   * Responsável por excluir um leitor.
+   * Abre um diálogo de confirmação para desativar um leitor.
+   * Se confirmado, chama o serviço para inativar o leitor e atualiza a lista de leitores.
+   * Exibe uma mensagem de sucesso ou erro através do snack bar.
    *
-   * @param leitor - O leitor a ser excluído.
+   * @param leitor - O leitor a ser desativado.
    */
   desativarLeitor(leitor: any) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -85,10 +112,11 @@ export class LeitorComponent implements OnInit {
   }
 
   /**
-   * Abre um diálogo com as informações do leitor.
-   * Responsável por chamar o diálogo de informações do leitor.
+   * Abre um diálogo para mostrar as informações de um leitor.
+   * Chama o componente LeitorInfoComponent e passa o leitor atual como dado para o diálogo.
+   * Atualiza a lista de leitores após o fechamento do diálogo.
    *
-   * @param leitor - O leitor a ter suas informações exibidas.
+   * @param leitor O leitor a ser exibido.
    */
   informacaoDoLeitor(leitor: any) {
     const dialogRef = this.dialog.open(LeitorInfoComponent, {
@@ -101,10 +129,10 @@ export class LeitorComponent implements OnInit {
     });
   }
 
-
   /**
    * Abre um diálogo para edição de um leitor.
-   * Responsável por chamar o diálogo de edição do leitor.
+   * Chama o componente LeitorFormComponent e passa o leitor atual como dado para o diálogo.
+   * Atualiza a lista de leitores após o fechamento do diálogo.
    *
    * @param leitor - O leitor a ser editado.
    */
@@ -112,22 +140,6 @@ export class LeitorComponent implements OnInit {
     const dialogRef = this.dialog.open(LeitorFormComponent, {
       width: '800px',
       data: leitor
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.listarLeitores();
-    });
-  }
-
-  /**
-   * Abre um diálogo para cadastro de um leitor.
-   * Responsável por chamar o diálogo de cadastro do leitor.
-   *
-   * @param leitor - O leitor a ser cadastrado.
-   */
-  openDialog(leitor: Leitor) {
-    const dialogRef = this.dialog.open(LeitorFormComponent, {
-      width: '800px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -157,4 +169,32 @@ export class LeitorComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  /**
+   * Inicializa o ngAfterViewInit.
+   * Este método é chamado após o conteúdo do componente ter sido inicializado.
+   * Neste caso, é usado para configurar o sort(ordem de classificação) da tabela de livros.
+   */
+   ngAfterViewInit() {
+     this.dataSource.sort = this.sort;
+   }
+
+  /**
+   * Anuncia a mudança na ordem de classificação usando um locutor ao vivo.
+   *
+   * Este método é chamado sempre que o estado de classificação muda. Ele usa o
+   * Serviço LiveAnnouncer para anunciar a direção de classificação atual em uma
+   * forma amigável ao usuário, melhorando a acessibilidade para usuários com deficiência visual.
+   *
+   * @param sortState – O estado atual da classificação, incluindo o ativo
+   * classificar direção. Pode ser ascendente, descendente,
+   * ou nenhum (desmarcado).
+   */
+   announceSortChange(sortState: Sort) {
+     if (sortState.direction) {
+       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+     } else {
+       this._liveAnnouncer.announce('Sorting cleared');
+     }
+   }
 }
