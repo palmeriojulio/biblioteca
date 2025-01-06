@@ -51,7 +51,6 @@ export class LeitorComponent implements OnInit {
     this.listarLeitores();
   }
 
-
   /**
    * Abre um diálogo para adicionar um novo leitor ou editar um existente.
    * Chama o componente LeitorFormComponent e passa o leitor atual como dado para o diálogo.
@@ -82,19 +81,22 @@ export class LeitorComponent implements OnInit {
     });
   }
 
+
   /**
-   * Abre um diálogo de confirmação para desativar um leitor.
-   * Se confirmado, chama o serviço para inativar o leitor e atualiza a lista de leitores.
-   * Exibe uma mensagem de sucesso ou erro através do snack bar.
+   * Abre um diálogo de confirmação para ativar ou desativar um leitor.
+   * Se confirmado, chama o serviço para desativar ou ativar o leitor e atualiza a lista de leitores.
+   * Exibe uma mensagem de sucesso ou erro após a operação.
    *
-   * @param leitor - O leitor a ser desativado.
+   * @param leitor - O leitor a ser ativado ou desativado.
    */
   desativarLeitor(leitor: any) {
+    const texto = leitor.ativo ? 'desativar' : 'ativar';
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {
-        title: 'Confirmar inativação',
-        message: 'Deseja realmente inativar o leitor?',
+        title: `Confirmar ${texto} o leitor`,
+        message: `Deseja realmente ${texto} o leitor?`,
         titulo: `${leitor.nome}`
       }
     });
@@ -103,7 +105,7 @@ export class LeitorComponent implements OnInit {
       if (result) {
         this.leitorService.desativarLeitor(leitor.id).subscribe((res: any) => {
           this.listarLeitores();
-          this.open('Leitor ativo!', 'Fechar');
+          this.open(`Leitor ${texto}do!`, 'Fechar');
         }, (error) => {
           alert(error.error.text);
           this.listarLeitores();
@@ -190,3 +192,5 @@ export class LeitorComponent implements OnInit {
      }
    }
 }
+
+
