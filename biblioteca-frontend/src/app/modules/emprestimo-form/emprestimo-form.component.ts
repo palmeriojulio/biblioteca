@@ -42,9 +42,11 @@ export class EmprestimoFormComponent implements OnInit {
   ) {}
 
   /**
-   * Método executado ao inicializar o componente.
-   * Responsável por criar o formulário do empréstimo com uma nova instância de Emprestimo.
-   */
+  * Método chamado ao inicializar o componente.
+  * Responsável por criar o formulário de empréstimo com uma nova instância de Empréstimo.
+  * Carrega a lista de livros disponíveis e a lista de leitores.
+  * Inicializa as variáveis `livros` e `leitores` com os dados obtidos dos respectivos serviços.
+  */
   ngOnInit(): void {
     // variáveis auxiliares
     const leitor = new Leitor();
@@ -100,7 +102,7 @@ export class EmprestimoFormComponent implements OnInit {
    * Se o botão for "Editar", atualiza o empréstimo existente.
    * Em seguida, fecha o diálogo e exibe uma mensagem com o resultado da operação.
    */
-  onSubmit() {
+  salvarEmprestimo() {
     if (this.btn != 'Editar') {
       this.emprestimoService.salvarEmprestimo(this.formEmprestimo.value).subscribe((res: any) => {
         if (res != null) {
@@ -127,15 +129,16 @@ export class EmprestimoFormComponent implements OnInit {
 
   /**
    * Função chamada ao selecionar um item na lista de livros.
-   * Responsável por limitar a quantidade de livros selecionados para 3.
-   * Se o usuário selecionar mais de 3 livros, este método remove o último item da lista e exibe uma mensagem de alerta.
+   * Limita a quantidade de livros selecionados para no máximo 3.
+   * Se o usuário selecionar mais de 3 livros, remove o último item da lista
+   * e exibe uma mensagem de alerta.
    * @param event - O evento de seleção do item.
    */
   limitarSelecao(event: any) {
-    const selcionados = event.value;
-    if (selcionados.length > 3) {
-      selcionados.pop();
-      alert('Você só pode selecionar no máximo 3 livros.');
+    const selecionados = event.value;
+    if (selecionados.length > 3) {
+      selecionados.pop();
+      this.open('Você pode selecionar no máximo 3 livros.', 'X');
     }
   }
 

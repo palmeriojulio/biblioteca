@@ -1,10 +1,10 @@
 <mat-toolbar class="background-color">
   <mat-icon class="mat-18">book</mat-icon>
-  <span style="margin-left: 10px;">{{title}}</span>
+  <span style="margin-left: 10px;">{{ title }}</span>
 </mat-toolbar>
 <br>
 <mat-card>
-  <form [formGroup]="formLivro" (ngSubmit)="onSubmit()">
+  <form [formGroup]="formLivro" (ngSubmit)="salvarLivro()">
     <div mat-dialog-content>
 
       <input type="hidden" formControlName="id">
@@ -80,13 +80,12 @@
 
     </div>
   </form>
-
   <div mat-dialog-actions [align]="'start'">
     <button mat-raised-button color="warn" (click)="fecharModal()">
       Cancelar
     </button>
-    <button mat-raised-button style="margin-left: 8px" class="background-color" (click)="onSubmit()">
-      {{btn}}
+    <button mat-raised-button style="margin-left: 8px" class="background-color" (click)="salvarLivro()">
+      {{ btn }}
     </button>
   </div>
 

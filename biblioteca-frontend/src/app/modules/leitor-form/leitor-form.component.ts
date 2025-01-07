@@ -112,7 +112,7 @@ export class LeitorFormComponent implements OnInit {
    * Se btn for "Editar", atualiza o leitor existente.
    * Em seguida, fecha o diálogo e reseta o formulário para um novo leitor.
    */
-  cadastrar() {
+  salvarLeitor() {
     if (this.btn != "Editar") {
       this.LeitorService.salvarLeitor(this.formLeitor.value).subscribe((res: any) => {
         if (res != null) {

@@ -4,7 +4,7 @@
 </mat-toolbar>
 <br>
 <mat-card>
-  <form [formGroup]="formEmprestimo" (ngSubmit)="onSubmit()">
+  <form [formGroup]="formEmprestimo" (ngSubmit)="salvarEmprestimo()">
     <div mat-dialog-content>
 
       <input type="hidden" formControlName="id">
@@ -19,18 +19,20 @@
       <mat-form-field style="width: 46%; margin-inline-end: 8px;" appearance="outline">
         <mat-label>Selecione o(os) livro</mat-label>
         <mat-select formControlName="livros" multiple (selectionChange)="limitarSelecao($event)">
-          <mat-option *ngFor="let livros of livros" [value]="livros">{{ livros.titulo }}</mat-option>
+          <mat-option *ngFor="let livro of livros" [value]="livro">
+            {{ livro.titulo }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
 
     </div>
-    <div mat-dialog-actions [align]="'start'">
-      <button mat-raised-button color="warn" (click)="fecharModal()">
-        Cancelar
-      </button>
-      <button mat-raised-button style="margin-left: 8px" class="background-color" type="submit">
-        {{ btn }}
-      </button>
-    </div>
   </form>
+  <div mat-dialog-actions [align]="'start'">
+    <button mat-raised-button color="warn" (click)="fecharModal()">
+      Cancelar
+    </button>
+    <button mat-raised-button style="margin-left: 8px" class="background-color" (click)="salvarEmprestimo()">
+      {{ btn }}
+    </button>
+  </div>
 </mat-card>

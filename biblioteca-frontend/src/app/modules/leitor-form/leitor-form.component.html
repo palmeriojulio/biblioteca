@@ -4,7 +4,7 @@
 </mat-toolbar>
 <br>
 <mat-card>
-  <form [formGroup]="formLeitor" (ngSubmit)="cadastrar()">
+  <form [formGroup]="formLeitor" (ngSubmit)="salvarLeitor()">
     <div mat-dialog-content>
       <input type="hidden" formControlName="id">
 
@@ -186,7 +186,7 @@
     <button mat-raised-button color="warn" (click)="fecharModal()">
       Cancelar
     </button>
-    <button mat-raised-button style="margin-left: 8px" class="background-color" (click)="cadastrar()">
+    <button mat-raised-button style="margin-left: 8px" class="background-color" (click)="salvarLeitor()">
       {{ btn }}
     </button>
   </div>

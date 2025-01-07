@@ -85,7 +85,7 @@ export class LivroFormComponent implements OnInit {
    * Se o botão for "Editar", atualiza o livro existente.
    * Em seguida, fecha o diálogo e exibe uma mensagem com o resultado da operação.
    */
-  onSubmit() {
+  salvarLivro() {
     // Se não for edição, salva um novo livro
     if (this.btn != "Editar") {
       this.livroService.salvarLivro(this.formLivro.value).subscribe((res: any) => {

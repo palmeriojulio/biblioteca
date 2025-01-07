@@ -4,7 +4,6 @@ import { API } from "app.api";
 import { Emprestimo } from "../models/emprestimo";
 import { Observable, of, throwError } from "rxjs";
 import { Injectable } from "@angular/core";
-import { Livro } from "../models/livro-model";
 
 @Injectable({
   providedIn: 'root'

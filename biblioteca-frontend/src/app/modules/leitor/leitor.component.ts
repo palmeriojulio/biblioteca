@@ -10,6 +10,7 @@ import { Leitor } from 'src/app/models/leitor-model';
 import { LeitorService } from 'src/app/services/leitor.service';
 import { LeitorFormComponent } from '../leitor-form/leitor-form.component';
 import { LeitorInfoComponent } from '../leitor-info/leitor-info.component';
+import { Colors } from 'chart.js';
 
 @Component({
   selector: 'app-leitor',
@@ -71,7 +72,7 @@ export class LeitorComponent implements OnInit {
   /**
    * Lista todos os leitores.
    * Chama o serviço para listar todos os leitores e preenche a tabela de leitores.
-   * Configura o paginator e sort para a tabela de leitores.
+   * Configura o paginator e a ordenação da tabela para a tabela de leitores.
    */
   listarLeitores() {
     this.leitorService.listarLeitores().subscribe((res: any) => {
@@ -81,15 +82,17 @@ export class LeitorComponent implements OnInit {
     });
   }
 
-
   /**
-   * Abre um diálogo de confirmação para ativar ou desativar um leitor.
-   * Se confirmado, chama o serviço para desativar ou ativar o leitor e atualiza a lista de leitores.
-   * Exibe uma mensagem de sucesso ou erro após a operação.
+   * Abre um diálogo para confirmar a ativação/desativação de um leitor.
+   * Determina a ação com base no estado atual do leitor.
+   * Chama o serviço para ativar/desativar o leitor.
+   * Atualiza a lista de leitores após a execução do serviço.
+   * Exibe uma mensagem de sucesso ou erro com base no resultado da operação.
    *
-   * @param leitor - O leitor a ser ativado ou desativado.
+   * @param leitor O leitor a ser ativar/desativado.
    */
   desativarLeitor(leitor: any) {
+
     const texto = leitor.ativo ? 'desativar' : 'ativar';
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
