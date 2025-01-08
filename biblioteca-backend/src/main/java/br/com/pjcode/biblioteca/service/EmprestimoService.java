@@ -9,22 +9,22 @@ import br.com.pjcode.biblioteca.domain.Emprestimo;
 import br.com.pjcode.biblioteca.domain.Leitor;
 import br.com.pjcode.biblioteca.domain.Livro;
 import br.com.pjcode.biblioteca.dto.EmprestimoDto;
-import br.com.pjcode.biblioteca.dto.LeitorDto;
 import br.com.pjcode.biblioteca.dto.LivroDto;
 import br.com.pjcode.biblioteca.service.exceptions.ConflictException;
 import br.com.pjcode.biblioteca.service.exceptions.InternalServerErrorException;
-import br.com.pjcode.biblioteca.service.exceptions.LivroIndisponivelException;
 import br.com.pjcode.biblioteca.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.annotation.Documented;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static br.com.pjcode.biblioteca.util.DateUtil.convertLocalDateToStringDate;
 
 /**
  * Classe de serviço com as regras de negócio do emṕrestimo.
@@ -32,9 +32,9 @@ import java.util.stream.Collectors;
  */
 @Service
 public class EmprestimoService {
-
     @Autowired
     EmprestimoRepository emprestimoRepository;
+
     @Autowired
     LivroRepository livroRepository;
     @Autowired
@@ -80,16 +80,6 @@ public class EmprestimoService {
     }
 
     /**
-     * Método que busca todos os empréstimos realizados com status ativo.
-     * @author Palmério Julio
-     * @return List com todos os empréstimos realizados com status ativo.
-     * @exception InternalServerErrorException
-     */
-    public Object getAllStatusAtivo() {
-        return null;
-    }
-
-    /**
      * Método para buscar um empréstimo realizado.
      * @author Palmério Júlio
      * @param id
@@ -111,7 +101,42 @@ public class EmprestimoService {
     }
 
     /**
+     * Método que busca a quantidade de empréstimos que têm a devolução prevista para o dia atual.
+     * @param dateNow a data atual utilizada para verificar empréstimos com devolução hoje.
+     * @return a quantidade de empréstimos com devolução prevista para o dia atual.
+     * @exception InternalServerErrorException caso ocorra um erro interno ao buscar os dados.
+     */
+    @Transactional
+    public Object getAllEmprestimosHoje(LocalDateTime dateNow){
+        try {
+            return emprestimoRepository.findByDataDevolucaoPrevista(dateNow)
+                    .stream()
+                    .count();
+        } catch (InternalServerErrorException e) {
+            throw new InternalServerErrorException("Erro ao buscar livros com entrega pra hoje!");
+        }
+    }
+
+    /**
+     * Método que busca todos os empréstimos atrasados até a data atual.
+     * @param data a data atual utilizada para verificar empréstimos atrasados.
+     * @return a quantidade de empréstimos que estão atrasados.
+     * @exception InternalServerErrorException caso ocorra um erro interno ao buscar os dados.
+     */
+    @Transactional
+    public Object getAllEmprestimosAtrasados(LocalDateTime data) {
+        try {
+            return emprestimoRepository.findAtrasados(data)
+                    .stream()
+                    .count();
+        } catch (InternalServerErrorException e) {
+            throw new InternalServerErrorException("Erro ao buscar livros em atraso!");
+        }
+    }
+
+    /**
      * Método para atualizar os dados de um empréstimo.
+     * @deprecated método não utilizado
      * @author Palmério Júlio
      * @param emprestimoDto
      * @param id
@@ -244,7 +269,6 @@ public class EmprestimoService {
         }
     }
 
-
     /**
      * Método que procura os livros e adiciona a uma lista
      * @author Palmério Júlio
@@ -276,9 +300,6 @@ public class EmprestimoService {
             throw new InternalServerErrorException("Erro ao processar os livros", e);
         }
     }
-
-
-
 
     /**
      * Converte para retornar um DTO.
