@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -70,10 +71,10 @@ public class EmprestimoService {
     public Object getAll() {
         try {
             return emprestimoRepository.findAll()
-                    .stream()
-                    .map(EmprestimoDto::fromEmprestimo)
-                    .sorted((e1, e2 ) -> e1.getId().compareTo(e2.getId()))
-                    .collect(Collectors.toList());
+                .stream()
+                .map(EmprestimoDto::fromEmprestimo)
+                .sorted((e1, e2 ) -> e1.getId().compareTo(e2.getId()))
+                .collect(Collectors.toList());
         } catch (InternalServerErrorException e) {
             throw new InternalServerErrorException("Erro ao buscar os empréstimos!");
         }
@@ -97,40 +98,6 @@ public class EmprestimoService {
             throw e;
         } catch (InternalServerErrorException e) {
             return new InternalServerErrorException("Erro ao buscar o empréstimo!");
-        }
-    }
-
-    /**
-     * Método que busca a quantidade de empréstimos que têm a devolução prevista para o dia atual.
-     * @param dateNow a data atual utilizada para verificar empréstimos com devolução hoje.
-     * @return a quantidade de empréstimos com devolução prevista para o dia atual.
-     * @exception InternalServerErrorException caso ocorra um erro interno ao buscar os dados.
-     */
-    @Transactional
-    public Object getAllEmprestimosHoje(LocalDateTime dateNow){
-        try {
-            return emprestimoRepository.findByDataDevolucaoPrevista(dateNow)
-                    .stream()
-                    .count();
-        } catch (InternalServerErrorException e) {
-            throw new InternalServerErrorException("Erro ao buscar livros com entrega pra hoje!");
-        }
-    }
-
-    /**
-     * Método que busca todos os empréstimos atrasados até a data atual.
-     * @param data a data atual utilizada para verificar empréstimos atrasados.
-     * @return a quantidade de empréstimos que estão atrasados.
-     * @exception InternalServerErrorException caso ocorra um erro interno ao buscar os dados.
-     */
-    @Transactional
-    public Object getAllEmprestimosAtrasados(LocalDateTime data) {
-        try {
-            return emprestimoRepository.findAtrasados(data)
-                    .stream()
-                    .count();
-        } catch (InternalServerErrorException e) {
-            throw new InternalServerErrorException("Erro ao buscar livros em atraso!");
         }
     }
 
@@ -168,6 +135,18 @@ public class EmprestimoService {
         } catch (InternalServerErrorException e) {
             return new InternalServerErrorException("Erro ao deletar o empréstimo!");
         }
+    }
+
+    public Long countAllEmprestimos() {
+        return emprestimoRepository.countAllEmprestimos();
+    }
+
+    public Long countEmprestimosAtrasados(LocalDateTime data) {
+        return emprestimoRepository.countEmprestimosAtrasados(data);
+    }
+
+    public Long countEmprestimosHoje(LocalDateTime data) {
+        return emprestimoRepository.countEmprestimosHoje(data);
     }
 
     /**
@@ -279,8 +258,8 @@ public class EmprestimoService {
     private List<Livro> regraLivros(List<LivroDto> livrosDtos) {
         try {
             return livrosDtos.stream()
-                    .map(e -> {
-                        Livro livro = livroRepository.findById(e.getId())
+                .map(e -> {
+                    Livro livro = livroRepository.findById(e.getId())
                                 .orElseThrow(() -> new ResourceNotFoundException("Livro não encontrado com o ID: " + e.getId()));
                         if (livro.getQuantidadeDisponivel() > 0) {
                             livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel() - 1); // Diminui a quantidade do livro

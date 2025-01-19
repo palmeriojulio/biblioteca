@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -170,6 +171,10 @@ public class LeitorService {
         } catch (Exception e) {
             throw new InternalServerErrorException("Erro ao destivar o Leitor");
         }
+    }
+
+    public Long countLeitores() {
+        return leitorRepository.countAllLeitores();
     }
 
     /**

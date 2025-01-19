@@ -1,12 +1,15 @@
 package br.com.pjcode.biblioteca.service;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import br.com.pjcode.biblioteca.dto.LivrosMaisEmprestadosDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,7 +61,7 @@ public class LivroService {
      * @exception InternalServerErrorException
      */
     @Transactional(readOnly = true)
-    public List<LivroDto> findAll() {
+    public List<LivroDto> getAll() {
         try {
             return livroRepository.findAll()
                     .stream()
@@ -194,6 +197,15 @@ public class LivroService {
         } catch (Exception e) {
             throw new InternalServerErrorException("Erro ao deletar o livro");
         }
+    }
+
+    public Long countAllLivros() {
+        return livroRepository.countAllLivros();
+    }
+
+    public List<LivrosMaisEmprestadosDto> livrosMaisEmprestados() {
+        PageRequest pageRequest = PageRequest.of(0,30);
+        return livroRepository.livrosMaisEmprestados(pageRequest);
     }
 
     /**
