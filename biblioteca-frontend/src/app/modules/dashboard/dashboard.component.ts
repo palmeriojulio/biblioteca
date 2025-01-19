@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { LeitorService } from 'src/app/services/leitor.service';
+import { LivroService } from 'src/app/services/livro.service';
+import { EmprestimoService } from 'src/app/services/emprestimo.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,17 +11,28 @@ import { Chart, registerables } from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
 
-  cards = [
-    { title: 'Livros', value: '786', icon: 'book'},
-    { title: 'Leitores', value: '150', icon: 'person'},
-    { title: 'Emprestimos', value: '15', icon: 'book'},
-    { title: 'Entregas de Hoje', value: '8', icon: 'today'},
-    { title: 'Em Atraso', value: '3', icon: 'schedule'}
-  ];
+  livros: any;
+  leitores: any;
+  cards: Array<{title: string, value: string, icon: string}> = [];
 
-  constructor() { }
+  constructor(
+    private leitorService: LeitorService, // Serviço para manipulação de leitores
+    private livroService: LivroService, // Serviço para manipulação de livros
+    private emprestimoService: EmprestimoService
+  ) { }
 
   ngOnInit(): void {
+    this.emprestimoService.dashboard().subscribe((res:any) => {
+      this.cards = [
+        { title: 'Livros', value: res.livros, icon: 'book'},
+        { title: 'Leitores', value: res.leitores, icon: 'person'},
+        { title: 'Emprestimos', value: res.emprestimos, icon: 'book'},
+        { title: 'Entregas de Hoje', value: res.entregasHoje, icon: 'today'},
+        { title: 'Em Atraso', value: res.entregasEmAtraso, icon: 'schedule'}
+      ];
+    })
+
+
 
     Chart.register(...registerables);
 
@@ -87,5 +101,11 @@ export class DashboardComponent implements OnInit {
         }
       });
     }
+  }
+
+  listarLivros() {
+    this.livroService.listarLivros().subscribe((res: any) => {
+      this.livros = res.length;
+    });
   }
 }

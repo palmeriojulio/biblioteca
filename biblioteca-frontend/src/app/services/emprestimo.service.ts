@@ -84,6 +84,10 @@ export class EmprestimoService {
     return this.http.post(`${this.localUrl}emprestimo/devolucao/${id}`, emprestimo);
   }
 
+  dashboard() {
+    return this.http.get(`${this.localUrl}dashboard`);
+  }
+
   /**
    * Função privada para lidar com erros de requisição HTTP.
    * Cria uma mensagem de erro para o snackbar e a exibe.

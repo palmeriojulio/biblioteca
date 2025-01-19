@@ -10,7 +10,6 @@ import { Leitor } from 'src/app/models/leitor-model';
 import { LeitorService } from 'src/app/services/leitor.service';
 import { LeitorFormComponent } from '../leitor-form/leitor-form.component';
 import { LeitorInfoComponent } from '../leitor-info/leitor-info.component';
-import { Colors } from 'chart.js';
 
 @Component({
   selector: 'app-leitor',

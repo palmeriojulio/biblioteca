@@ -135,7 +135,9 @@ export class EmprestimoFormComponent implements OnInit {
    * @param event - O evento de seleção do item.
    */
   limitarSelecao(event: any) {
+
     const selecionados = event.value;
+
     if (selecionados.length > 3) {
       selecionados.pop();
       this.open('Você pode selecionar no máximo 3 livros.', 'X');
