@@ -48,25 +48,7 @@ public class EmprestimoResource {
      */
     @GetMapping("/emprestimos/ativos")
     public ResponseEntity<Object> getAllStatusAtivo() {
-        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.getAllStatusAtivo());
-    }
-
-    /**
-     * Retorna a quantidade de empréstimos realizados no dia atual.
-     * @return ResponseEntity com a quantidade de empréstimos realizados no dia atual.
-     */
-    @GetMapping("/dashboard/emprestimos/hoje")
-    public ResponseEntity<Object> getAllEmprestimosHoje() {
-        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.getAllEmprestimosHoje(LocalDateTime.now()));
-    }
-
-    /**
-     * Retorna a quantidade de empréstimos atrasados na data atual.
-     * @return ResponseEntity com a quantidade de empréstimos atrasados na data atual.
-     */
-    @GetMapping("/dashboard/emprestimos/atrasados")
-    public ResponseEntity<Object> getAllEmprestimosAtrasados() {
-        return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.getAllEmprestimosAtrasados(LocalDateTime.now()));
+        return null;
     }
 
     /**
@@ -100,17 +82,6 @@ public class EmprestimoResource {
         return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.delete(id));
     }
 
-    /**
-     * Finaliza a devolução de um empréstimo de livro.
-     * Atualiza o status do empréstimo e dos livros, e salva as alterações no banco de dados.
-     *
-     * @param id o "ID" do empréstimo a ser finalizado na devolução
-     * @param emprestimoDto o objeto contendo os detalhes do empréstimo a ser devolvido
-     * @return ResponseEntity com o empréstimo finalizado
-     * @throws ResourceNotFoundException Caso o empréstimo não seja encontrado
-     * @throws ConflictException Caso o empréstimo já tenha sido devolvido anteriormente
-     * @throws InternalServerErrorException Caso ocorra um erro interno no servidor
-     */
     @PostMapping("/emprestimo/devolucao/{id}")
     public ResponseEntity<Object> devolucao(@PathVariable Long id, @RequestBody EmprestimoDto emprestimoDto) {
         return ResponseEntity.status(HttpStatus.OK).body(emprestimoService.finalizarEmprestimo(emprestimoDto, id));

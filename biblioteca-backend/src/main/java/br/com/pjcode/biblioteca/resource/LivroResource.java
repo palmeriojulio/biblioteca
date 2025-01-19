@@ -14,8 +14,8 @@ import br.com.pjcode.biblioteca.service.LivroService;
  * Classe controller que recebe dados do front-end
  */
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/biblioteca")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class LivroResource {
 
     // Injeção de dependência
