@@ -22,10 +22,11 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
     Boolean existsByTitulo(String titulo);
     @Query("SELECT COUNT(l) FROM Livro l")
     Long countAllLivros();
-    @Query("SELECT COUNT(e.id) AS quant, l.titulo " +
+    @Query("SELECT new br.com.pjcode.biblioteca.dto.LivrosMaisEmprestadosDto(COUNT(e.id) AS quant, l.titulo) " +
             "FROM Emprestimo e " +
             "JOIN e.livros l " +
-            "GROUP BY l.id, l.titulo")
+            "GROUP BY l.id, l.titulo " +
+            "ORDER BY quant DESC")
     List<LivrosMaisEmprestadosDto> livrosMaisEmprestados(Pageable pageable);
 
 }

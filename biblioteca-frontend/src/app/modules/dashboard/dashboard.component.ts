@@ -14,7 +14,6 @@ export class DashboardComponent implements OnInit {
   livros: any;
   leitores: any;
   cards: Array<{title: string, value: string, icon: string}> = [];
-  labels: Array<{quant: string, livro: string}> = [];
 
   constructor(
     private livroService: LivroService,

@@ -19,7 +19,7 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
     @Query("SELECT COUNT(e) FROM Emprestimo e ")
     Long countAllEmprestimos();
 
-    @Query("SELECT COUNT(e) FROM Emprestimo e WHERE e.dataDevolucaoPrevista = :data AND e.dataDevolucaoReal IS NULL")
+    @Query("SELECT COUNT(e) FROM Emprestimo e WHERE e.status = 'Ativo' AND e.dataDevolucaoPrevista < :data")
     Long countEmprestimosAtrasados(@Param("data") LocalDateTime now);
 
     @Query("SELECT COUNT(e) FROM Emprestimo e WHERE e.dataDevolucaoPrevista = :data")

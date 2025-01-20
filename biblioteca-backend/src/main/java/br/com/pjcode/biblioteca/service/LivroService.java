@@ -204,7 +204,7 @@ public class LivroService {
     }
 
     public List<LivrosMaisEmprestadosDto> livrosMaisEmprestados() {
-        PageRequest pageRequest = PageRequest.of(0,30);
+        PageRequest pageRequest = PageRequest.of(0,5);
         return livroRepository.livrosMaisEmprestados(pageRequest);
     }
 

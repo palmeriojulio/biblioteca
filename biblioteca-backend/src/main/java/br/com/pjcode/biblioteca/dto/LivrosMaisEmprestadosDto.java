@@ -9,4 +9,10 @@ public class LivrosMaisEmprestadosDto {
 
     private Long quant;
     private String titulo;
+
+    // Construtor necessário para a consulta JPQL
+    public LivrosMaisEmprestadosDto(Long quant, String titulo) {
+        this.quant = quant;
+        this.titulo = titulo;
+    }
 }

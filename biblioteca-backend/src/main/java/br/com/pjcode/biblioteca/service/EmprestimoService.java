@@ -141,8 +141,8 @@ public class EmprestimoService {
         return emprestimoRepository.countAllEmprestimos();
     }
 
-    public Long countEmprestimosAtrasados(LocalDateTime data) {
-        return emprestimoRepository.countEmprestimosAtrasados(data);
+    public Long countEmprestimosAtrasados() {
+        return emprestimoRepository.countEmprestimosAtrasados(LocalDateTime.now());
     }
 
     public Long countEmprestimosHoje(LocalDateTime data) {
