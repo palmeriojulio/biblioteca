@@ -19,4 +19,6 @@ public class DashboardDto {
     private Long entregasEmAtraso;
 
     private List<LivrosMaisEmprestadosDto> livroMaisEmprestados;
+
+    private LeitorFaixaEtariaDto leitoresFaixaEtaria;
 }

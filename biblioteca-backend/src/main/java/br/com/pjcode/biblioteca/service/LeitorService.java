@@ -181,10 +181,10 @@ public class LeitorService {
     public Long countLeitores() {
         return leitorRepository.countAllLeitores();
     }
-//    @Transactional(readOnly = true)
-//    public LeitorFaixaEtariaDto getFaixaEtaria() {
-//        return leitorRepository.getFaixaEtaria();
-//    }
+    @Transactional(readOnly = true)
+    public LeitorFaixaEtariaDto getFaixaEtaria() {
+        return leitorRepository.getFaixaEtaria();
+    }
 
     public int calcularIdade(LocalDateTime dataNascimento) {
         if (dataNascimento == null) {

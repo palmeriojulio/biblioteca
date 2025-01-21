@@ -26,7 +26,7 @@ public class DashboardService {
         dash.setEntregasHoje(emprestimoService.countEmprestimosHoje(LocalDateTime.now()));
         dash.setEntregasEmAtraso(emprestimoService.countEmprestimosAtrasados());
         dash.setLivroMaisEmprestados(livroService.livrosMaisEmprestados());
-
+        dash.setLeitoresFaixaEtaria(leitorService.getFaixaEtaria());
         return dash;
     }
 
