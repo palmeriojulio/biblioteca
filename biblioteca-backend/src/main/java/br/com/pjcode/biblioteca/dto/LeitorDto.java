@@ -1,6 +1,7 @@
 package br.com.pjcode.biblioteca.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -30,7 +31,8 @@ public class LeitorDto {
 	private String cpf;
 	private String rg;
 	@PastOrPresent(message = "Campo data nascimento inválido!")
-	private LocalDate dataNascimento;
+	private LocalDateTime dataNascimento;
+	private Integer idade;
 	@Size(min = 10, max = 11, message = "Telefone deve ter entre 10 e 11 caracteres")
 	private String telefone;
 	private String profissao;
@@ -53,6 +55,7 @@ public class LeitorDto {
 				dto.getCpf(),
 				dto.getRg(),
 				dto.getDataNascimento(),
+				dto.getIdade(),
 				dto.getTelefone(),
 				dto.getProfissao(),
 				dto.getEscola(),
@@ -76,6 +79,7 @@ public class LeitorDto {
 				entity.getCpf(),
 				entity.getRg(),
 				entity.getDataNascimento(),
+				entity.getIdade(),
 				entity.getTelefone(),
 				entity.getProfissao(),
 				entity.getEscola(),

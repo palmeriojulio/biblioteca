@@ -2,6 +2,7 @@ package br.com.pjcode.biblioteca.service;
 
 import br.com.pjcode.biblioteca.dao.LeitorRepository;
 import br.com.pjcode.biblioteca.domain.Leitor;
+import br.com.pjcode.biblioteca.dto.LeitorFaixaEtariaDto;
 import br.com.pjcode.biblioteca.dto.LeitorDto;
 import br.com.pjcode.biblioteca.service.exceptions.ConflictException;
 import br.com.pjcode.biblioteca.service.exceptions.InternalServerErrorException;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,8 +42,12 @@ public class LeitorService {
             if (retorno) {
                 throw new ConflictException("Já existe um leitor com o CPF: "+leitorDto.getCpf());
             }
-            var leitor = leitorRepository.save(LeitorDto.toLeitor(leitorDto));
+
+            var leitor = LeitorDto.toLeitor(leitorDto);
+            leitor.setIdade(calcularIdade(leitorDto.getDataNascimento()));
+            leitor = leitorRepository.save(leitor);
             return convertReturn(leitor);
+
         } catch (ConflictException e) {
             throw e;
         } catch (RuntimeException e) {
@@ -175,6 +180,17 @@ public class LeitorService {
 
     public Long countLeitores() {
         return leitorRepository.countAllLeitores();
+    }
+//    @Transactional(readOnly = true)
+//    public LeitorFaixaEtariaDto getFaixaEtaria() {
+//        return leitorRepository.getFaixaEtaria();
+//    }
+
+    public int calcularIdade(LocalDateTime dataNascimento) {
+        if (dataNascimento == null) {
+            return 0;
+        }
+        return LocalDateTime.now().getYear() - dataNascimento.getYear();
     }
 
     /**

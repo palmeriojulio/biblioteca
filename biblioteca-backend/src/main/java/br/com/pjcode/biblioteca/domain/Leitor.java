@@ -3,6 +3,7 @@ package br.com.pjcode.biblioteca.domain;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,7 +35,10 @@ public class Leitor implements Serializable {
 	private String rg;
 
 	@Column(name = "data_nascimento")
-	private LocalDate dataNascimento;
+	private LocalDateTime dataNascimento;
+
+	@Column(name = "idade")
+	private Integer idade;
 
 	@Column(name = "telefone", length = 15)
 	private String telefone;
