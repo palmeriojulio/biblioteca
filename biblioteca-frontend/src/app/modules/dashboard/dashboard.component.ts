@@ -76,16 +76,29 @@ export class DashboardComponent implements OnInit {
         new Chart(doughnutChart, {
           type: 'doughnut',
           data: {
-            labels: ['0-12 anos', '13-18 anos', '19-25 anos', '26-40 anos', '41+ anos'],
+            labels: ['Entre 0-12', 'Entre 13-18', 'Entre 19-30', 'Entre 31-40', '+ de 41'],
             datasets: [{
-              label: 'Leitores por Faixa Etária',
-              data: [10, 20, 30, 25, 15],
+              label: '',
+              data: [
+                res.leitoresFaixaEtaria.faixa0_12,
+                res.leitoresFaixaEtaria.faixa13_18,
+                res.leitoresFaixaEtaria.faixa19_30,
+                res.leitoresFaixaEtaria.faixa26_40,
+                res.leitoresFaixaEtaria.faixa41
+              ],
               backgroundColor: [
                 'rgba(255, 200, 70, 0.76)',
                 'rgba(75, 192, 192, 0.75)',
                 'rgba(54, 163, 235, 0.83)',
                 'rgba(153, 102, 255, 0.2)',
                 'rgba(201, 203, 207, 0.2)'
+              ],
+              borderColor: [
+                'rgba(173, 139, 59, 0.66)',
+                'rgba(42, 109, 109, 0.52)',
+                'rgba(28, 83, 119, 0.53)',
+                'rgba(65, 44, 107, 0.4)',
+                'rgba(99, 100, 102, 0.48)'
               ],
               borderWidth: 1
             }]
@@ -99,7 +112,7 @@ export class DashboardComponent implements OnInit {
   }
 
   abreviarTitulo(titulo: string): string {
-    const maxLength = 10; // Defina o comprimento máximo desejado
+    const maxLength = 20; // Defina o comprimento máximo desejado
     return titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
   }
 }

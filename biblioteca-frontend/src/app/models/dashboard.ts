@@ -6,6 +6,7 @@ export class dashboard {
    entregasHoje!: string;
    entregasEmAtraso!: string;
    livroMaisEmprestados: string[] = [];
+   leitorFaixaEtaria: string[] = [];
 
   constructor(
     livros: string,
@@ -13,7 +14,8 @@ export class dashboard {
     emprestimos: string,
     entregasHoje: string,
     entregasEmAtraso: string,
-    livroMaisEmprestados: string[]
+    livroMaisEmprestados: string[],
+    leitorFaixaEtaria: string[]
   ) {
     this.livros = livros;
     this.leitores = leitores;
@@ -21,6 +23,7 @@ export class dashboard {
     this.entregasHoje = entregasHoje;
     this.entregasEmAtraso = entregasEmAtraso;
     this.livroMaisEmprestados = livroMaisEmprestados;
+    this.leitorFaixaEtaria = leitorFaixaEtaria;
   }
 
 }
