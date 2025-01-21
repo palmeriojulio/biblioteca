@@ -11,12 +11,9 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
-  livros: any;
-  leitores: any;
   cards: Array<{title: string, value: string, icon: string}> = [];
 
   constructor(
-    private livroService: LivroService,
     private dashboard: DashboardService,
   ) { }
 
@@ -40,7 +37,7 @@ export class DashboardComponent implements OnInit {
         new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: res.livroMaisEmprestados.map((livro: any) => livro.titulo),
+            labels: res.livroMaisEmprestados.map((livro: any) => this.abreviarTitulo(livro.titulo)),
             datasets: [{
               label: 'Quantidade de empréstimos',
               data: res.livroMaisEmprestados.map((livro: any) => livro.quant),
@@ -79,10 +76,10 @@ export class DashboardComponent implements OnInit {
         new Chart(doughnutChart, {
           type: 'doughnut',
           data: {
-            labels: ['Livros com atraso'],
+            labels: ['0-12 anos', '13-18 anos', '19-25 anos', '26-40 anos', '41+ anos'],
             datasets: [{
-              label: 'Livros em atraso',
-              data: [30, 25, 20, 10, 5],
+              label: 'Leitores por Faixa Etária',
+              data: [10, 20, 30, 25, 15],
               backgroundColor: [
                 'rgba(255, 200, 70, 0.76)',
                 'rgba(75, 192, 192, 0.75)',
@@ -99,5 +96,10 @@ export class DashboardComponent implements OnInit {
         });
       }
     });
+  }
+
+  abreviarTitulo(titulo: string): string {
+    const maxLength = 10; // Defina o comprimento máximo desejado
+    return titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
   }
 }

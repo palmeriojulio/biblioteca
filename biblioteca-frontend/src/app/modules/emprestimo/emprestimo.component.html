@@ -33,7 +33,7 @@
 
       <ng-container matColumnDef="dataDoEmprestimo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header > Data do emprestimo</th>
-        <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.dataDoEmprestimo | date: 'dd/MM/yyyy' }} </td>
+        <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.dataDoEmprestimo | date: 'dd/MM/yyyy \'às\' HH:mm\'h\'' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="dataDevolucaoPrevista">
@@ -43,7 +43,7 @@
 
       <ng-container matColumnDef="dataDevolucaoReal">
         <th mat-header-cell *matHeaderCellDef mat-sort-header > Data da devolução real </th>
-        <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.dataDevolucaoReal | date: 'dd/MM/yyyy' }} </td>
+        <td mat-cell *matCellDef="let emprestimo"> {{ emprestimo.dataDevolucaoReal | date: 'dd/MM/yyyy \'às\' HH:mm\'h\'' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
