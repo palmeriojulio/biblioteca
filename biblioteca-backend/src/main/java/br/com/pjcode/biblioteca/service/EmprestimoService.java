@@ -13,12 +13,13 @@ import br.com.pjcode.biblioteca.dto.LivroDto;
 import br.com.pjcode.biblioteca.service.exceptions.ConflictException;
 import br.com.pjcode.biblioteca.service.exceptions.InternalServerErrorException;
 import br.com.pjcode.biblioteca.service.exceptions.ResourceNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigInteger;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -33,9 +34,11 @@ import static br.com.pjcode.biblioteca.util.DateUtil.convertLocalDateToStringDat
  */
 @Service
 public class EmprestimoService {
+
+    @Autowired
+    private static final Logger logger = LoggerFactory.getLogger(EmprestimoService.class);
     @Autowired
     EmprestimoRepository emprestimoRepository;
-
     @Autowired
     LivroRepository livroRepository;
     @Autowired
@@ -43,7 +46,6 @@ public class EmprestimoService {
 
     /**
      * Método que salva um empréstimo de um livro.
-     * @author Palmério Júlio
      * @param emprestimoDto
      * @return Object da classe Empréstimo.
      */
@@ -63,7 +65,6 @@ public class EmprestimoService {
 
     /**
      * Método que busca todos os empréstimos realizados.
-     * @author Palmério Júlio
      * @return List com todos os empréstimos realizados.
      * @exception InternalServerErrorException
      */
@@ -82,7 +83,6 @@ public class EmprestimoService {
 
     /**
      * Método para buscar um empréstimo realizado.
-     * @author Palmério Júlio
      * @param id
      * @return Object com o Empréstimo referente ao "ID" passado como parâmetro.
      * @throws ResourceNotFoundException
@@ -104,12 +104,6 @@ public class EmprestimoService {
     /**
      * Método para atualizar os dados de um empréstimo.
      * @deprecated método não utilizado
-     * @author Palmério Júlio
-     * @param emprestimoDto
-     * @param id
-     * @return Entity de Empréstimo atualizado.
-     * @throws ResourceNotFoundException
-     * @exception InternalServerErrorException
      */
     public Object update(EmprestimoDto emprestimoDto, Long id) {
         return null;
@@ -224,6 +218,21 @@ public class EmprestimoService {
         }
     }
 
+    /**
+     * Método que verifica se existe empréstimos atrasados se existir atualiza o status para "Atrasados".
+     */
+    @Scheduled(cron = "0 1 0 * * ?")
+    public void verificarEmprestimosAtrasados() {
+        try {
+            List<Emprestimo> emprestimosAtrasados = emprestimoRepository.findEmprestimosAtrasados(LocalDateTime.now());
+            for (Emprestimo emprestimo : emprestimosAtrasados) {
+                emprestimo.setStatus("Atrasado");
+                emprestimoRepository.save(emprestimo);
+            }
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Erro ao verificar empréstimos atrasados!", e);
+        }
+    }
 
     /**
      * Método que procura o leitor com id passado no JSON.

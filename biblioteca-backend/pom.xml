@@ -53,7 +53,7 @@
             <groupId>net.minidev</groupId>
             <artifactId>json-smart</artifactId>
         </dependency>
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
