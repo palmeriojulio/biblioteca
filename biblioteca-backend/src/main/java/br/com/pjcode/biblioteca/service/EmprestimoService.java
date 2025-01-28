@@ -16,16 +16,20 @@ import br.com.pjcode.biblioteca.service.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static br.com.pjcode.biblioteca.util.DateUtil.convertDateStringToLocalDate;
 import static br.com.pjcode.biblioteca.util.DateUtil.convertLocalDateToStringDate;
 
 /**
@@ -131,18 +135,6 @@ public class EmprestimoService {
         }
     }
 
-    public Long countAllEmprestimos() {
-        return emprestimoRepository.countAllEmprestimos();
-    }
-
-    public Long countEmprestimosAtrasados() {
-        return emprestimoRepository.countEmprestimosAtrasados(LocalDateTime.now());
-    }
-
-    public Long countEmprestimosHoje(LocalDateTime data) {
-        return emprestimoRepository.countEmprestimosHoje(data);
-    }
-
     /**
      * Método para regra do empréstimo, seta EMPRESTADO nos livros que forem escolhidos,
      * coloca a data atual no empréstimo e seta a data de devolução.
@@ -221,8 +213,9 @@ public class EmprestimoService {
     /**
      * Método que verifica se existe empréstimos atrasados se existir atualiza o status para "Atrasados".
      */
-    @Scheduled(cron = "0 1 0 * * ?")
+    @Scheduled(cron = "0 30  * ?")
     public void verificarEmprestimosAtrasados() {
+        logger.info("Verificando empréstimos atrasados a cada 30m!");
         try {
             List<Emprestimo> emprestimosAtrasados = emprestimoRepository.findEmprestimosAtrasados(LocalDateTime.now());
             for (Emprestimo emprestimo : emprestimosAtrasados) {
@@ -232,6 +225,39 @@ public class EmprestimoService {
         } catch (Exception e) {
             throw new InternalServerErrorException("Erro ao verificar empréstimos atrasados!", e);
         }
+        logger.info("Verificação de empréstimos atrasados a cada 30m concluída!");
+    }
+
+    /**
+     * Método que verifica se existe empréstimos atrasados ao iniciar a aplicação.
+     */
+    @EventListener(ContextRefreshedEvent.class)
+    @Transactional
+    public void verificarEmprestimosAtrasadosAoIniciar() {
+        logger.info("Verificando empréstimos atrasados ao iniciar!");
+        try {
+            List<Emprestimo> emprestimosAtrasados = emprestimoRepository.findEmprestimosAtrasados(LocalDateTime.now());
+            for (Emprestimo emprestimo : emprestimosAtrasados) {
+                emprestimo.setStatus("Atrasado");
+                emprestimoRepository.save(emprestimo);
+            }
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Erro ao verificar empréstimos atrasados!", e);
+        }
+        logger.info("Verificação de empréstimos atrasados ao iniciar concluída!");
+    }
+
+    // Métodos de contagem de empréstimos
+    public Long countAllEmprestimos() {
+        return emprestimoRepository.countAllEmprestimos();
+    }
+
+    public Long countEmprestimosAtrasados() {
+        return emprestimoRepository.countEmprestimosAtrasados(LocalDateTime.now());
+    }
+
+    public Long countEmprestimosHoje() {
+        return emprestimoRepository.countEmprestimosHoje(LocalDate.now());
     }
 
     /**
