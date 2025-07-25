@@ -213,7 +213,7 @@ public class EmprestimoService {
     /**
      * Método que verifica se existe empréstimos atrasados se existir atualiza o status para "Atrasados".
      */
-    @Scheduled(cron = "0 30  * ?")
+    @Scheduled(cron = "0 0/30 * * * ?")
     public void verificarEmprestimosAtrasados() {
         logger.info("Verificando empréstimos atrasados a cada 30m!");
         try {
