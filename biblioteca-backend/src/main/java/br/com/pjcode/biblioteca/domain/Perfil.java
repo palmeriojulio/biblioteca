@@ -1,6 +1,5 @@
 package br.com.pjcode.biblioteca.domain;
 
-import br.com.pjcode.biblioteca.constants.RoleEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +26,20 @@ public class Perfil implements Serializable {
     @Column(name = "id_perfil")
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true)
-    private RoleEnum perfil; // ADMIN, USER, etc.
+    private String nome; // ADMIN, USER, etc.
+    
+	public enum TipoPerfil {
+		ADMIN(1L), // ID do perfil ADMIN), 
+		USER(2L); // ID do perfil USER)
+		
+		long perfilId;
+		
+		TipoPerfil(long perfilId) {
+            this.perfilId = perfilId;
+        }
+		
+		public long getPerfilId() {
+			return perfilId;
+        }
+	}
 }

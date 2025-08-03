@@ -12,7 +12,6 @@ spring:
         one-indexed-parameters: true
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/biblioteca
     username: postgres
     password: 123
 
@@ -25,3 +24,7 @@ spring:
 
 server:
   port: "8080"
+
+jwt:
+  jwt.public.key: "classpath:app.pub"
+  jwt.private.key: "classpath:app.key"

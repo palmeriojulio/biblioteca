@@ -46,7 +46,6 @@ CREATE TABLE public.livro (
     PRIMARY KEY (id_livro)
 );
 
-
 CREATE TABLE public.emprestimo (
     id_emprestimo BIGINT NOT NULL DEFAULT NEXTVAL('emprestimo_id_seq'),
     id_leitor BIGINT NOT NULL,
