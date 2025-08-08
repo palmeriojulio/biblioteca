@@ -11,6 +11,10 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import br.com.pjcode.biblioteca.dto.LoginRequestDto;
+
 @Entity
 @Table(name = "usuario")
 @Getter
@@ -23,8 +27,7 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "usurario_id_seq", sequenceName = "usurario_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.UUID, generator = "usurario_id_seq")
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_usurario")
     private UUID id;
 
@@ -41,4 +44,16 @@ public class Usuario implements Serializable {
     		inverseJoinColumns = @JoinColumn(name = "id_perfil")
     )    
     private Set<Perfil> perfil;
+    
+	/**
+	 * Verifica se as credenciais de login estão corretas.
+	 *
+	 * @param loginRequestDto objeto contendo as credenciais de login
+	 * @param passwordEncoder codificador de senha para verificar a senha
+	 * @return true se o login estiver correto, false caso contrário
+	 */
+	public boolean isLoginCorrect(LoginRequestDto loginRequestDto, PasswordEncoder passwordEncoder) {
+		passwordEncoder.matches(loginRequestDto.password(), this.password);
+		return false;
+	}
 }

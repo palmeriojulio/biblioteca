@@ -1,3 +1,4 @@
+
 spring:
   mvc:
     pathmatch:
@@ -10,15 +11,22 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true
+
   datasource:
     driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/biblioteca
     username: postgres
     password: 123
+
+  sql:
+    init:
+      mode: always
 
   flyway:
     enabled: true
     locations: classpath:db/migration
     fail-on-missing-locations: true
+
   jpa:
     show-sql: true
 
@@ -26,5 +34,5 @@ server:
   port: "8080"
 
 jwt:
-  jwt.public.key: "classpath:app.pub"
-  jwt.private.key: "classpath:app.key"
+  public-key: "classpath:app.pub"
+  private-key: "classpath:app.key"

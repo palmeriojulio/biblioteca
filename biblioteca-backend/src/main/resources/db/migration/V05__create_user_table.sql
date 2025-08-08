@@ -7,7 +7,7 @@ CREATE TABLE public.perfil (
 );
 
 -- Inserir perfis padrão
-INSERT INTO public.perfil (nome) VALUES ('ADMIN'), ('USER');
+-- INSERT INTO public.perfil (nome) VALUES ('ADMIN'), ('BASIC');
 
 -- Criação da tabela usuario
 CREATE TABLE public.usuario (
@@ -26,9 +26,9 @@ CREATE TABLE public.user_perfil (
 );
 
 -- Inserir usuário padrão com perfil ADMIN
-INSERT INTO public.usuario (username, password) VALUES ('admin', 'senha_encriptada');
-INSERT INTO public.user_perfil (id_usuario, id_perfil)
-VALUES (
-    (SELECT id_usuario FROM public.usuario WHERE username = 'admin'),
-    (SELECT id_perfil FROM public.perfil WHERE nome = 'ADMIN')
-);
+-- INSERT INTO public.usuario (username, password) VALUES ('admin', 'senha_encriptada');
+-- INSERT INTO public.user_perfil (id_usuario, id_perfil)
+-- VALUES (
+--    (SELECT id_usuario FROM public.usuario WHERE username = 'admin'),
+--    (SELECT id_perfil FROM public.perfil WHERE nome = 'ADMIN')
+--);

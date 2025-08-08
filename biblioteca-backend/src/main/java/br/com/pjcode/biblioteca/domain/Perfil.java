@@ -21,25 +21,25 @@ public class Perfil implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "perfil_id_seq", sequenceName = "perfil_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "perfil_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_perfil")
     private Long id;
 
-    private String nome; // ADMIN, USER, etc.
+    private String nome;
     
-	public enum TipoPerfil {
-		ADMIN(1L), // ID do perfil ADMIN), 
-		USER(2L); // ID do perfil USER)
-		
-		long perfilId;
-		
-		TipoPerfil(long perfilId) {
-            this.perfilId = perfilId;
+    public enum Values {
+
+        ADMIN(1L),
+        BASIC(2L);
+
+        long id;
+
+        Values(long id) {
+            this.id = id;
         }
-		
-		public long getPerfilId() {
-			return perfilId;
+
+        public long getId() {
+            return id;
         }
-	}
+    }
 }
