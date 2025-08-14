@@ -8,10 +8,12 @@ import java.security.interfaces.RSAPublicKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -33,13 +35,13 @@ public class SecurityConfig {
 	/**
 	 * Chave pública RSA para validação de tokens JWT.
 	 */
-	@Value("${jwt.public.key}")
+	@Value("${jwt.public-key}")
 	private RSAPublicKey publicKey;
 	
 	/**
 	 * Chave privada RSA para assinatura de tokens JWT.
 	 */
-	@Value("${jwt.private.key}")
+	@Value("${jwt.private-key}")
 	private RSAPrivateKey privateKey;
 	
 	/**
@@ -52,11 +54,13 @@ public class SecurityConfig {
 	 * @throws Exception se ocorrer um erro durante a configuração
 	 */
 	@Bean
-	private SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
 		http
-			.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
-			.csrf(csrf -> csrf.disable())
+			.authorizeHttpRequests(authorize -> authorize
+                    .requestMatchers(HttpMethod.POST,"/biblioteca/login").permitAll()
+                    .anyRequest().authenticated())
+			.csrf(AbstractHttpConfigurer::disable)
 			.oauth2ResourceServer(outh2 -> outh2.jwt(Customizer.withDefaults()))
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		
@@ -66,7 +70,6 @@ public class SecurityConfig {
 	/**
 	 * Bean para decodificador JWT, que usa a chave pública RSA para validar tokens
 	 * JWT.
-	 *
 	 * @return uma instância de JwtDecoder configurada com a chave pública
 	 */
 	@Bean
@@ -77,7 +80,6 @@ public class SecurityConfig {
 	/**
 	 * Bean para codificador JWT, que usa a chave privada RSA para assinar tokens
 	 * JWT.
-	 *
 	 * @return uma instância de JwtEncoder configurada com a chave privada
 	 */
 	@Bean

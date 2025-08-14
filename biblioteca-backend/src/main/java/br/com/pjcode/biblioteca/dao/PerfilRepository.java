@@ -7,5 +7,6 @@ import br.com.pjcode.biblioteca.domain.Perfil;
 
 @Repository
 public interface PerfilRepository extends JpaRepository<Perfil, Long> {
-	
+
+    Object findByNome(String name);
 }

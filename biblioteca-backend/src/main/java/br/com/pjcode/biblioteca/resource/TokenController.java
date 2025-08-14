@@ -24,7 +24,6 @@ import br.com.pjcode.biblioteca.dto.LoginResponseDto;
  */
 @RestController
 @RequestMapping("/biblioteca")
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class TokenController {
 	
     // Injeção de dependência do JwtEncoder para gerar tokens JWT
@@ -38,7 +37,7 @@ public class TokenController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@PostMapping("/token")
+	@PostMapping("/login")
 	public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
 		
 		var usuario = usuarioRepository.findByUsername(loginRequestDto.username());

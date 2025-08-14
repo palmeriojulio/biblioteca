@@ -28,7 +28,7 @@ public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_usurario")
+    @Column(name = "id_usuario")
     private UUID id;
 
     @Column(name = "username", length = 50, nullable = false, unique = true)
@@ -53,7 +53,6 @@ public class Usuario implements Serializable {
 	 * @return true se o login estiver correto, false caso contrário
 	 */
 	public boolean isLoginCorrect(LoginRequestDto loginRequestDto, PasswordEncoder passwordEncoder) {
-		passwordEncoder.matches(loginRequestDto.password(), this.password);
-		return false;
+		return passwordEncoder.matches(loginRequestDto.password(), this.password);
 	}
 }
